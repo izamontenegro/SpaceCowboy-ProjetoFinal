@@ -2,18 +2,19 @@ package modelagem;
 
 //Bibliotecas
 import java.awt.Image;
-import java.util.Random;
+import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class Stars {
+public class InimigoAzul {
     private Image imagem; // Imagem do inimigo1
     private int x, y; // Posição do inimigo
+    private int largura, altura; // Altura e largura da imagem
     private boolean isVisible; // Visibilidade do inimigo
     private static int VELOCIDADE = 3; // Velocidade com que ele irá cair
 
     // Construtor que irá colocar o inimigo numa posição x,y
-    public Stars(int x, int y) {
+    public InimigoAzul(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
@@ -21,24 +22,20 @@ public class Stars {
 
     // Método que pega as informações da imagem
     public void load() {
-        ImageIcon referencia = new ImageIcon("imagens//estrela.png");
+        ImageIcon referencia = new ImageIcon("imagens//inimigoAzul.png");
         imagem = referencia.getImage();
+        this.largura = imagem.getWidth(null);
+        this.altura = imagem.getHeight(null);
     }
 
     // Método que realiza a movimentação do inimigo a partir da posição de origem e
     // a velocidade estipulada
     public void update() {
-        if(this.y > 560){
-            this.y = -300;
-            Random a = new Random();
-            int m = a.nextInt(768);
-            this.y = m;
-            Random r = new Random();
-            int n = r.nextInt(1724);
-            this.x = n - 300;
-        
-        }
-        else this.y += VELOCIDADE;
+        this.y += VELOCIDADE;
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, largura, altura);
     }
 
     // Getters and Setters

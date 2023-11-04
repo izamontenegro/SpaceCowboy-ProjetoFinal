@@ -1,35 +1,44 @@
 package modelagem;
 
-//Bibliotecas aaaa
+//Bibliotecas
 import java.awt.Image;
-import java.awt.Rectangle;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 
-public class AtaquePlayer {
-    private Image imagem; 
-    private int x, y;
-    private int largura, altura; 
-    private boolean isVisible;
-    private static int VELOCIDADE = 8;
+public class EstrelaRosa {
+    private Image imagem; // Imagem do inimigo1
+    private int x, y; // Posição do inimigo
+    private boolean isVisible; // Visibilidade do inimigo
+    private static int VELOCIDADE = 3; // Velocidade com que ele irá cair
 
-    public AtaquePlayer(int x, int y) {
+    // Construtor que irá colocar o inimigo numa posição x,y
+    public EstrelaRosa(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
     }
 
+    // Método que pega as informações da imagem
     public void load() {
-        ImageIcon referencia = new ImageIcon("imagens//ataqueBasicoPlayer.png");
+        ImageIcon referencia = new ImageIcon("imagens//estrelaRosa.png");
         imagem = referencia.getImage();
-        this.largura = imagem.getWidth(null);
-        this.altura = imagem.getHeight(null);
     }
 
+    // Método que realiza a movimentação do inimigo a partir da posição de origem e
+    // a velocidade estipulada
     public void update() {
-        this.y -= VELOCIDADE;
-        if (this.y <= -100) {
-            isVisible = false;
+        if(this.y > 560){
+            this.y = -300;
+            Random a = new Random();
+            int m = a.nextInt(768);
+            this.y = m;
+            Random r = new Random();
+            int n = r.nextInt(1724);
+            this.x = n - 300;
+        
         }
+        else this.y += VELOCIDADE;
     }
 
     // Getters and Setters
@@ -73,7 +82,4 @@ public class AtaquePlayer {
         this.imagem = imagem;
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, largura, altura);
-    }
 }

@@ -1,37 +1,37 @@
 package modelagem;
 
-//Bibliotecas
+//Bibliotecas aaaa
 import java.awt.Image;
 import java.awt.Rectangle;
-
 import javax.swing.ImageIcon;
 
-public class Inimigo1 {
-    private Image imagem; // Imagem do inimigo1
-    private int x, y; // Posição do inimigo
-    private int largura, altura; // Altura e largura da imagem
-    private boolean isVisible; // Visibilidade do inimigo
-    private static int VELOCIDADE = 3; // Velocidade com que ele irá cair
+public class AtaqueInimigoRosa {
+    private Image imagem; // Imagem do ataque
+    private int x, y; // Posição do ataque
+    private int largura, altura; // Tamanho da imagem do ataque
+    private boolean isVisible; // Visibilidade do ataque
+    private static int VELOCIDADE = 8; // Velocidade com que ele se move depois de disparado
 
-    // Construtor que irá colocar o inimigo numa posição x,y
-    public Inimigo1(int x, int y) {
+    // Construtor que recebe as posições x,y da nave, para que possa sair
+    // diretamente dela
+    public AtaqueInimigoRosa(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
     }
 
-    // Método que pega as informações da imagem
+    // Método que pega as informações da imagem do ataque
     public void load() {
-        ImageIcon referencia = new ImageIcon("imagens//inimigoBasico.png");
+        ImageIcon referencia = new ImageIcon("imagens//ataqueInimigoRosa.png");
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);
     }
 
-    // Método que realiza a movimentação do inimigo a partir da posição de origem e
-    // a velocidade estipulada
+    // Método responsavel por realizar o movimento tiro, saindo da sua posição
+    // inicial na nave e se movimentando de acordo com a velocidade estipulada
     public void update() {
-        this.y += VELOCIDADE;
+        this.y -= VELOCIDADE;
     }
 
     public Rectangle getBounds() {

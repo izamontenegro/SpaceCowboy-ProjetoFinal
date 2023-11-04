@@ -9,15 +9,13 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 public class Player {
-    private int x, y; // posição da nave
-    private int dx, dy; // variação da posição do player
-    private Image imagem; // imagem da nave
-    private int altura, largura; // tamanho da imagem da nave
-    private List<AtaquePlayer> tiros; // Lista que vai conter todos os tiros disparados
+    private int x, y;
+    private int dx, dy;
+    private Image imagem;
+    private int altura, largura;
+    private List<AtaquePlayer> tiros;
     private boolean isVisivel;
 
-    // Construtor para que ao ser inicializado o player esteja no centro da tela e a
-    // lista de tiros seja inicializada
     public Player() {
         this.x = 550;
         this.y = 480;
@@ -26,16 +24,13 @@ public class Player {
         tiros = new ArrayList<AtaquePlayer>();
     }
 
-    // Pegando todos os dados da imagem do player
-    public void load() {
-        ImageIcon referencia = new ImageIcon("imagens//naveJogo.png");
+    public void dadosImagem() {
+        ImageIcon referencia = new ImageIcon("imagens//naveVermelha.png");
         imagem = referencia.getImage();
         altura = imagem.getHeight(null);
         largura = imagem.getWidth(null);
     }
 
-    // Métodos para realizar o movimento, se baseando na posição atual e ma variação
-    // feita ao pressionar teclas específicas
     public void update() {
 
         y += dy;
@@ -43,23 +38,14 @@ public class Player {
 
     }
 
-    // Método que adiciona um ataque do tipo AtaquePlayer á lista de ataques da
-    // classe
     public void tiroSimples() {
-        this.tiros.add(new AtaquePlayer(x - 10, y - 40));
-    }
-
-
-    public void calculaPontos(){
-        
+        this.tiros.add(new AtaquePlayer(x + 17, y - 40));
     }
 
     public Rectangle getBounds() {
         return new Rectangle(x, y, largura, altura);
     }
 
-    // Método que verifica qual tecla foi pressionada para realizar a variação de
-    // movimento
     public void keyPressed(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
@@ -68,38 +54,27 @@ public class Player {
         }
 
         if (codigo == KeyEvent.VK_UP) {
-            if (y - 3 < -100) {
-                dy = 0;
-            } else
-                dy = -3;
+            dy = -3;
         }
 
         if (codigo == KeyEvent.VK_DOWN) {
-            if (y + 3 > 510) {
-                dy = 0;
-            } else
-                dy = 3;
+
+            dy = 3;
 
         }
 
         if (codigo == KeyEvent.VK_LEFT) {
-            if (x - 3 < -100) {
-                dx = 0;
-            } else
-                dx = -3;
+
+            dx = -3;
         }
 
         if (codigo == KeyEvent.VK_RIGHT) {
-            if (x + 3 > 1260) {
-                dx = 0;
-            } else
-                dx = 3;
+ 
+            dx = 3;
         }
 
     }
 
-    // Método para verificar quando a tecla foi solta, ou o player continuaria
-    // seguindo infinitamente nas direções que foram inicialmente escolhidas
     public void keyReleased(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
@@ -150,5 +125,4 @@ public class Player {
         this.isVisivel = isVisivel;
     }
 
-    
 }
