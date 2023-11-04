@@ -26,6 +26,7 @@ public class Fase extends JPanel implements ActionListener {
     private Player player;
     private List<InimigoAzul> inimigoAzul;
     private List<InimigoRosa> inimigoRosa;
+    private List<Meteoro> meteoros;
 
     private int abateInimigos = 0;
     private int pontuacaoTotal = 0;
@@ -46,6 +47,7 @@ public class Fase extends JPanel implements ActionListener {
         inicializaEstrela();
         inicializaInimigosAzuis();
         inicializaInimigosRosa();
+        inicializaMeteoros();
 
     }
 
@@ -68,6 +70,17 @@ public class Fase extends JPanel implements ActionListener {
             int x = (int) (Math.random() * -1500 + 1400);
             int y = (int) (Math.random() * -4500);
             inimigoRosa.add(new InimigoRosa(x, y));
+        }
+    }
+
+     public void inicializaMeteoros() {
+        int quantidade[] = new int[5];
+        meteoros = new ArrayList<Meteoro>();
+
+        for (int i = 0; i < quantidade.length; i++) {
+            int x = (int) (Math.random() * 900 + 1024);
+            int y = (int) (Math.random() * -3500);
+            meteoros.add(new Meteoro(x, y));
         }
     }
 
@@ -164,6 +177,14 @@ public class Fase extends JPanel implements ActionListener {
                 graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
             }
 
+            for (int i = 0; i < meteoros.size(); i++) {
+                Meteoro b = meteoros.get(i);
+                b.dadosImagem();
+                b.movimenta();
+                ;
+                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+            }
+
         } else {
             ImageIcon fimJogo = new ImageIcon("imagens//gameover.png");
             graficos.drawImage(fimJogo.getImage(), 0, 0, null);
@@ -240,6 +261,15 @@ public class Fase extends JPanel implements ActionListener {
             }
         }
 
+         for (int i = 0; i < meteoros.size(); i++) {
+            Meteoro in = meteoros.get(i);
+            if (in.isVisible()) {
+                in.movimenta();
+            } else {
+                meteoros.remove(i);
+            }
+        }
+
         checarColisoes();
         repaint();
 
@@ -250,6 +280,7 @@ public class Fase extends JPanel implements ActionListener {
         Rectangle formainimigoAzul;
         Rectangle formaTiro;
         Rectangle formaInimigoRosa;
+        Rectangle formaMeteoro;
 
         for (int i = 0; i < inimigoAzul.size(); i++) {
             InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
@@ -269,6 +300,18 @@ public class Fase extends JPanel implements ActionListener {
             if (formaNave.intersects(formaInimigoRosa)) {
                 player.setVisivel(false);
                 tempinimigoRosa.setVisible(false);
+                emJogo = false;
+                System.out.println("num abates: " + abateInimigos);
+                System.out.println("Pontos: " + calculaPontuacao());
+            }
+        }
+
+        for (int i = 0; i < meteoros.size(); i++) {
+            Meteoro tempMeteoro = meteoros.get(i);
+            formaMeteoro = tempMeteoro.getBounds();
+            if (formaNave.intersects(formaMeteoro)) {
+                player.setVisivel(false);
+                tempMeteoro.setVisible(false);
                 emJogo = false;
                 System.out.println("num abates: " + abateInimigos);
                 System.out.println("Pontos: " + calculaPontuacao());
