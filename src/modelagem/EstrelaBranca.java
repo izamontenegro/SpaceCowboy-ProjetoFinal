@@ -17,12 +17,12 @@ public class EstrelaBranca {
         isVisible = true;
     }
 
-    public void load() {
+    public void dadosImagem() {
         ImageIcon referencia = new ImageIcon("imagens//estrelaBranca.png");
         imagem = referencia.getImage();
     }
 
-    public void update() {
+    public void movimenta() {
         if (this.y > 560) {
             this.y = -300;
             Random a = new Random();

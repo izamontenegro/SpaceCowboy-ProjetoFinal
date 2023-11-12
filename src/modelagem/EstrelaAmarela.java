@@ -7,29 +7,25 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 public class EstrelaAmarela {
-    private Image imagem; // Imagem do inimigo1
-    private int x, y; // Posição do inimigo
-    private boolean isVisible; // Visibilidade do inimigo
-    private static int VELOCIDADE = 3; // Velocidade com que ele irá cair
+    private Image imagem; 
+    private int x, y; 
+    private boolean isVisible; 
+    private static int VELOCIDADE = 3; 
 
-    // Construtor que irá colocar o inimigo numa posição x,y
-    public EstrelaAmarela
-(int x, int y) {
+  
+    public EstrelaAmarela(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
     }
 
-    // Método que pega as informações da imagem
-    public void load() {
+    public void dadosImagem() {
         ImageIcon referencia = new ImageIcon("imagens//estrelaAmarela.png");
         imagem = referencia.getImage();
     }
 
-    // Método que realiza a movimentação do inimigo a partir da posição de origem e
-    // a velocidade estipulada
-    public void update() {
-        if(this.y > 560){
+    public void movimenta() {
+        if (this.y > 560) {
             this.y = -300;
             Random a = new Random();
             int m = a.nextInt(768);
@@ -37,9 +33,9 @@ public class EstrelaAmarela {
             Random r = new Random();
             int n = r.nextInt(1724);
             this.x = n - 300;
-        
-        }
-        else this.y += VELOCIDADE;
+
+        } else
+            this.y += VELOCIDADE;
     }
 
     // Getters and Setters

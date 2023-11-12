@@ -8,13 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 
-public class Player {
+
+public class Player{
     private int x, y;
     private int dx, dy;
     private Image imagem;
+    ImageIcon referencia = new ImageIcon("imagens//naveJogo (3) (1).gif");
     private int altura, largura;
     private List<AtaquePlayer> tiros;
     private boolean isVisivel;
+    
+    
 
     public Player() {
         this.x = 550;
@@ -22,16 +26,24 @@ public class Player {
         isVisivel = true;
 
         tiros = new ArrayList<AtaquePlayer>();
+
     }
 
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//naveVermelha.png");
         imagem = referencia.getImage();
         altura = imagem.getHeight(null);
         largura = imagem.getWidth(null);
     }
 
-    public void update() {
+    public void sofrerDano() {
+        referencia = new ImageIcon("imagens//naveAzul.gif");
+    }
+
+    public void recuperaDano() {
+        referencia = new ImageIcon("imagens//naveJogo (3) (1).gif");
+    }
+
+    public void movimenta() {
 
         y += dy;
         x += dx;
@@ -40,9 +52,11 @@ public class Player {
 
     public void tiroSimples() {
         this.tiros.add(new AtaquePlayer(x + 17, y - 40));
+        this.tiros.add(new AtaquePlayer(x + 17, y - 40));
     }
 
-    public Rectangle getBounds() {
+
+    public Rectangle getLimites() {
         return new Rectangle(x, y, largura, altura);
     }
 
@@ -54,7 +68,9 @@ public class Player {
         }
 
         if (codigo == KeyEvent.VK_UP) {
+
             dy = -3;
+
         }
 
         if (codigo == KeyEvent.VK_DOWN) {
@@ -69,7 +85,7 @@ public class Player {
         }
 
         if (codigo == KeyEvent.VK_RIGHT) {
- 
+
             dx = 3;
         }
 
@@ -124,5 +140,7 @@ public class Player {
     public void setVisivel(boolean isVisivel) {
         this.isVisivel = isVisivel;
     }
+
+    
 
 }

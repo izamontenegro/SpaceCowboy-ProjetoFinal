@@ -17,7 +17,6 @@ public class Meteoro {
         this.y = y;
         isVisible = true;
     }
-
    
     public void dadosImagem() {
         ImageIcon referencia = new ImageIcon("imagens//meteoro.png");
@@ -33,7 +32,7 @@ public class Meteoro {
 
     // Getters and Setters
 
-    public Rectangle getBounds() {
+    public Rectangle getLimites() {
         return new Rectangle(x, y, largura, altura);
     }
 

@@ -1,38 +1,49 @@
 package modelagem;
 
-//Bibliotecas
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 
-public class AtaquePlayer {
+public class InimigoLaranja {
     private Image imagem; 
     private int x, y;
     private int largura, altura; 
     private boolean isVisible;
-    private static int VELOCIDADE = 8;
+    private static int VELOCIDADE = 1;
 
-    public AtaquePlayer(int x, int y) {
+
+    public InimigoLaranja(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
     }
 
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//ataqueBasicoPlayer.png");
+        ImageIcon referencia = new ImageIcon("imagens//InimigoLaranja.gif");
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);
     }
 
     public void movimenta() {
-        this.y -= VELOCIDADE;
-        if (this.y <= -100) {
-            isVisible = false;
-        }
+        if (this.y > 700) {
+            this.y = -300;
+            Random r = new Random();
+            int n = r.nextInt(1724);
+            this.x = n - 300;
+
+        } else
+            this.y += VELOCIDADE;
     }
 
     // Getters and Setters
+
+    public Rectangle getLimites() {
+        return new Rectangle(x, y, largura, altura);
+    }
+
     public int getX() {
         return x;
     }
@@ -73,7 +84,4 @@ public class AtaquePlayer {
         this.imagem = imagem;
     }
 
-    public Rectangle getLimites() {
-        return new Rectangle(x, y, largura, altura);
-    }
 }

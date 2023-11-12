@@ -2,6 +2,8 @@ package modelagem;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 
 public class InimigoRosa {
@@ -18,21 +20,27 @@ public class InimigoRosa {
         isVisible = true;
     }
 
-   
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//inimigoRosa.png");
+        ImageIcon referencia = new ImageIcon("imagens//inimigoRosa.gif");
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);
     }
 
     public void movimenta() {
-        this.y += VELOCIDADE;
+       if (this.y > 700) {
+            this.y = -300;
+            Random r = new Random();
+            int n = r.nextInt(1724);
+            this.x = n - 300;
+
+        } else
+            this.y += VELOCIDADE;
     }
 
     // Getters and Setters
 
-    public Rectangle getBounds() {
+    public Rectangle getLimites() {
         return new Rectangle(x, y, largura, altura);
     }
 
