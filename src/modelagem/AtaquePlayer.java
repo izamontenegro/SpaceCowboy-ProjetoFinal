@@ -26,10 +26,12 @@ public class AtaquePlayer {
     }
 
     public void movimenta() {
+        
         this.y -= VELOCIDADE;
         if (this.y <= -100) {
             isVisible = false;
         }
+       
     }
 
     // Getters and Setters

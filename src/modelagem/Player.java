@@ -52,7 +52,6 @@ public class Player{
 
     public void tiroSimples() {
         this.tiros.add(new AtaquePlayer(x + 17, y - 40));
-        this.tiros.add(new AtaquePlayer(x + 17, y - 40));
     }
 
 

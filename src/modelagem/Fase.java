@@ -32,7 +32,10 @@ public class Fase extends JPanel implements ActionListener {
     private List<Meteoro> meteoros;
     private List<Asteroide> asteroides;
 
-    private int abateInimigos = 0;
+    private int abateInimigoAzul = 0;
+    private int abateInimigoRosa = 0;
+    private int abateInimigoVerde = 0;
+    private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
 
     public Fase() {
@@ -157,111 +160,173 @@ public class Fase extends JPanel implements ActionListener {
     }
 
     public int calculaPontuacao() {
-        pontuacaoTotal += (abateInimigos * 100);
+        pontuacaoTotal = ((abateInimigoRosa * 100) + (abateInimigoAzul * 100) + (abateInimigoLaranja * 200)
+                + (abateInimigoVerde * 200));
         return pontuacaoTotal;
     }
 
-    public void paint(Graphics g) {
-        Graphics2D graficos = (Graphics2D) g;
-        if (emJogo) {
+    public void checarColisoes() {
+        Rectangle formaNave = player.getLimites();
+        Rectangle formainimigoAzul;
+        Rectangle formaTiro;
+        Rectangle formaInimigoRosa;
+        Rectangle formaMeteoro;
+        Rectangle formaAsteroides;
+        Rectangle formaInimigoVerde;
+        Rectangle formaInimigoLaranja;
 
-            graficos.drawImage(fundoFase, 0, 0, null);
+        // COLISÕES NAVE x INIMIGOS
+        for (int i = 0; i < inimigoAzul.size(); i++) {
+            InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
+            formainimigoAzul = tempinimigoAzul.getLimites();
+            if (formaNave.intersects(formainimigoAzul)) {
+                player.setVisivel(false);
+                tempinimigoAzul.setVisible(false);
+                vidaPlayer -= 1;
+                if (vidaPlayer <= 0) {
+                    emJogo = false;
+                    System.out.println(calculaPontuacao());
+                }
 
-            for (int p = 0; p < EstrelaBranca.size(); p++) {
-                EstrelaBranca q = EstrelaBranca.get(p);
-                q.movimenta();
-                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
+        }
 
-            for (int p = 0; p < EstrelaRosa.size(); p++) {
-                EstrelaRosa q = EstrelaRosa.get(p);
-                q.movimenta();
-                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
+        for (int i = 0; i < inimigoRosa.size(); i++) {
+            InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
+            formaInimigoRosa = tempinimigoRosa.getLimites();
+            if (formaNave.intersects(formaInimigoRosa)) {
+                player.setVisivel(false);
+                tempinimigoRosa.setVisible(false);
+                vidaPlayer -= 1;
+                if (vidaPlayer <= 0) {
+                    emJogo = false;
+                    System.out.println(calculaPontuacao());
+                }
             }
+        }
 
-            for (int p = 0; p < EstrelaAmarela.size(); p++) {
-                EstrelaAmarela q = EstrelaAmarela.get(p);
-                q.movimenta();
-                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
+        for (int i = 0; i < inimigoLaranja.size(); i++) {
+            InimigoLaranja tempinimigoLaranja = inimigoLaranja.get(i);
+            formaInimigoLaranja = tempinimigoLaranja.getLimites();
+            if (formaNave.intersects(formaInimigoLaranja)) {
+                player.setVisivel(false);
+                tempinimigoLaranja.setVisible(false);
+                vidaPlayer -= 1;
+                if (vidaPlayer <= 0) {
+                    emJogo = false;
+                    System.out.println(calculaPontuacao());
+                }
             }
+        }
 
-            for (int p = 0; p < EstrelaAzul.size(); p++) {
-                EstrelaAzul q = EstrelaAzul.get(p);
-                q.movimenta();
-                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
+        for (int i = 0; i < inimigoVerde.size(); i++) {
+            InimigoVerde tempinimigoVerde = inimigoVerde.get(i);
+            formaInimigoVerde = tempinimigoVerde.getLimites();
+            if (formaNave.intersects(formaInimigoVerde)) {
+                player.setVisivel(false);
+                tempinimigoVerde.setVisible(false);
+                vidaPlayer -= 1;
+                player.sofrerDano();
+                player.dadosImagem();
+                if (vidaPlayer <= 0) {
+                    emJogo = false;
+                    System.out.println(calculaPontuacao());
+                }
             }
+        }
 
-            graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
-
-            List<AtaquePlayer> tiros = player.getTiros();
-
-            for (int i = 0; i < tiros.size(); i++) {
-                AtaquePlayer m = tiros.get(i);
-                m.movimenta();
-                graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+        for (int i = 0; i < meteoros.size(); i++) {
+            Meteoro tempMeteoro = meteoros.get(i);
+            formaMeteoro = tempMeteoro.getLimites();
+            if (formaNave.intersects(formaMeteoro)) {
+                player.setVisivel(false);
+                tempMeteoro.setVisible(false);
+                vidaPlayer -= 2;
+                if (vidaPlayer <= 0) {
+                    emJogo = false;
+                    System.out.println(calculaPontuacao());
+                }
             }
+        }
+
+        for (int i = 0; i < asteroides.size(); i++) {
+            Asteroide tempAsteroide = asteroides.get(i);
+            formaAsteroides = tempAsteroide.getLimites();
+            if (formaNave.intersects(formaAsteroides)) {
+                player.setVisivel(false);
+                tempAsteroide.setVisible(false);
+                vidaPlayer -= 2;
+                if (vidaPlayer <= 0) {
+                    emJogo = false;
+                    System.out.println(calculaPontuacao());
+                }
+            }
+        }
+
+        // COLISÕES ATAQUES x INIMIGOS
+        List<AtaquePlayer> ataques = player.getTiros();
+        for (int j = 0; j < ataques.size(); j++) {
+            AtaquePlayer tempTiro = ataques.get(j);
+            formaTiro = tempTiro.getLimites();
 
             for (int i = 0; i < inimigoAzul.size(); i++) {
-                InimigoAzul in = inimigoAzul.get(i);
-                in.movimenta();
-                ;
-                graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
+                InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
+                formainimigoAzul = tempinimigoAzul.getLimites();
+                if (formaTiro.intersects(formainimigoAzul)) {
+                    tempinimigoAzul.setVisible(false);
+                    tempTiro.setVisible(false);
+                    abateInimigoAzul += 1;
+                }
             }
 
             for (int i = 0; i < inimigoRosa.size(); i++) {
-                InimigoRosa b = inimigoRosa.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+                InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
+                formaInimigoRosa = tempinimigoRosa.getLimites();
+                if (formaTiro.intersects(formaInimigoRosa)) {
+                    tempinimigoRosa.setVisible(false);
+                    tempTiro.setVisible(false);
+                    abateInimigoRosa += 1;
+                }
             }
 
             for (int i = 0; i < inimigoVerde.size(); i++) {
-                InimigoVerde b = inimigoVerde.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+                InimigoVerde tempInimigoVerde = inimigoVerde.get(i);
+                formaInimigoVerde = tempInimigoVerde.getLimites();
+                if (formaTiro.intersects(formaInimigoVerde)) {
+                    tempInimigoVerde.setVisible(false);
+                    tempTiro.setVisible(false);
+                    abateInimigoVerde += 1;
+                }
             }
 
             for (int i = 0; i < inimigoLaranja.size(); i++) {
-                InimigoLaranja b = inimigoLaranja.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+                InimigoLaranja tempInimigoLaranja = inimigoLaranja.get(i);
+                formaInimigoLaranja = tempInimigoLaranja.getLimites();
+                if (formaTiro.intersects(formaInimigoLaranja)) {
+                    tempInimigoLaranja.setVisible(false);
+                    tempTiro.setVisible(false);
+                    abateInimigoLaranja += 1;
+                }
             }
 
-            for (int i = 0; i < meteoros.size(); i++) {
-                Meteoro b = meteoros.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-            for (int i = 0; i < asteroides.size(); i++) {
-                Asteroide b = asteroides.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-        } else {
-            ImageIcon fimJogo = new ImageIcon("imagens//gameover.gif");
-            graficos.drawImage(fimJogo.getImage(), 0, 0, null);
         }
-
-        g.dispose();
     }
 
-    // atualizar o estado dos objetos do jogo, verificar colisões e solicitar a
-    // repintura da tela. É chamado periodicamente pelo Timer para criar uma
-    // atualização contínua do jogo.
     @Override
     public void actionPerformed(ActionEvent e) {
         player.movimenta();
+
+        List<AtaquePlayer> tiros = player.getTiros();
+
+        for (int i = 0; i < tiros.size(); i++) {
+            AtaquePlayer m = tiros.get(i);
+            if (m.isVisible()) {
+                m.movimenta();
+
+            } else {
+                tiros.remove(i);
+            }
+        }
 
         for (int p = 0; p < EstrelaBranca.size(); p++) {
             EstrelaBranca on = EstrelaBranca.get(p);
@@ -293,17 +358,6 @@ public class Fase extends JPanel implements ActionListener {
                 on.movimenta();
             } else
                 EstrelaAzul.remove(p);
-        }
-
-        List<AtaquePlayer> tiros = player.getTiros();
-
-        for (int i = 0; i < tiros.size(); i++) {
-            AtaquePlayer m = tiros.get(i);
-            if (m.isVisible()) {
-                m.movimenta();
-            } else {
-                tiros.remove(i);
-            }
         }
 
         for (int i = 0; i < inimigoAzul.size(); i++) {
@@ -359,165 +413,105 @@ public class Fase extends JPanel implements ActionListener {
                 asteroides.remove(i);
             }
         }
-
-        checarColisoes();
         repaint();
+        checarColisoes();
 
     }
 
-    public void checarColisoes() {
-        Rectangle formaNave = player.getLimites();
-        Rectangle formainimigoAzul;
-        Rectangle formaTiro;
-        Rectangle formaInimigoRosa;
-        Rectangle formaMeteoro;
-        Rectangle formaAsteroides;
-        Rectangle formaInimigoVerde;
-        Rectangle formaInimigoLaranja;
+    public void paint(Graphics g) {
+        Graphics2D graficos = (Graphics2D) g;
+        if (emJogo) {
 
-        for (int i = 0; i < inimigoAzul.size(); i++) {
-            InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
-            formainimigoAzul = tempinimigoAzul.getLimites();
-            if (formaNave.intersects(formainimigoAzul)) {
-                player.setVisivel(false);
-                tempinimigoAzul.setVisible(false);
-                vidaPlayer -= 1;
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println("num abates: " + abateInimigos);
-                    System.out.println("Pontos: " + calculaPontuacao());
-                }
+            graficos.drawImage(fundoFase, 0, 0, null);
 
+            for (int p = 0; p < EstrelaBranca.size(); p++) {
+                EstrelaBranca q = EstrelaBranca.get(p);
+                q.dadosImagem();
+                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
-        }
 
-        for (int i = 0; i < inimigoRosa.size(); i++) {
-            InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
-            formaInimigoRosa = tempinimigoRosa.getLimites();
-            if (formaNave.intersects(formaInimigoRosa)) {
-                player.setVisivel(false);
-                tempinimigoRosa.setVisible(false);
-                vidaPlayer -= 1;
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println("num abates: " + abateInimigos);
-                    System.out.println("Pontos: " + calculaPontuacao());
-                }
+            for (int p = 0; p < EstrelaRosa.size(); p++) {
+                EstrelaRosa q = EstrelaRosa.get(p);
+                q.dadosImagem();
+                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
-        }
 
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            InimigoLaranja tempinimigoLaranja = inimigoLaranja.get(i);
-            formaInimigoLaranja = tempinimigoLaranja.getLimites();
-            if (formaNave.intersects(formaInimigoLaranja)) {
-                player.setVisivel(false);
-                tempinimigoLaranja.setVisible(false);
-                vidaPlayer -= 1;
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println("num abates: " + abateInimigos);
-                    System.out.println("Pontos: " + calculaPontuacao());
-                }
+            for (int p = 0; p < EstrelaAmarela.size(); p++) {
+                EstrelaAmarela q = EstrelaAmarela.get(p);
+                q.dadosImagem();
+                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
-        }
 
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            InimigoVerde tempinimigoVerde = inimigoVerde.get(i);
-            formaInimigoVerde = tempinimigoVerde.getLimites();
-            if (formaNave.intersects(formaInimigoVerde)) {
-                player.setVisivel(false);
-                tempinimigoVerde.setVisible(false);
-                vidaPlayer -= 1;
-                player.sofrerDano();
-                player.dadosImagem();
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println("num abates: " + abateInimigos);
-                    System.out.println("Pontos: " + calculaPontuacao());
-                }
+            for (int p = 0; p < EstrelaAzul.size(); p++) {
+                EstrelaAzul q = EstrelaAzul.get(p);
+                q.dadosImagem();
+                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
-        }
 
-        for (int i = 0; i < meteoros.size(); i++) {
-            Meteoro tempMeteoro = meteoros.get(i);
-            formaMeteoro = tempMeteoro.getLimites();
-            if (formaNave.intersects(formaMeteoro)) {
-                player.setVisivel(false);
-                tempMeteoro.setVisible(false);
-                vidaPlayer -= 2;
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println("num abates: " + abateInimigos);
-                    System.out.println("Pontos: " + calculaPontuacao());
-                }
+            graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
+
+            List<AtaquePlayer> tiros = player.getTiros();
+
+            for (int i = 0; i < tiros.size(); i++) {
+                AtaquePlayer m = tiros.get(i);
+                m.dadosImagem();
+
+                graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
             }
-        }
-
-        for (int i = 0; i < asteroides.size(); i++) {
-            Asteroide tempAsteroide = asteroides.get(i);
-            formaAsteroides = tempAsteroide.getLimites();
-            if (formaNave.intersects(formaAsteroides)) {
-                player.setVisivel(false);
-                tempAsteroide.setVisible(false);
-                vidaPlayer -= 2;
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println("num abates: " + abateInimigos);
-                    System.out.println("Pontos: " + calculaPontuacao());
-                }
-            }
-        }
-
-        List<AtaquePlayer> ataques = player.getTiros();
-        for (int j = 0; j < ataques.size(); j++) {
-            AtaquePlayer tempTiro = ataques.get(j);
-            formaTiro = tempTiro.getLimites();
 
             for (int i = 0; i < inimigoAzul.size(); i++) {
-                InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
-                formainimigoAzul = tempinimigoAzul.getLimites();
-                if (formaTiro.intersects(formainimigoAzul)) {
-                    tempinimigoAzul.setVisible(false);
-                    tempTiro.setVisible(false);
-                    abateInimigos += 1;
-                    calculaPontuacao();
-                }
+                InimigoAzul in = inimigoAzul.get(i);
+                in.dadosImagem();
+                ;
+                graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
             }
 
             for (int i = 0; i < inimigoRosa.size(); i++) {
-                InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
-                formaInimigoRosa = tempinimigoRosa.getLimites();
-                if (formaTiro.intersects(formaInimigoRosa)) {
-                    tempinimigoRosa.setVisible(false);
-                    tempTiro.setVisible(false);
-                    abateInimigos += 1;
-                    calculaPontuacao();
-                }
+                InimigoRosa b = inimigoRosa.get(i);
+                b.dadosImagem();
+                b.movimenta();
+                ;
+                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
             }
 
             for (int i = 0; i < inimigoVerde.size(); i++) {
-                InimigoVerde tempInimigoVerde = inimigoVerde.get(i);
-                formaInimigoVerde = tempInimigoVerde.getLimites();
-                if (formaTiro.intersects(formaInimigoVerde)) {
-                    tempInimigoVerde.setVisible(false);
-                    tempTiro.setVisible(false);
-                    abateInimigos += 1;
-                    calculaPontuacao();
-                }
+                InimigoVerde b = inimigoVerde.get(i);
+                b.dadosImagem();
+                b.movimenta();
+                ;
+                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
             }
 
             for (int i = 0; i < inimigoLaranja.size(); i++) {
-                InimigoLaranja tempInimigoLaranja = inimigoLaranja.get(i);
-                formaInimigoLaranja = tempInimigoLaranja.getLimites();
-                if (formaTiro.intersects(formaInimigoLaranja)) {
-                    tempInimigoLaranja.setVisible(false);
-                    tempTiro.setVisible(false);
-                    abateInimigos += 1;
-                    calculaPontuacao();
-                }
+                InimigoLaranja b = inimigoLaranja.get(i);
+                b.dadosImagem();
+                b.movimenta();
+                ;
+                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
             }
 
+            for (int i = 0; i < meteoros.size(); i++) {
+                Meteoro b = meteoros.get(i);
+                b.dadosImagem();
+                b.movimenta();
+                ;
+                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+            }
+
+            for (int i = 0; i < asteroides.size(); i++) {
+                Asteroide b = asteroides.get(i);
+                b.dadosImagem();
+                b.movimenta();
+                ;
+                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+            }
+
+        } else {
+            ImageIcon fimJogo = new ImageIcon("imagens//gameover.gif");
+            graficos.drawImage(fimJogo.getImage(), 0, 0, null);
         }
+
+        g.dispose();
     }
 
     private class TecladoAdapter extends KeyAdapter {

@@ -11,7 +11,7 @@ public class InimigoRosa {
     private int x, y;
     private int largura, altura; 
     private boolean isVisible;
-    private static int VELOCIDADE = 2;
+    private static int VELOCIDADE = 1;
 
 
     public InimigoRosa(int x, int y) {
