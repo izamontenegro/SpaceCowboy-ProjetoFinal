@@ -1,24 +1,33 @@
 package main;
 
-//bibliotecas
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
-import modelagem.Fase1;
+import modelagem.Home;
 
-//Conteiner é a janela principal do jogo, onde as fases e outras telas estarão
-public class Container extends JFrame {
-    public Container() {
-        add(new Fase1());
+public class Container extends JFrame{
+
+    public Container(){
+        add(new Home());
         setTitle("Meu Jogo");
-        setSize(1440, 728);
+        setSize(1920, 1080);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         this.setResizable(false);
         setVisible(true);
+        this.setExtendedState(MAXIMIZED_BOTH);
+
     }
 
-    // chamando Conteiner e rodando tudo que está nele
-    public static void main(String[] args) {
+    //teste
+    public static void main(String[] args){
         new Container();
     }
 }
+
