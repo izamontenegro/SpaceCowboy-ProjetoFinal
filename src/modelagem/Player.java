@@ -21,6 +21,7 @@ public class Player implements ActionListener {
     private boolean isVisivel;
     private Timer timer;
     private boolean colisao = false;
+    private boolean escudo = false;
 
     public Player() {
         this.x = 550;
@@ -36,16 +37,20 @@ public class Player implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(colisao == true){
+        if (colisao == true) {
             sofrerDano();
             colisao = false;
-        }
-        else if(colisao == false){
+        } else if (colisao == false) {
             referencia = new ImageIcon("imagens//NaveVermelha.gif");
             dadosImagem();
         }
 
-        
+        if (escudo) {
+            referencia = new ImageIcon("imagens//NaveAzul.gif");
+            dadosImagem();
+            escudo = false;
+        }
+
     }
 
     public void dadosImagem() {
@@ -139,11 +144,19 @@ public class Player implements ActionListener {
         return imagem;
     }
 
+    public void setEscudo(boolean e) {
+        this.escudo = e;
+    }
+
+    public boolean getEscudo() {
+        return this.escudo;
+    }
+
     public List<AtaquePlayer> getTiros() {
         return tiros;
     }
 
-    public void setColisao(boolean c){
+    public void setColisao(boolean c) {
         this.colisao = c;
     }
 
@@ -158,7 +171,5 @@ public class Player implements ActionListener {
     public void setVisivel(boolean isVisivel) {
         this.isVisivel = isVisivel;
     }
-
-    
 
 }

@@ -31,6 +31,7 @@ public class Fase extends JPanel implements ActionListener {
     private List<InimigoLaranja> inimigoLaranja;
     private List<Meteoro> meteoros;
     private List<Asteroide> asteroides;
+    private List<Escudo> bonus;
 
     private int abateInimigoAzul = 0;
     private int abateInimigoRosa = 0;
@@ -51,6 +52,7 @@ public class Fase extends JPanel implements ActionListener {
         player = new Player();
         player.dadosImagem();
 
+        inicializaBonus();
         inicializaEstrelas();
         inicializaInimigosVerde();
         inicializaInimigosAzuis();
@@ -59,6 +61,17 @@ public class Fase extends JPanel implements ActionListener {
         inicializaMeteoros();
         inicializaAsteroides();
 
+    }
+
+    public void inicializaBonus() {
+        int quantidade[] = new int[10];
+        bonus = new ArrayList<Escudo>();
+
+        for (int i = 0; i < quantidade.length; i++) {
+            int x = (int) (Math.random() * -1500 + 1400);
+            int y = (int) (Math.random() * -3500);
+            bonus.add(new Escudo(x, y));
+        }
     }
 
     public void inicializaInimigosAzuis() {
@@ -174,21 +187,39 @@ public class Fase extends JPanel implements ActionListener {
         Rectangle formaAsteroides;
         Rectangle formaInimigoVerde;
         Rectangle formaInimigoLaranja;
+        Rectangle formaEscudo;
 
         // COLISÕES NAVE x INIMIGOS
         for (int i = 0; i < inimigoAzul.size(); i++) {
             InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
             formainimigoAzul = tempinimigoAzul.getLimites();
-            if (formaNave.intersects(formainimigoAzul)) {
-                player.setVisivel(false);
-                tempinimigoAzul.setVisible(false);
-                vidaPlayer -= 1;
-                player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
+            if (!player.getEscudo()) {
+                if (formaNave.intersects(formainimigoAzul)) {
+                    player.setVisivel(false);
+                    tempinimigoAzul.setVisible(false);
+                    vidaPlayer -= 1;
+                    player.setColisao(true);
+                    if (vidaPlayer <= 0) {
+                        emJogo = false;
+                        System.out.println(calculaPontuacao());
+                    }
 
+                }
+            }
+            else if(player.getEscudo()){
+                if(formaNave.intersects(formainimigoAzul)){
+                    tempinimigoAzul.setVisible(false);
+                }
+            }
+
+        }
+
+        for (int i = 0; i < bonus.size(); i++) {
+            Escudo tempEscudo = bonus.get(i);
+            formaEscudo = tempEscudo.getLimites();
+            if (formaNave.intersects(formaEscudo)) {
+                tempEscudo.setVisible(false);
+                player.setEscudo(true);
             }
         }
 
@@ -278,7 +309,7 @@ public class Fase extends JPanel implements ActionListener {
                 formainimigoAzul = tempinimigoAzul.getLimites();
                 if (formaTiro.intersects(formainimigoAzul)) {
                     tempinimigoAzul.setColisao(true);
-                   
+
                     tempTiro.setVisible(false);
 
                     abateInimigoAzul += 1;
@@ -394,6 +425,15 @@ public class Fase extends JPanel implements ActionListener {
             }
         }
 
+        for (int i = 0; i < bonus.size(); i++) {
+            Escudo in = bonus.get(i);
+            if (in.isVisible()) {
+                in.movimenta();
+            } else {
+                bonus.remove(i);
+            }
+        }
+
         for (int i = 0; i < inimigoLaranja.size(); i++) {
             InimigoLaranja in = inimigoLaranja.get(i);
             if (in.isVisible()) {
@@ -497,6 +537,13 @@ public class Fase extends JPanel implements ActionListener {
 
             for (int i = 0; i < inimigoAzul.size(); i++) {
                 InimigoAzul in = inimigoAzul.get(i);
+                in.dadosImagem();
+                ;
+                graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
+            }
+
+            for (int i = 0; i < bonus.size(); i++) {
+                Escudo in = bonus.get(i);
                 in.dadosImagem();
                 ;
                 graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
