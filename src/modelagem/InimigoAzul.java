@@ -3,26 +3,51 @@ package modelagem;
 //Bibliotecas
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
-
-public class InimigoAzul{
+public class InimigoAzul implements ActionListener {
     private Image imagem;
     ImageIcon referencia = new ImageIcon("imagens//inimigoAzul.gif");
     private int x, y;
-    private int largura, altura; 
-    private boolean isVisible; 
+    private int largura, altura;
+    private boolean isVisible;
     private static int VELOCIDADE = 2;
+    private Timer timer;
+    private boolean colisao = false;
 
-   
     public InimigoAzul(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
 
+        timer = new Timer(200, this);
+        timer.start();
+
     }
-    
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (colisao) {
+            sofrerDano();
+
+             isVisible = false;
+
+        } else {
+            referencia = new ImageIcon("imagens//inimigoAzul.gif");
+            dadosImagem();
+        }
+    }
+
+    public void sofrerDano() {
+        referencia = new ImageIcon("imagens//inimigoAzulDanoSofrido.gif");
+        dadosImagem();
+        
+    }
+
     public void dadosImagem() {
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
@@ -45,7 +70,9 @@ public class InimigoAzul{
     }
 
     // Getters and Setters
-
+    public void setColisao(boolean c) {
+        this.colisao = c;
+    }
 
     public int getX() {
         return x;

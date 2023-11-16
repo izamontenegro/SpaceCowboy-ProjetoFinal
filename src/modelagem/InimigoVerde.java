@@ -12,6 +12,16 @@ public class InimigoVerde {
     private int largura, altura; 
     private boolean isVisible;
     private static int VELOCIDADE = 1;
+    private int vida = 2;
+
+
+    public int getVida() {
+        return this.vida;
+    }
+
+    public void setVida(int x){
+        this.vida = this.vida - x;
+    }
 
 
     public InimigoVerde(int x, int y) {

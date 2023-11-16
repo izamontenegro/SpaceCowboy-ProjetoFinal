@@ -3,22 +3,24 @@ package modelagem;
 //bibliotecas
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
-
-public class Player{
+public class Player implements ActionListener {
     private int x, y;
     private int dx, dy;
     private Image imagem;
-    ImageIcon referencia = new ImageIcon("imagens//naveJogo (3) (1).gif");
+    ImageIcon referencia = new ImageIcon("imagens//NaveVermelha.gif");
     private int altura, largura;
     private List<AtaquePlayer> tiros;
     private boolean isVisivel;
-    
-    
+    private Timer timer;
+    private boolean colisao = false;
 
     public Player() {
         this.x = 550;
@@ -27,6 +29,23 @@ public class Player{
 
         tiros = new ArrayList<AtaquePlayer>();
 
+        timer = new Timer(500, this);
+        timer.start();
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(colisao == true){
+            sofrerDano();
+            colisao = false;
+        }
+        else if(colisao == false){
+            referencia = new ImageIcon("imagens//NaveVermelha.gif");
+            dadosImagem();
+        }
+
+        
     }
 
     public void dadosImagem() {
@@ -36,11 +55,8 @@ public class Player{
     }
 
     public void sofrerDano() {
-        referencia = new ImageIcon("imagens//naveAzul.gif");
-    }
-
-    public void recuperaDano() {
-        referencia = new ImageIcon("imagens//naveJogo (3) (1).gif");
+        referencia = new ImageIcon("imagens//naveVermelhaDano.gif");
+        dadosImagem();
     }
 
     public void movimenta() {
@@ -53,7 +69,6 @@ public class Player{
     public void tiroSimples() {
         this.tiros.add(new AtaquePlayer(x + 17, y - 40));
     }
-
 
     public Rectangle getLimites() {
         return new Rectangle(x, y, largura, altura);
@@ -126,6 +141,10 @@ public class Player{
 
     public List<AtaquePlayer> getTiros() {
         return tiros;
+    }
+
+    public void setColisao(boolean c){
+        this.colisao = c;
     }
 
     public void setTiros(List<AtaquePlayer> tiros) {

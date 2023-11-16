@@ -2,22 +2,45 @@ package modelagem;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
-public class InimigoRosa {
-    private Image imagem; 
+public class InimigoRosa implements ActionListener {
+    private Image imagem;
     private int x, y;
-    private int largura, altura; 
+    private int largura, altura;
     private boolean isVisible;
     private static int VELOCIDADE = 1;
+    private List<AtaqueInimigo> ataques;
+    private Timer timer;
 
+    public List<AtaqueInimigo> getAtaques() {
+        return ataques;
+    }
 
     public InimigoRosa(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
+
+        ataques = new ArrayList<AtaqueInimigo>();
+
+        timer = new Timer(1000, this);
+        timer.start();
+    }
+
+     @Override
+    public void actionPerformed(ActionEvent e) {
+       atacar();
+    }
+
+    public void atacar() {
+        this.ataques.add(new AtaqueInimigo(this.x, this.y));
     }
 
     public void dadosImagem() {
@@ -28,7 +51,7 @@ public class InimigoRosa {
     }
 
     public void movimenta() {
-       if (this.y > 700) {
+        if (this.y > 700) {
             this.y = -300;
             Random r = new Random();
             int n = r.nextInt(1724);
@@ -83,5 +106,7 @@ public class InimigoRosa {
     public void setImagem(Image imagem) {
         this.imagem = imagem;
     }
+
+   
 
 }

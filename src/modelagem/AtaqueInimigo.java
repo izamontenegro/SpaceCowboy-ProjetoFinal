@@ -2,40 +2,32 @@ package modelagem;
 
 //Bibliotecas
 import java.awt.Image;
-import java.util.Random;
-
+import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
-public class EstrelaRosa {
-    private Image imagem; 
-    private int x, y; 
-    private boolean isVisible; 
-    private static int VELOCIDADE = 3;
+public class AtaqueInimigo {
+    private Image imagem;
+    private int x, y;
+    private int largura, altura;
+    private boolean isVisible;
+    private static int VELOCIDADE = 8;
 
-    
-    public EstrelaRosa(int x, int y) {
+    public AtaqueInimigo(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
     }
 
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//estrelaRosa.png");
+        ImageIcon referencia = new ImageIcon("imagens//ataqueInimigoRosa.png");
         imagem = referencia.getImage();
+        this.largura = imagem.getWidth(null);
+        this.altura = imagem.getHeight(null);
     }
 
     public void movimenta() {
-        if(this.y > 560){
-            this.y = -300;
-            Random a = new Random();
-            int m = a.nextInt(768);
-            this.y = m;
-            Random r = new Random();
-            int n = r.nextInt(1724);
-            this.x = n - 300;
-        
-        }
-        else this.y += VELOCIDADE;
+        this.y -= VELOCIDADE;
+
     }
 
     // Getters and Setters
@@ -79,4 +71,7 @@ public class EstrelaRosa {
         this.imagem = imagem;
     }
 
+    public Rectangle getLimites() {
+        return new Rectangle(x, y, largura, altura);
+    }
 }

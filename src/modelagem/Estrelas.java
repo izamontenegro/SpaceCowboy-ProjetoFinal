@@ -5,20 +5,34 @@ import java.awt.Image;
 import java.util.Random;
 import javax.swing.ImageIcon;
 
-public class EstrelaBranca {
+public class Estrelas {
     private Image imagem;
     private int x, y;
     private boolean isVisible;
+    ImageIcon referencia;
     private static int VELOCIDADE = 3;
 
-    public EstrelaBranca(int x, int y) {
+    public Estrelas(int x, int y, int n) {
         this.x = x;
         this.y = y;
         isVisible = true;
+        if (n == 1) {
+            referencia = new ImageIcon("imagens//estrelaBranca.png");
+            imagem = referencia.getImage();
+        } else if (n == 2) {
+            referencia = new ImageIcon("imagens//estrelaRosa.png");
+            imagem = referencia.getImage();
+        } else if (n == 3) {
+            referencia = new ImageIcon("imagens//estrelaAzul.png");
+            imagem = referencia.getImage();
+        } else {
+            referencia = new ImageIcon("imagens//estrelaAmarela.png");
+            imagem = referencia.getImage();
+        }
     }
 
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//estrelaBranca.png");
+
         imagem = referencia.getImage();
     }
 

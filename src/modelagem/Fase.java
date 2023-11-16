@@ -15,14 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Fase extends JPanel implements ActionListener {
-    private List<EstrelaBranca> EstrelaBranca;
-    private List<EstrelaRosa> EstrelaRosa;
-    private List<EstrelaAmarela> EstrelaAmarela;
-    private List<EstrelaAzul> EstrelaAzul;
+    private List<Estrelas> EstrelaBranca;
+    private List<Estrelas> EstrelaRosa;
+    private List<Estrelas> EstrelaAmarela;
+    private List<Estrelas> EstrelaAzul;
     private Image fundoFase;
     private Timer timer;
     private boolean emJogo;
-    private int vidaPlayer = 8;
+    private int vidaPlayer = 6;
 
     private Player player;
     private List<InimigoAzul> inimigoAzul;
@@ -51,7 +51,7 @@ public class Fase extends JPanel implements ActionListener {
         player = new Player();
         player.dadosImagem();
 
-        inicializaEstrela();
+        inicializaEstrelas();
         inicializaInimigosVerde();
         inicializaInimigosAzuis();
         inicializaInimigosRosa();
@@ -127,41 +127,41 @@ public class Fase extends JPanel implements ActionListener {
         }
     }
 
-    public void inicializaEstrela() {
+    public void inicializaEstrelas() {
         int quantidade[] = new int[20];
-        EstrelaBranca = new ArrayList<EstrelaBranca>();
-        EstrelaRosa = new ArrayList<EstrelaRosa>();
-        EstrelaAmarela = new ArrayList<EstrelaAmarela>();
-        EstrelaAzul = new ArrayList<EstrelaAzul>();
+        EstrelaBranca = new ArrayList<Estrelas>();
+        EstrelaRosa = new ArrayList<Estrelas>();
+        EstrelaAmarela = new ArrayList<Estrelas>();
+        EstrelaAzul = new ArrayList<Estrelas>();
 
         for (int i = 0; i < (quantidade.length + 10); i++) {
             int x = (int) (Math.random() * -8000);
             int y = (int) (Math.random() * -4500);
-            EstrelaBranca.add(new EstrelaBranca(x, y));
+            EstrelaBranca.add(new Estrelas(x, y, 1));
         }
 
         for (int i = 0; i < quantidade.length; i++) {
             int x = (int) (Math.random() * -8000);
             int y = (int) (Math.random() * -4500);
-            EstrelaAzul.add(new EstrelaAzul(x, y));
+            EstrelaAzul.add(new Estrelas(x, y, 3));
         }
 
         for (int j = 0; j < (quantidade.length - 10); j++) {
             int x = (int) (Math.random() * -8000);
             int y = (int) (Math.random() * -4500);
-            EstrelaRosa.add(new EstrelaRosa(x, y));
+            EstrelaRosa.add(new Estrelas(x, y, 2));
         }
 
         for (int j = 0; j < quantidade.length; j++) {
             int x = (int) (Math.random() * -8000);
             int y = (int) (Math.random() * -4500);
-            EstrelaAmarela.add(new EstrelaAmarela(x, y));
+            EstrelaAmarela.add(new Estrelas(x, y, 4));
         }
     }
 
     public int calculaPontuacao() {
-        pontuacaoTotal = ((abateInimigoRosa * 100) + (abateInimigoAzul * 100) + (abateInimigoLaranja * 200)
-                + (abateInimigoVerde * 200));
+        pontuacaoTotal = ((abateInimigoRosa * 200) + (abateInimigoAzul * 100) + (abateInimigoLaranja * 100)
+                + (abateInimigoVerde * 300));
         return pontuacaoTotal;
     }
 
@@ -183,6 +183,7 @@ public class Fase extends JPanel implements ActionListener {
                 player.setVisivel(false);
                 tempinimigoAzul.setVisible(false);
                 vidaPlayer -= 1;
+                player.setColisao(true);
                 if (vidaPlayer <= 0) {
                     emJogo = false;
                     System.out.println(calculaPontuacao());
@@ -198,6 +199,7 @@ public class Fase extends JPanel implements ActionListener {
                 player.setVisivel(false);
                 tempinimigoRosa.setVisible(false);
                 vidaPlayer -= 1;
+                player.setColisao(true);
                 if (vidaPlayer <= 0) {
                     emJogo = false;
                     System.out.println(calculaPontuacao());
@@ -212,6 +214,7 @@ public class Fase extends JPanel implements ActionListener {
                 player.setVisivel(false);
                 tempinimigoLaranja.setVisible(false);
                 vidaPlayer -= 1;
+                player.setColisao(true);
                 if (vidaPlayer <= 0) {
                     emJogo = false;
                     System.out.println(calculaPontuacao());
@@ -226,8 +229,7 @@ public class Fase extends JPanel implements ActionListener {
                 player.setVisivel(false);
                 tempinimigoVerde.setVisible(false);
                 vidaPlayer -= 1;
-                player.sofrerDano();
-                player.dadosImagem();
+                player.setColisao(true);
                 if (vidaPlayer <= 0) {
                     emJogo = false;
                     System.out.println(calculaPontuacao());
@@ -242,6 +244,7 @@ public class Fase extends JPanel implements ActionListener {
                 player.setVisivel(false);
                 tempMeteoro.setVisible(false);
                 vidaPlayer -= 2;
+                player.setColisao(true);
                 if (vidaPlayer <= 0) {
                     emJogo = false;
                     System.out.println(calculaPontuacao());
@@ -256,6 +259,7 @@ public class Fase extends JPanel implements ActionListener {
                 player.setVisivel(false);
                 tempAsteroide.setVisible(false);
                 vidaPlayer -= 2;
+                player.setColisao(true);
                 if (vidaPlayer <= 0) {
                     emJogo = false;
                     System.out.println(calculaPontuacao());
@@ -273,9 +277,12 @@ public class Fase extends JPanel implements ActionListener {
                 InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
                 formainimigoAzul = tempinimigoAzul.getLimites();
                 if (formaTiro.intersects(formainimigoAzul)) {
-                    tempinimigoAzul.setVisible(false);
+                    tempinimigoAzul.setColisao(true);
+                   
                     tempTiro.setVisible(false);
+
                     abateInimigoAzul += 1;
+
                 }
             }
 
@@ -293,9 +300,13 @@ public class Fase extends JPanel implements ActionListener {
                 InimigoVerde tempInimigoVerde = inimigoVerde.get(i);
                 formaInimigoVerde = tempInimigoVerde.getLimites();
                 if (formaTiro.intersects(formaInimigoVerde)) {
-                    tempInimigoVerde.setVisible(false);
                     tempTiro.setVisible(false);
-                    abateInimigoVerde += 1;
+                    tempInimigoVerde.setVida(1);
+                    tempTiro.setVisible(false);
+                    if (tempInimigoVerde.getVida() <= 0) {
+                        tempInimigoVerde.setVisible(false);
+                        abateInimigoVerde += 1;
+                    }
                 }
             }
 
@@ -303,8 +314,8 @@ public class Fase extends JPanel implements ActionListener {
                 InimigoLaranja tempInimigoLaranja = inimigoLaranja.get(i);
                 formaInimigoLaranja = tempInimigoLaranja.getLimites();
                 if (formaTiro.intersects(formaInimigoLaranja)) {
-                    tempInimigoLaranja.setVisible(false);
                     tempTiro.setVisible(false);
+                    tempInimigoLaranja.setVisible(false);
                     abateInimigoLaranja += 1;
                 }
             }
@@ -328,8 +339,22 @@ public class Fase extends JPanel implements ActionListener {
             }
         }
 
+        for (int i = 0; i < inimigoRosa.size(); i++) {
+            List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
+
+            for (int j = 0; j < ataques.size(); j++) {
+                AtaqueInimigo m = ataques.get(j);
+                if (m.isVisible()) {
+                    m.movimenta();
+
+                } else {
+                    ataques.remove(j);
+                }
+            }
+        }
+
         for (int p = 0; p < EstrelaBranca.size(); p++) {
-            EstrelaBranca on = EstrelaBranca.get(p);
+            Estrelas on = EstrelaBranca.get(p);
             if (on.isVisible()) {
                 on.movimenta();
             } else
@@ -337,7 +362,7 @@ public class Fase extends JPanel implements ActionListener {
         }
 
         for (int p = 0; p < EstrelaRosa.size(); p++) {
-            EstrelaRosa on = EstrelaRosa.get(p);
+            Estrelas on = EstrelaRosa.get(p);
             if (on.isVisible()) {
                 on.movimenta();
             } else
@@ -345,7 +370,7 @@ public class Fase extends JPanel implements ActionListener {
         }
 
         for (int p = 0; p < EstrelaAmarela.size(); p++) {
-            EstrelaAmarela on = EstrelaAmarela.get(p);
+            Estrelas on = EstrelaAmarela.get(p);
             if (on.isVisible()) {
                 on.movimenta();
             } else
@@ -353,7 +378,7 @@ public class Fase extends JPanel implements ActionListener {
         }
 
         for (int p = 0; p < EstrelaAzul.size(); p++) {
-            EstrelaAzul on = EstrelaAzul.get(p);
+            Estrelas on = EstrelaAzul.get(p);
             if (on.isVisible()) {
                 on.movimenta();
             } else
@@ -425,25 +450,25 @@ public class Fase extends JPanel implements ActionListener {
             graficos.drawImage(fundoFase, 0, 0, null);
 
             for (int p = 0; p < EstrelaBranca.size(); p++) {
-                EstrelaBranca q = EstrelaBranca.get(p);
+                Estrelas q = EstrelaBranca.get(p);
                 q.dadosImagem();
                 graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
 
             for (int p = 0; p < EstrelaRosa.size(); p++) {
-                EstrelaRosa q = EstrelaRosa.get(p);
+                Estrelas q = EstrelaRosa.get(p);
                 q.dadosImagem();
                 graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
 
             for (int p = 0; p < EstrelaAmarela.size(); p++) {
-                EstrelaAmarela q = EstrelaAmarela.get(p);
+                Estrelas q = EstrelaAmarela.get(p);
                 q.dadosImagem();
                 graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
 
             for (int p = 0; p < EstrelaAzul.size(); p++) {
-                EstrelaAzul q = EstrelaAzul.get(p);
+                Estrelas q = EstrelaAzul.get(p);
                 q.dadosImagem();
                 graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
             }
@@ -457,6 +482,17 @@ public class Fase extends JPanel implements ActionListener {
                 m.dadosImagem();
 
                 graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+            }
+
+            for (int x = 0; x < inimigoRosa.size(); x++) {
+                List<AtaqueInimigo> ataques = inimigoRosa.get(x).getAtaques();
+
+                for (int i = 0; i < tiros.size(); i++) {
+                    AtaqueInimigo m = ataques.get(i);
+                    m.dadosImagem();
+                    graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+
+                }
             }
 
             for (int i = 0; i < inimigoAzul.size(); i++) {
