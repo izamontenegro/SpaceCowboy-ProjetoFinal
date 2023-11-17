@@ -3,39 +3,31 @@ package modelagem;
 //Bibliotecas
 import java.awt.Image;
 import java.awt.Rectangle;
-
 import javax.swing.ImageIcon;
 
-public class Inimigo1 {
-    private Image imagem; // Imagem do inimigo1
-    private int x, y; // Posição do inimigo
-    private int largura, altura; // Altura e largura da imagem
-    private boolean isVisible; // Visibilidade do inimigo
-    private static int VELOCIDADE = 3; // Velocidade com que ele irá cair
+public class AtaqueInimigo {
+    private Image imagem;
+    private int x, y;
+    private int largura, altura;
+    private boolean isVisible;
+    private static int VELOCIDADE = 8;
 
-    // Construtor que irá colocar o inimigo numa posição x,y
-    public Inimigo1(int x, int y) {
+    public AtaqueInimigo(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
     }
 
-    // Método que pega as informações da imagem
-    public void load() {
-        ImageIcon referencia = new ImageIcon("imagens//inimigoBasico.png");
+    public void dadosImagem() {
+        ImageIcon referencia = new ImageIcon("imagens//ataqueInimigoRosa.png");
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);
     }
 
-    // Método que realiza a movimentação do inimigo a partir da posição de origem e
-    // a velocidade estipulada
-    public void update() {
-        this.y += VELOCIDADE;
-    }
+    public void movimenta() {
+        this.y -= VELOCIDADE;
 
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, largura, altura);
     }
 
     // Getters and Setters
@@ -79,4 +71,7 @@ public class Inimigo1 {
         this.imagem = imagem;
     }
 
+    public Rectangle getLimites() {
+        return new Rectangle(x, y, largura, altura);
+    }
 }

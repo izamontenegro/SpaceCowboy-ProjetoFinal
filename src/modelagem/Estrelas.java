@@ -3,32 +3,41 @@ package modelagem;
 //Bibliotecas
 import java.awt.Image;
 import java.util.Random;
-
 import javax.swing.ImageIcon;
 
-public class Stars {
-    private Image imagem; // Imagem do inimigo1
-    private int x, y; // Posição do inimigo
-    private boolean isVisible; // Visibilidade do inimigo
-    private static int VELOCIDADE = 3; // Velocidade com que ele irá cair
+public class Estrelas {
+    private Image imagem;
+    private int x, y;
+    private boolean isVisible;
+    ImageIcon referencia;
+    private static int VELOCIDADE = 3;
 
-    // Construtor que irá colocar o inimigo numa posição x,y
-    public Stars(int x, int y) {
+    public Estrelas(int x, int y, int n) {
         this.x = x;
         this.y = y;
         isVisible = true;
+        if (n == 1) {
+            referencia = new ImageIcon("imagens//estrelaBranca.png");
+            imagem = referencia.getImage();
+        } else if (n == 2) {
+            referencia = new ImageIcon("imagens//estrelaRosa.png");
+            imagem = referencia.getImage();
+        } else if (n == 3) {
+            referencia = new ImageIcon("imagens//estrelaAzul.png");
+            imagem = referencia.getImage();
+        } else {
+            referencia = new ImageIcon("imagens//estrelaAmarela.png");
+            imagem = referencia.getImage();
+        }
     }
 
-    // Método que pega as informações da imagem
-    public void load() {
-        ImageIcon referencia = new ImageIcon("imagens//estrela.png");
+    public void dadosImagem() {
+
         imagem = referencia.getImage();
     }
 
-    // Método que realiza a movimentação do inimigo a partir da posição de origem e
-    // a velocidade estipulada
-    public void update() {
-        if(this.y > 560){
+    public void movimenta() {
+        if (this.y > 560) {
             this.y = -300;
             Random a = new Random();
             int m = a.nextInt(768);
@@ -36,9 +45,9 @@ public class Stars {
             Random r = new Random();
             int n = r.nextInt(1724);
             this.x = n - 300;
-        
-        }
-        else this.y += VELOCIDADE;
+
+        } else
+            this.y += VELOCIDADE;
     }
 
     // Getters and Setters
