@@ -30,17 +30,21 @@ public class InimigoRosa implements ActionListener {
 
         ataques = new ArrayList<AtaqueInimigo>();
 
-        timer = new Timer(1000, this);
+        timer = new Timer(2000, this);
         timer.start();
     }
 
-     @Override
+    @Override
     public void actionPerformed(ActionEvent e) {
-       atacar();
+        if (this.y >= -120) {
+            atacar();
+        }
+        else;
+
     }
 
     public void atacar() {
-        this.ataques.add(new AtaqueInimigo(this.x, this.y));
+        this.ataques.add(new AtaqueInimigo(this.x + 12, this.y + 10));
     }
 
     public void dadosImagem() {
@@ -106,7 +110,5 @@ public class InimigoRosa implements ActionListener {
     public void setImagem(Image imagem) {
         this.imagem = imagem;
     }
-
-   
 
 }
