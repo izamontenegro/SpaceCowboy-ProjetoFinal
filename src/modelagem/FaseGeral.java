@@ -14,12 +14,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Fase extends JPanel implements ActionListener {
+public class FaseGeral extends JPanel implements ActionListener {
     private List<Estrelas> EstrelaBranca;
     private List<Estrelas> EstrelaRosa;
     private List<Estrelas> EstrelaAmarela;
     private List<Estrelas> EstrelaAzul;
-    private Image fundoFase;
+    private Image fundoFaseX;
     private Timer timer;
     private boolean emJogo;
     private int vidaPlayer = 6;
@@ -39,11 +39,11 @@ public class Fase extends JPanel implements ActionListener {
     private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
 
-    public Fase() {
+    public FaseGeral () {
         setFocusable(true);
         setDoubleBuffered(true);
         ImageIcon referencia = new ImageIcon("imagens//fundoJogo.png");
-        fundoFase = referencia.getImage();
+        fundoFaseX = referencia.getImage();
         emJogo = true;
         addKeyListener(new TecladoAdapter());
         timer = new Timer(10, this);
@@ -183,6 +183,7 @@ public class Fase extends JPanel implements ActionListener {
         Rectangle formaNave = player.getLimites();
         Rectangle formainimigoAzul;
         Rectangle formaTiro;
+        Rectangle formaAtaqueInimigoRosa;
         Rectangle formaInimigoRosa;
         Rectangle formaMeteoro;
         Rectangle formaAsteroides;
@@ -195,21 +196,14 @@ public class Fase extends JPanel implements ActionListener {
         for (int i = 0; i < inimigoAzul.size(); i++) {
             InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
             formainimigoAzul = tempinimigoAzul.getLimites();
-            if (!player.getEscudo()) {
-                if (formaNave.intersects(formainimigoAzul)) {
-                    player.setVisivel(false);
-                    tempinimigoAzul.setVisible(false);
-                    vidaPlayer -= 1;
-                    player.setColisao(true);
-                    if (vidaPlayer <= 0) {
-                        emJogo = false;
-                        System.out.println(calculaPontuacao());
-                    }
-
-                }
-            } else if (player.getEscudo()) {
-                if (formaNave.intersects(formainimigoAzul)) {
-                    tempinimigoAzul.setVisible(false);
+            if (formaNave.intersects(formainimigoAzul)) {
+                player.setVisivel(false);
+                tempinimigoAzul.setVisible(false);
+                vidaPlayer -= 1;
+                player.setColisao(true);
+                if (vidaPlayer <= 0) {
+                    emJogo = false;
+                    System.out.println(calculaPontuacao());
                 }
             }
 
@@ -299,24 +293,37 @@ public class Fase extends JPanel implements ActionListener {
             }
         }
 
+        // colisao atk inimigo x player
+        for (int i = 0; i < inimigoRosa.size(); i++) {
+            List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
+
+            for (int x = 0; x < ataques.size(); x++) {
+                AtaqueInimigo tempataquerosa = ataques.get(x);
+                formaAtaqueInimigoRosa = tempataquerosa.getLimites();
+                if (formaAtaqueInimigoRosa.intersects(formaNave)) {
+                    tempataquerosa.setVisible(false);
+                    vidaPlayer -= 1;
+                    player.setColisao(true);
+
+                }
+
+            }
+        }
+
         // COLISÕES ATAQUES x INIMIGOS
         List<AtaquePlayer> ataques = player.getTiros();
         for (int j = 0; j < ataques.size(); j++) {
             AtaquePlayer tempTiro = ataques.get(j);
             formaTiro = tempTiro.getLimites();
 
-            if (pontuacaoTotal >= 200) {
-                for (int i = 0; i < inimigoAzul.size(); i++) {
-                    InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
-                    formainimigoAzul = tempinimigoAzul.getLimites();
-                    if (formaTiro.intersects(formainimigoAzul)) {
-                        tempinimigoAzul.setColisao(true);
+            for (int i = 0; i < inimigoAzul.size(); i++) {
+                InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
+                formainimigoAzul = tempinimigoAzul.getLimites();
+                if (formaTiro.intersects(formainimigoAzul)) {
+                    tempTiro.setVisible(false);
+                    tempinimigoAzul.setColisao(true);
+                    abateInimigoAzul += 1;
 
-                        tempTiro.setVisible(false);
-
-                        abateInimigoAzul += 1;
-
-                    }
                 }
             }
 
@@ -354,11 +361,28 @@ public class Fase extends JPanel implements ActionListener {
                 }
             }
 
+             for (int i = 0; i < meteoros.size(); i++) {
+                Meteoro tempMeteoro =meteoros.get(i);
+                formaMeteoro = tempMeteoro.getLimites();
+                if (formaTiro.intersects(formaMeteoro)) {
+                    tempTiro.setVisible(false);
+                }
+            }
+
+             for (int i = 0; i < asteroides.size(); i++) {
+                Asteroide tempAsteroide = asteroides.get(i);
+                formaAsteroides = tempAsteroide.getLimites();
+                if (formaTiro.intersects(formaAsteroides)) {
+                    tempTiro.setVisible(false);
+                }
+            }
+
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        calculaPontuacao();
         player.movimenta();
         List<AtaquePlayer> tiros = player.getTiros();
 
@@ -489,7 +513,7 @@ public class Fase extends JPanel implements ActionListener {
         Graphics2D graficos = (Graphics2D) g;
         if (emJogo) {
 
-            graficos.drawImage(fundoFase, 0, 0, null);
+            graficos.drawImage(fundoFaseX, 0, 0, null);
 
             for (int p = 0; p < EstrelaBranca.size(); p++) {
                 Estrelas q = EstrelaBranca.get(p);
@@ -613,7 +637,7 @@ public class Fase extends JPanel implements ActionListener {
     }
 
     public int getPontos() {
-        return this.pontuacaoTotal;
+        return calculaPontuacao();
     }
 
 }

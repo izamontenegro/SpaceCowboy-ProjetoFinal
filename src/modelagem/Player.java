@@ -73,6 +73,8 @@ public class Player implements ActionListener {
 
     public void tiroSimples() {
         this.tiros.add(new AtaquePlayer(x + 17, y - 40));
+        referencia = new ImageIcon("imagens//NaveVermelhaTiro.gif");
+        dadosImagem();
     }
 
     public Rectangle getLimites() {
@@ -84,6 +86,7 @@ public class Player implements ActionListener {
 
         if (codigo == KeyEvent.VK_X) {
             tiroSimples();
+
         }
 
         if (codigo == KeyEvent.VK_UP) {

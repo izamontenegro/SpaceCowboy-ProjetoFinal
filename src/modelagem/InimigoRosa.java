@@ -111,4 +111,9 @@ public class InimigoRosa implements ActionListener {
         this.imagem = imagem;
     }
 
+    public void setAtaques(List<AtaqueInimigo> ataques) {
+        this.ataques = ataques;
+    }
+
+    
 }
