@@ -14,13 +14,13 @@ import javax.swing.Timer;
 public class Coracao {
 
 
-		ImageIcon referencia = new ImageIcon("imagens//CoracaoCheio.png");
+		
 	    private int x, y;
 	    private Image imagem;
 	    private int altura, largura;	
 	    private boolean isVisivel;
-	
-
+	    private String[]imgs={"imagens\\invisible.png","imagens\\meioCoracao.png","imagens\\umCoracao.png","imagens\\umEMeioCoracao.png","imagens\\doisCoracoes.png","imagens\\doisEMeioCoracoes.png","imagens\\tresCoracoes.png"};
+	    private Image returnImg;
 	    public Coracao(int x,int y) {
 	        this.x = x;
 	        this.y = y;
@@ -31,6 +31,7 @@ public class Coracao {
 	
 
 	    public void dadosImagem() {
+	    	ImageIcon referencia = new ImageIcon("imagens\\trescoracoes.png");
 	        imagem = referencia.getImage();
 	        altura = imagem.getHeight(null);
 	        largura = imagem.getWidth(null);
@@ -54,8 +55,11 @@ public class Coracao {
 	        return y;
 	    }
 
-	    public Image getImagem() {
-	        return imagem;
+	    public Image getImagem(int x) {
+	    	
+	    	ImageIcon retornoFoto = new ImageIcon(imgs[x]);
+	         returnImg= retornoFoto.getImage();
+	        return returnImg;
 	    }
 
 	    public boolean isVisivel() {

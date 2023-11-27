@@ -1,7 +1,10 @@
 package modelagem;
 
 import java.awt.Color;
+
+import modelagem.TelaQueda;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -15,7 +18,9 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 public class Fase extends JPanel implements ActionListener {
     private List<Estrelas> EstrelaBranca;
     private List<Estrelas> EstrelaRosa;
@@ -25,7 +30,7 @@ public class Fase extends JPanel implements ActionListener {
     private Timer timer;
     private boolean emJogo;
     private int vidaPlayer = 6;
-
+    private int z=0;
     private Player player;
     private List<InimigoAzul> inimigoAzul;
     private List<InimigoVerde> inimigoVerde;
@@ -40,17 +45,21 @@ public class Fase extends JPanel implements ActionListener {
     private Coracao coracao4;
     private Coracao coracao5;
     private Coracao coracao6;
+    private TelaQueda telaFinal;
 
     private int abateInimigoAzul = 0;
     private int abateInimigoRosa = 0;
     private int abateInimigoVerde = 0;
     private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
-    private Font fontePontuacao = new Font("Arial", Font.BOLD, 30);
-
+    File fontFile = new File("C:\\Users\\andre\\OneDrive\\Área de Trabalho\\jogoPoo\\fontes\\depixel-bold-webfont.ttf");
+    
+    
     public Fase() {
+         Font fontePontuacao;
         setFocusable(true);
         setDoubleBuffered(true);
+       
         ImageIcon referencia = new ImageIcon("imagens//fundoJogo.png");
         fundoFase = referencia.getImage();
         emJogo = true;
@@ -61,23 +70,9 @@ public class Fase extends JPanel implements ActionListener {
         player = new Player();
         player.dadosImagem();
         
-        coracao=new Coracao(0,0);
+        coracao=new Coracao(0,-50);
         coracao.dadosImagem();
-
-        coracao2=new Coracao(50,0);
-        coracao2.dadosImagem();
         
-        coracao3=new Coracao(100,0);
-        coracao3.dadosImagem();
-        
-        coracao4=new Coracao(150,0);
-        coracao4.dadosImagem();
-        
-        coracao5=new Coracao(200,0);
-        coracao5.dadosImagem();
-        
-        coracao6=new Coracao(250,0);
-        coracao6.dadosImagem();
         
         inicializaBonus();
         inicializaEstrelas();
@@ -87,7 +82,7 @@ public class Fase extends JPanel implements ActionListener {
         inicializaInimigosLaranja();
         inicializaMeteoros();
         inicializaAsteroides();
-
+        
     }
 
     public void inicializaBonus() {
@@ -199,6 +194,19 @@ public class Fase extends JPanel implements ActionListener {
         }
     }
 
+    public Font carregarFonte( File caminhoFonte){
+    	Font fontePontuacao = null;
+    	try {
+    		
+    		fontePontuacao = Font.createFont(Font.TRUETYPE_FONT, caminhoFonte).deriveFont(Font.BOLD,30);
+    		
+    		
+    	} catch (FontFormatException | IOException e) {
+    		
+    	}
+    	
+    	return fontePontuacao;
+    }
     public int calculaPontuacao() {
         pontuacaoTotal = ((abateInimigoRosa * 200) + (abateInimigoAzul * 100) + (abateInimigoLaranja * 100)
                 + (abateInimigoVerde * 300));
@@ -393,7 +401,7 @@ public class Fase extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         player.movimenta();
-    
+        
         
         List<AtaquePlayer> tiros = player.getTiros();
 
@@ -515,167 +523,145 @@ public class Fase extends JPanel implements ActionListener {
                 asteroides.remove(i);
             }
         }
-        
+        verificarDerrota();
         checarColisoes();
         repaint();
 
     }
+    public void verificarDerrota() {
+    	if(!emJogo) {
+    		if(telaFinal==null) {
+    			System.out.println("cheguei aqui");
+    			telaFinal=new TelaQueda();
+    			z++;
+    			
+    		}
+    		telaFinal.actionPerformed(null);
+    		
+    	}
+    }
 
     public void paint(Graphics g) {
         Graphics2D graficos = (Graphics2D) g;
-        if (emJogo) {
-
-            graficos.drawImage(fundoFase, 0, 0, null);
-
-            for (int p = 0; p < EstrelaBranca.size(); p++) {
-                Estrelas q = EstrelaBranca.get(p);
-                q.dadosImagem();
-                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
-            }
-
-            for (int p = 0; p < EstrelaRosa.size(); p++) {
-                Estrelas q = EstrelaRosa.get(p);
-                q.dadosImagem();
-                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
-            }
-
-            for (int p = 0; p < EstrelaAmarela.size(); p++) {
-                Estrelas q = EstrelaAmarela.get(p);
-                q.dadosImagem();
-                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
-            }
-
-            for (int p = 0; p < EstrelaAzul.size(); p++) {
-                Estrelas q = EstrelaAzul.get(p);
-                q.dadosImagem();
-                graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
-            }
-            
-            graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
-
-            List<AtaquePlayer> tiros = player.getTiros();
-
-            for (int i = 0; i < tiros.size(); i++) {
-                AtaquePlayer m = tiros.get(i);
-                m.dadosImagem();
-
-                graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
-            }
-
-            for (int x = 0; x < inimigoRosa.size(); x++) {
-                List<AtaqueInimigo> ataques = inimigoRosa.get(x).getAtaques();
-
-                for (int i = 0; i < tiros.size(); i++) {
-                    AtaqueInimigo m = ataques.get(i);
-                    m.dadosImagem();
-                    graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
-
-                }
-            }
-
-            for (int i = 0; i < inimigoAzul.size(); i++) {
-                InimigoAzul in = inimigoAzul.get(i);
-                in.dadosImagem();
-                ;
-                graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
-            }
-
-            for (int i = 0; i < bonus.size(); i++) {
-                Escudo in = bonus.get(i);
-                in.dadosImagem();
-                ;
-                graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
-            }
-
-            for (int i = 0; i < inimigoRosa.size(); i++) {
-                InimigoRosa b = inimigoRosa.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-            for (int i = 0; i < inimigoVerde.size(); i++) {
-                InimigoVerde b = inimigoVerde.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-            for (int i = 0; i < inimigoLaranja.size(); i++) {
-                InimigoLaranja b = inimigoLaranja.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-            for (int i = 0; i < meteoros.size(); i++) {
-                Meteoro b = meteoros.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-            for (int i = 0; i < asteroides.size(); i++) {
-                Asteroide b = asteroides.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-                if(vidaPlayer==6) {
-                graficos.drawImage(coracao.getImagem(), coracao.getX(), coracao.getY(), this);
-                graficos.drawImage(coracao2.getImagem(), coracao2.getX(), coracao2.getY(), this);
-                graficos.drawImage(coracao3.getImagem(), coracao3.getX(), coracao3.getY(), this);
-                graficos.drawImage(coracao4.getImagem(), coracao4.getX(), coracao4.getY(), this);
-                graficos.drawImage(coracao5.getImagem(), coracao5.getX(), coracao5.getY(), this);
-                graficos.drawImage(coracao6.getImagem(), coracao6.getX(), coracao6.getY(), this);
-                 
-	            }else if(vidaPlayer==5) {
-	            	 graficos.drawImage(coracao.getImagem(), coracao.getX(), coracao.getY(), this);
-	            graficos.drawImage(coracao2.getImagem(), coracao2.getX(), coracao2.getY() ,this);
-	            graficos.drawImage(coracao3.getImagem(), coracao3.getX(), coracao3.getY(),this);
-	            graficos.drawImage(coracao4.getImagem(), coracao4.getX(), coracao4.getY(), this);
-                graficos.drawImage(coracao5.getImagem(), coracao5.getX(), coracao5.getY(), this);
-                graficos.drawImage(coracao6.getImagem(), coracao6.getX(), coracao6.getY(),0,0, this);
-	            }else if (vidaPlayer==4) {
-	            	 graficos.drawImage(coracao.getImagem(), coracao.getX(), coracao.getY(), this);
-	 	            graficos.drawImage(coracao2.getImagem(), coracao2.getX(), coracao2.getY(), this);
-	 	            graficos.drawImage(coracao3.getImagem(), coracao3.getX(), coracao3.getY(),this);
-	 	           graficos.drawImage(coracao4.getImagem(), coracao4.getX(), coracao4.getY(), this);
-	                graficos.drawImage(coracao5.getImagem(), coracao5.getX(), coracao5.getY(),0,0, this);
-	                graficos.drawImage(coracao6.getImagem(), coracao6.getX(), coracao6.getY(),0,0, this);
-	            }else if(vidaPlayer==3) {
-	            	 graficos.drawImage(coracao.getImagem(), coracao.getX(), coracao.getY(), this);
-		 	            graficos.drawImage(coracao2.getImagem(), coracao2.getX(), coracao2.getY(),this);
-		 	            graficos.drawImage(coracao3.getImagem(), coracao3.getX(), coracao3.getY(),this);
-		 	           graficos.drawImage(coracao4.getImagem(), coracao4.getX(), coracao4.getY(),0,0, this);
-		                graficos.drawImage(coracao5.getImagem(), coracao5.getX(), coracao5.getY(),0,0, this);
-		                graficos.drawImage(coracao6.getImagem(), coracao6.getX(), coracao6.getY(),0,0, this);
-	            }else if(vidaPlayer==2) {
-	            	 graficos.drawImage(coracao.getImagem(), coracao.getX(), coracao.getY(), this);
-		 	            graficos.drawImage(coracao2.getImagem(), coracao2.getX(), coracao2.getY(),this);
-		 	            graficos.drawImage(coracao3.getImagem(), coracao3.getX(), coracao3.getY(),0 ,0,this);
-		 	           graficos.drawImage(coracao4.getImagem(), coracao4.getX(), coracao4.getY(),0,0, this);
-		                graficos.drawImage(coracao5.getImagem(), coracao5.getX(), coracao5.getY(),0,0, this);
-		                graficos.drawImage(coracao6.getImagem(), coracao6.getX(), coracao6.getY(),0,0, this);
-	            }else if(vidaPlayer==1) {
-	            	 graficos.drawImage(coracao.getImagem(), coracao.getX(), coracao.getY(), this);
-		 	            graficos.drawImage(coracao2.getImagem(), coracao2.getX(), coracao2.getY(),0,0 ,this);
-		 	            graficos.drawImage(coracao3.getImagem(), coracao3.getX(), coracao3.getY(),0 ,0,this);
-		 	           graficos.drawImage(coracao4.getImagem(), coracao4.getX(), coracao4.getY(),0,0, this);
-		                graficos.drawImage(coracao5.getImagem(), coracao5.getX(), coracao5.getY(),0,0, this);
-		                graficos.drawImage(coracao6.getImagem(), coracao6.getX(), coracao6.getY(),0,0, this);
-	            }
-                graficos.setFont(fontePontuacao);
-                graficos.setColor(Color.RED);
-                graficos.drawString("Pontuação: " +calculaPontuacao(), 1000, 40);
-        }else {
-            ImageIcon fimJogo = new ImageIcon("imagens//gameover.gif");
-            graficos.drawImage(fimJogo.getImage(), 0, 0, null);
+     
+        if(emJogo) {
+        	graficos.drawImage(fundoFase, 0, 0, null);
+        	
+        	for (int p = 0; p < EstrelaBranca.size(); p++) {
+        		Estrelas q = EstrelaBranca.get(p);
+        		q.dadosImagem();
+        		graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
+        	}
+        	
+        	for (int p = 0; p < EstrelaRosa.size(); p++) {
+        		Estrelas q = EstrelaRosa.get(p);
+        		q.dadosImagem();
+        		graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
+        	}
+        	
+        	for (int p = 0; p < EstrelaAmarela.size(); p++) {
+        		Estrelas q = EstrelaAmarela.get(p);
+        		q.dadosImagem();
+        		graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
+        	}
+        	
+        	for (int p = 0; p < EstrelaAzul.size(); p++) {
+        		Estrelas q = EstrelaAzul.get(p);
+        		q.dadosImagem();
+        		graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
+        	}
+        	
+        	graficos.drawImage(player.getImagem(), player.getX(), player.getY(), this);
+        	
+        	List<AtaquePlayer> tiros = player.getTiros();
+        	
+        	for (int i = 0; i < tiros.size(); i++) {
+        		AtaquePlayer m = tiros.get(i);
+        		m.dadosImagem();
+        		
+        		graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+        	}
+        	
+        	for (int x = 0; x < inimigoRosa.size(); x++) {
+        		List<AtaqueInimigo> ataques = inimigoRosa.get(x).getAtaques();
+        		
+        		for (int i = 0; i < tiros.size(); i++) {
+        			AtaqueInimigo m = ataques.get(i);
+        			m.dadosImagem();
+        			graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+        			
+        		}
+        	}
+        	
+        	for (int i = 0; i < inimigoAzul.size(); i++) {
+        		InimigoAzul in = inimigoAzul.get(i);
+        		in.dadosImagem();
+        		;
+        		graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
+        	}
+        	
+        	for (int i = 0; i < bonus.size(); i++) {
+        		Escudo in = bonus.get(i);
+        		in.dadosImagem();
+        		;
+        		graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
+        	}
+        	
+        	for (int i = 0; i < inimigoRosa.size(); i++) {
+        		InimigoRosa b = inimigoRosa.get(i);
+        		b.dadosImagem();
+        		b.movimenta();
+        		;
+        		graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+        	}
+        	
+        	for (int i = 0; i < inimigoVerde.size(); i++) {
+        		InimigoVerde b = inimigoVerde.get(i);
+        		b.dadosImagem();
+        		b.movimenta();
+        		;
+        		graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+        	}
+        	
+        	for (int i = 0; i < inimigoLaranja.size(); i++) {
+        		InimigoLaranja b = inimigoLaranja.get(i);
+        		b.dadosImagem();
+        		b.movimenta();
+        		;
+        		graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+        	}
+        	
+        	for (int i = 0; i < meteoros.size(); i++) {
+        		Meteoro b = meteoros.get(i);
+        		b.dadosImagem();
+        		b.movimenta();
+        		;
+        		graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+        	}
+        	
+        	for (int i = 0; i < asteroides.size(); i++) {
+        		Asteroide b = asteroides.get(i);
+        		b.dadosImagem();
+        		b.movimenta();
+        		graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
+        	}
+        	
+        	graficos.drawImage(coracao.getImagem(vidaPlayer), coracao.getX(), coracao.getY(), this);
+//                fontePontuacao = Font.createFont(Font.TRUETYPE_FONT, "commodore-64-1.ttf").deriveFont(Font.BOLD, 30);
+        	graficos.setFont(carregarFonte(fontFile));
+        	graficos.setColor(Color.YELLOW);
+        	graficos.drawString("Pontuação: " +calculaPontuacao(), 1000, 40);
+        	
+        	
+        }else if(z==1){
+        	telaFinal.paint(graficos);
         }
+            
+     	
+        		
+        	
+        		
+        
 
         g.dispose();
     }
