@@ -35,9 +35,10 @@ public class Container extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         contador++;
+        System.out.println(fase1.getPontos());
         System.out.println(contador);
 
-        if (contador == 5) {
+        if (contador == 10) {
             alternarFase();
         }
 
@@ -47,9 +48,11 @@ public class Container extends JFrame implements ActionListener {
         if (faseAtiva) {
             remove(fase1);
             add(fase2);
+            fase2.requestFocusInWindow();
         } else {
             remove(fase2);
             add(fase1);
+            fase1.requestFocusInWindow();
         }
 
         faseAtiva = !faseAtiva;

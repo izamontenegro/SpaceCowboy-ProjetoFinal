@@ -9,6 +9,7 @@ public class AtaquePlayer {
     private Image imagem; 
     private int x, y;
     private int largura, altura; 
+    private ImageIcon referencia = new ImageIcon("imagens//ataqueBasicoPlayer.png");
     private boolean isVisible;
     private static int VELOCIDADE = 8;
 
@@ -18,8 +19,15 @@ public class AtaquePlayer {
         isVisible = true;
     }
 
+    public AtaquePlayer(int x, int y, ImageIcon imagem) {
+        this.x = x;
+        this.y = y;
+        isVisible = true;
+        this.referencia = imagem;
+    }
+
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//ataqueBasicoPlayer.png");
+        
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);

@@ -26,17 +26,10 @@ public class Horda2 extends JPanel implements ActionListener {
 
     private Player player;
     private List<InimigoAzul> inimigoAzul;
-    private List<InimigoVerde> inimigoVerde;
     private List<InimigoRosa> inimigoRosa;
-    private List<InimigoLaranja> inimigoLaranja;
-    private List<Meteoro> meteoros;
-    private List<Asteroide> asteroides;
-    private List<Escudo> bonus;
 
     private int abateInimigoAzul = 0;
     private int abateInimigoRosa = 0;
-    private int abateInimigoVerde = 0;
-    private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
 
     public Horda2() {
@@ -46,36 +39,21 @@ public class Horda2 extends JPanel implements ActionListener {
         fundoFaseX = referencia.getImage();
         emJogo = true;
         addKeyListener(new TecladoAdapter());
-        timer = new Timer(10, this);
+        timer = new Timer(5, this);
         timer.start();
 
         player = new Player();
         player.dadosImagem();
 
-        inicializaBonus();
         inicializaEstrelas();
-        inicializaInimigosVerde();
         inicializaInimigosAzuis();
         inicializaInimigosRosa();
-        inicializaInimigosLaranja();
-        inicializaMeteoros();
-        inicializaAsteroides();
 
     }
 
-    public void inicializaBonus() {
-        int quantidade[] = new int[10];
-        bonus = new ArrayList<Escudo>();
-
-        for (int i = 0; i < quantidade.length; i++) {
-            int x = (int) (Math.random() * -1500 + 1400);
-            int y = (int) (Math.random() * -3500);
-            bonus.add(new Escudo(x, y));
-        }
-    }
 
     public void inicializaInimigosAzuis() {
-        int quantidade[] = new int[5];
+        int quantidade[] = new int[10];
         inimigoAzul = new ArrayList<InimigoAzul>();
 
         for (int i = 0; i < quantidade.length; i++) {
@@ -86,30 +64,9 @@ public class Horda2 extends JPanel implements ActionListener {
 
     }
 
-    public void inicializaInimigosLaranja() {
-        int quantidade[] = new int[5];
-        inimigoLaranja = new ArrayList<InimigoLaranja>();
-
-        for (int i = 0; i < quantidade.length; i++) {
-            int x = (int) (Math.random() * -1500 + 1400);
-            int y = (int) (Math.random() * -3500);
-            inimigoLaranja.add(new InimigoLaranja(x, y));
-        }
-    }
-
-    public void inicializaInimigosVerde() {
-        int quantidade[] = new int[5];
-        inimigoVerde = new ArrayList<InimigoVerde>();
-
-        for (int i = 0; i < quantidade.length; i++) {
-            int x = (int) (Math.random() * -1500 + 1400);
-            int y = (int) (Math.random() * -3500);
-            inimigoVerde.add(new InimigoVerde(x, y));
-        }
-    }
 
     public void inicializaInimigosRosa() {
-        int quantidade[] = new int[5];
+        int quantidade[] = new int[10];
         inimigoRosa = new ArrayList<InimigoRosa>();
 
         for (int i = 0; i < quantidade.length; i++) {
@@ -119,27 +76,6 @@ public class Horda2 extends JPanel implements ActionListener {
         }
     }
 
-    public void inicializaMeteoros() {
-        int quantidade[] = new int[5];
-        meteoros = new ArrayList<Meteoro>();
-
-        for (int i = 0; i < quantidade.length; i++) {
-            int x = (int) (Math.random() * 900 + 1024);
-            int y = (int) (Math.random() * -3500);
-            meteoros.add(new Meteoro(x, y));
-        }
-    }
-
-    public void inicializaAsteroides() {
-        int quantidade[] = new int[8];
-        asteroides = new ArrayList<Asteroide>();
-
-        for (int i = 0; i < quantidade.length; i++) {
-            int x = (int) (Math.random() * -1500 + 1000);
-            int y = (int) (Math.random() * -3500);
-            asteroides.add(new Asteroide(x, y));
-        }
-    }
 
     public void inicializaEstrelas() {
         int quantidade[] = new int[20];
@@ -174,8 +110,8 @@ public class Horda2 extends JPanel implements ActionListener {
     }
 
     public int calculaPontuacao() {
-        pontuacaoTotal = ((abateInimigoRosa * 200) + (abateInimigoAzul * 100) + (abateInimigoLaranja * 100)
-                + (abateInimigoVerde * 300));
+        pontuacaoTotal = ((abateInimigoRosa * 200) + (abateInimigoAzul * 100));
+                
         return pontuacaoTotal;
     }
 
@@ -185,11 +121,6 @@ public class Horda2 extends JPanel implements ActionListener {
         Rectangle formaTiro;
         Rectangle formaAtaqueInimigoRosa;
         Rectangle formaInimigoRosa;
-        Rectangle formaMeteoro;
-        Rectangle formaAsteroides;
-        Rectangle formaInimigoVerde;
-        Rectangle formaInimigoLaranja;
-        Rectangle formaEscudo;
 
         // COLISÕES NAVE x INIMIGOS
 
@@ -209,15 +140,7 @@ public class Horda2 extends JPanel implements ActionListener {
 
         }
 
-        for (int i = 0; i < bonus.size(); i++) {
-            Escudo tempEscudo = bonus.get(i);
-            formaEscudo = tempEscudo.getLimites();
-            if (formaNave.intersects(formaEscudo)) {
-                tempEscudo.setVisible(false);
-                player.setEscudo(true);
-            }
-        }
-
+        
         for (int i = 0; i < inimigoRosa.size(); i++) {
             InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
             formaInimigoRosa = tempinimigoRosa.getLimites();
@@ -233,65 +156,9 @@ public class Horda2 extends JPanel implements ActionListener {
             }
         }
 
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            InimigoLaranja tempinimigoLaranja = inimigoLaranja.get(i);
-            formaInimigoLaranja = tempinimigoLaranja.getLimites();
-            if (formaNave.intersects(formaInimigoLaranja)) {
-                player.setVisivel(false);
-                tempinimigoLaranja.setVisible(false);
-                vidaPlayer -= 1;
-                player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
-            }
-        }
+       
 
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            InimigoVerde tempinimigoVerde = inimigoVerde.get(i);
-            formaInimigoVerde = tempinimigoVerde.getLimites();
-            if (formaNave.intersects(formaInimigoVerde)) {
-                player.setVisivel(false);
-                tempinimigoVerde.setVisible(false);
-                vidaPlayer -= 1;
-                player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
-            }
-        }
-
-        for (int i = 0; i < meteoros.size(); i++) {
-            Meteoro tempMeteoro = meteoros.get(i);
-            formaMeteoro = tempMeteoro.getLimites();
-            if (formaNave.intersects(formaMeteoro)) {
-                player.setVisivel(false);
-                tempMeteoro.setVisible(false);
-                vidaPlayer -= 2;
-                player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
-            }
-        }
-
-        for (int i = 0; i < asteroides.size(); i++) {
-            Asteroide tempAsteroide = asteroides.get(i);
-            formaAsteroides = tempAsteroide.getLimites();
-            if (formaNave.intersects(formaAsteroides)) {
-                player.setVisivel(false);
-                tempAsteroide.setVisible(false);
-                vidaPlayer -= 2;
-                player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
-            }
-        }
+       
 
         // colisao atk inimigo x player
         for (int i = 0; i < inimigoRosa.size(); i++) {
@@ -337,45 +204,6 @@ public class Horda2 extends JPanel implements ActionListener {
                 }
             }
 
-            for (int i = 0; i < inimigoVerde.size(); i++) {
-                InimigoVerde tempInimigoVerde = inimigoVerde.get(i);
-                formaInimigoVerde = tempInimigoVerde.getLimites();
-                if (formaTiro.intersects(formaInimigoVerde)) {
-                    tempTiro.setVisible(false);
-                    tempInimigoVerde.setVida(1);
-                    tempTiro.setVisible(false);
-                    if (tempInimigoVerde.getVida() <= 0) {
-                        tempInimigoVerde.setVisible(false);
-                        abateInimigoVerde += 1;
-                    }
-                }
-            }
-
-            for (int i = 0; i < inimigoLaranja.size(); i++) {
-                InimigoLaranja tempInimigoLaranja = inimigoLaranja.get(i);
-                formaInimigoLaranja = tempInimigoLaranja.getLimites();
-                if (formaTiro.intersects(formaInimigoLaranja)) {
-                    tempTiro.setVisible(false);
-                    tempInimigoLaranja.setVisible(false);
-                    abateInimigoLaranja += 1;
-                }
-            }
-
-             for (int i = 0; i < meteoros.size(); i++) {
-                Meteoro tempMeteoro =meteoros.get(i);
-                formaMeteoro = tempMeteoro.getLimites();
-                if (formaTiro.intersects(formaMeteoro)) {
-                    tempTiro.setVisible(false);
-                }
-            }
-
-             for (int i = 0; i < asteroides.size(); i++) {
-                Asteroide tempAsteroide = asteroides.get(i);
-                formaAsteroides = tempAsteroide.getLimites();
-                if (formaTiro.intersects(formaAsteroides)) {
-                    tempTiro.setVisible(false);
-                }
-            }
 
         }
     }
@@ -450,23 +278,7 @@ public class Horda2 extends JPanel implements ActionListener {
             }
         }
 
-        for (int i = 0; i < bonus.size(); i++) {
-            Escudo in = bonus.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                bonus.remove(i);
-            }
-        }
-
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            InimigoLaranja in = inimigoLaranja.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                inimigoLaranja.remove(i);
-            }
-        }
+        
 
         for (int i = 0; i < inimigoRosa.size(); i++) {
             InimigoRosa in = inimigoRosa.get(i);
@@ -477,32 +289,7 @@ public class Horda2 extends JPanel implements ActionListener {
             }
         }
 
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            InimigoVerde in = inimigoVerde.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                inimigoVerde.remove(i);
-            }
-        }
-
-        for (int i = 0; i < meteoros.size(); i++) {
-            Meteoro in = meteoros.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                meteoros.remove(i);
-            }
-        }
-
-        for (int i = 0; i < asteroides.size(); i++) {
-            Asteroide in = asteroides.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                asteroides.remove(i);
-            }
-        }
+        
         repaint();
         checarColisoes();
 
@@ -567,13 +354,7 @@ public class Horda2 extends JPanel implements ActionListener {
                 graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
             }
 
-            for (int i = 0; i < bonus.size(); i++) {
-                Escudo in = bonus.get(i);
-                in.dadosImagem();
-                ;
-                graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
-            }
-
+            
             for (int i = 0; i < inimigoRosa.size(); i++) {
                 InimigoRosa b = inimigoRosa.get(i);
                 b.dadosImagem();
@@ -582,37 +363,6 @@ public class Horda2 extends JPanel implements ActionListener {
                 graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
             }
 
-            for (int i = 0; i < inimigoVerde.size(); i++) {
-                InimigoVerde b = inimigoVerde.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-            for (int i = 0; i < inimigoLaranja.size(); i++) {
-                InimigoLaranja b = inimigoLaranja.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-            for (int i = 0; i < meteoros.size(); i++) {
-                Meteoro b = meteoros.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
-
-            for (int i = 0; i < asteroides.size(); i++) {
-                Asteroide b = asteroides.get(i);
-                b.dadosImagem();
-                b.movimenta();
-                ;
-                graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
-            }
 
         } else {
             ImageIcon fimJogo = new ImageIcon("imagens//gameover.gif");

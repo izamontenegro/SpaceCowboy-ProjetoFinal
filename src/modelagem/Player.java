@@ -22,6 +22,7 @@ public class Player implements ActionListener {
     private Timer timer;
     private boolean colisao = false;
     private boolean escudo = false;
+    private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
 
     public Player() {
         this.x = 550;
@@ -75,6 +76,13 @@ public class Player implements ActionListener {
         this.tiros.add(new AtaquePlayer(x + 17, y - 40));
         referencia = new ImageIcon("imagens//NaveVermelhaTiro.gif");
         dadosImagem();
+    }
+
+    public void tiroEspecial(){
+        this.tiros.add(new AtaquePlayer(this.x, this.y, tiroRef));
+        referencia = new ImageIcon("imagens//NaveVermelhaAtkEspecial.gif");
+        dadosImagem();
+
     }
 
     public Rectangle getLimites() {
