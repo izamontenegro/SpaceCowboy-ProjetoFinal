@@ -56,7 +56,7 @@ public class InimigoAzul implements ActionListener {
     }
 
     public void movimenta() {
-        if (this.y > 700) {
+        if (this.y > 900) {
             this.y = -300;
             Random r = new Random();
             int n = r.nextInt(1724);

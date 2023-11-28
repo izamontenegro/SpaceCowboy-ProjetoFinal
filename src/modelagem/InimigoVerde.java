@@ -2,32 +2,60 @@ package modelagem;
 
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
-public class InimigoVerde {
-    private Image imagem; 
+public class InimigoVerde implements ActionListener{
+    private Image imagem;
     private int x, y;
-    private int largura, altura; 
+    private int largura, altura;
     private boolean isVisible;
     private static int VELOCIDADE = 1;
     private int vida = 2;
 
+    private List<AtaqueInimigo> ataques;
+    private Timer timer;
 
-    public int getVida() {
-        return this.vida;
+    public List<AtaqueInimigo> getAtaques() {
+        return ataques;
     }
-
-    public void setVida(int x){
-        this.vida = this.vida - x;
-    }
-
 
     public InimigoVerde(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
+
+        ataques = new ArrayList<AtaqueInimigo>();
+
+        timer = new Timer(500, this);
+        timer.start();
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (this.x >= 0 && y <= 800) {
+            atacar();
+        } else
+            ;
+
+    }
+
+    public void atacar() {
+        this.ataques.add(new AtaqueInimigo(this.x + 12, this.y + 25));
+    }
+
+    public int getVida() {
+        return this.vida;
+    }
+
+    public void setVida(int x) {
+        this.vida = this.vida - x;
     }
 
     public void dadosImagem() {
@@ -38,7 +66,7 @@ public class InimigoVerde {
     }
 
     public void movimenta() {
-        if (this.y > 700) {
+        if (this.y > 900) {
             this.y = -300;
             Random r = new Random();
             int n = r.nextInt(1724);

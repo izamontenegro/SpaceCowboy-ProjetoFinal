@@ -25,8 +25,8 @@ public class Player implements ActionListener {
     private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
 
     public Player() {
-        this.x = 550;
-        this.y = 480;
+        this.x = 700;
+        this.y = 650;
         isVisivel = true;
 
         tiros = new ArrayList<AtaquePlayer>();
