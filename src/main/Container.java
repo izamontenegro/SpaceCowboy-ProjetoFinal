@@ -1,26 +1,36 @@
 package main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 //bibliotecas
 import javax.swing.JFrame;
-import modelagem.Fase;
+import javax.swing.Timer;
 
-public class Container extends JFrame {
+import modelagem.Home;
+
+
+public class Container extends JFrame  {
+  
 
     public Container() {
-
-        add(new Fase());
+    	add(new Home());
         setTitle("Space Cowboy - intergalactic hunt");
         setSize(1440, 728);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo( null);
+        setLocationRelativeTo(null);
         this.setResizable(false);
-        setVisible(true);
-
+        setVisible(true);  
     }
+
+ 
+
+
 
     public static void main(String[] args) {
 
         new Container();
 
     }
+
 }

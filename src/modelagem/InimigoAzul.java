@@ -2,7 +2,6 @@ package modelagem;
 
 //Bibliotecas
 import java.awt.Image;
-
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,18 +24,19 @@ public class InimigoAzul implements ActionListener {
         this.y = y;
         isVisible = true;
 
-        timer = new Timer(200, this);
+        timer = new Timer(300, this);
         timer.start();
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (colisao) {
-            sofrerDano();
-
-             isVisible = false;
-
+            referencia = new ImageIcon("imagens//inimigoAzulDanoSofrido.gif");
+            dadosImagem();
+            isVisible = false;
+            
         } else {
             referencia = new ImageIcon("imagens//inimigoAzul.gif");
             dadosImagem();
@@ -46,7 +46,7 @@ public class InimigoAzul implements ActionListener {
     public void sofrerDano() {
         referencia = new ImageIcon("imagens//inimigoAzulDanoSofrido.gif");
         dadosImagem();
-        
+
     }
 
     public void dadosImagem() {

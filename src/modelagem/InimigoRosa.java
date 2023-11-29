@@ -18,6 +18,7 @@ public class InimigoRosa implements ActionListener {
     private static int VELOCIDADE = 1;
     private List<AtaqueInimigo> ataques;
     private Timer timer;
+   
 
     public List<AtaqueInimigo> getAtaques() {
         return ataques;
@@ -30,17 +31,21 @@ public class InimigoRosa implements ActionListener {
 
         ataques = new ArrayList<AtaqueInimigo>();
 
-        timer = new Timer(1000, this);
+        timer = new Timer(2000, this);
         timer.start();
     }
 
-     @Override
+    @Override
     public void actionPerformed(ActionEvent e) {
-       atacar();
+        if (this.y >= -120) {
+            atacar();
+        }
+        else;
+
     }
 
     public void atacar() {
-        this.ataques.add(new AtaqueInimigo(this.x, this.y));
+        this.ataques.add(new AtaqueInimigo(this.x + 12, this.y + 10));
     }
 
     public void dadosImagem() {
@@ -107,6 +112,8 @@ public class InimigoRosa implements ActionListener {
         this.imagem = imagem;
     }
 
-   
-
+    public void setAtaques(List<AtaqueInimigo> ataques) {
+        this.ataques = ataques;
+    }
+    
 }

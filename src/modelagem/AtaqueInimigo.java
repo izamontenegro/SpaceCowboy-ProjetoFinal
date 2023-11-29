@@ -10,7 +10,7 @@ public class AtaqueInimigo {
     private int x, y;
     private int largura, altura;
     private boolean isVisible;
-    private static int VELOCIDADE = 8;
+    private static int VELOCIDADE = 5;
 
     public AtaqueInimigo(int x, int y) {
         this.x = x;
@@ -26,7 +26,7 @@ public class AtaqueInimigo {
     }
 
     public void movimenta() {
-        this.y -= VELOCIDADE;
+        this.y += VELOCIDADE;
 
     }
 
