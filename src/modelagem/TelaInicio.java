@@ -36,7 +36,7 @@ public class TelaInicio extends JPanel implements ActionListener {
         player = new Player();
         player.dadosImagem();
         player.setX(1100);
-        player.setY(650);
+        player.setY(850);
 
         inicializaEstrelas();
 
@@ -81,7 +81,7 @@ public class TelaInicio extends JPanel implements ActionListener {
 
         player.movimentaInicio();
 
-        if (contador % 60 == 0) {
+        if (contador % 50 == 0) {
             player.tiroSimples();
         }
 

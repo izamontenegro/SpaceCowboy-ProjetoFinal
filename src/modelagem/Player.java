@@ -68,12 +68,13 @@ public class Player implements ActionListener {
     }
 
     public void movimentaInicio() {
-        if (this.x >= 1400) {
-            this.x -= 2;
-
-        } else if (this.x < 1101) {
-            this.x += 2;
-            this.y -= 1;
+        if(this.y > -150 || this.x < 1450){
+            x += 1;
+            y -= 3;
+        }
+        else{
+            this.x = 1100;
+            this.y = 750;
         }
 
     }
