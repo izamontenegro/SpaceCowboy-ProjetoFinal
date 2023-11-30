@@ -11,7 +11,7 @@ public class AtaqueInimigo {
     private int largura, altura;
     private boolean isVisible;
     private static int VELOCIDADE = 8;
-    private ImageIcon referencia;
+    private ImageIcon referencia =  new ImageIcon("imagens//ataqueInimigoRosa.png");
 
     public AtaqueInimigo(int x, int y) {
         this.x = x;

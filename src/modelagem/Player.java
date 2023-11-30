@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
@@ -68,11 +67,10 @@ public class Player implements ActionListener {
     }
 
     public void movimentaInicio() {
-        if(this.y > -150 || this.x < 1450){
+        if (this.y > -150 || this.x < 1450) {
             x += 1;
             y -= 3;
-        }
-        else{
+        } else {
             this.x = 1100;
             this.y = 750;
         }
@@ -108,29 +106,36 @@ public class Player implements ActionListener {
 
         if (codigo == KeyEvent.VK_X) {
             tiroSimples();
-
         }
 
         if (codigo == KeyEvent.VK_UP) {
-
-            dy = -3;
+            if (this.y < 0) {
+                dy = 0;
+            } else
+                dy = -3;
 
         }
 
         if (codigo == KeyEvent.VK_DOWN) {
-
-            dy = 3;
+            if (this.y > 690) {
+                dy = 0;
+            } else
+                dy = 3;
 
         }
 
         if (codigo == KeyEvent.VK_LEFT) {
-
-            dx = -3;
+            if (this.x < 10) {
+                dx = 0;
+            } else
+                dx = -3;
         }
 
         if (codigo == KeyEvent.VK_RIGHT) {
-
-            dx = 3;
+            if (this.x > 1460) {
+                dx = 0;
+            } else
+                dx = 3;
         }
 
     }
