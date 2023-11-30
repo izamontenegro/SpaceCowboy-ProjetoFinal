@@ -5,11 +5,12 @@ import javax.swing.JFrame;
 
 
 import modelagem.FaseGeral;
+import modelagem.TelaInicio;
 
 public class Container extends JFrame {
 
     public Container() {
-        add(new FaseGeral());
+        add(new TelaInicio());
     
         setTitle("Space Cowboy - intergalactic hunt");
         setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -39,7 +39,7 @@ public class InimigoVerde implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (this.x >= 0 && y <= 800) {
+        if (this.x >= -10 && y <= 800) {
             atacar();
         } else
             ;

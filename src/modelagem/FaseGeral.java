@@ -42,7 +42,7 @@ public class FaseGeral extends JPanel implements ActionListener {
     public FaseGeral() {
         setFocusable(true);
         setDoubleBuffered(true);
-        ImageIcon referencia = new ImageIcon("imagens//fundoJogo.png");
+        ImageIcon referencia = new ImageIcon("imagens//fundodTeste.png");
         fundoFaseX = referencia.getImage();
         emJogo = true;
         addKeyListener(new TecladoAdapter());

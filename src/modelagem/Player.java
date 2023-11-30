@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -65,6 +67,17 @@ public class Player implements ActionListener {
         dadosImagem();
     }
 
+    public void movimentaInicio() {
+        if (this.x >= 1400) {
+            this.x -= 2;
+
+        } else if (this.x < 1101) {
+            this.x += 2;
+            this.y -= 1;
+        }
+
+    }
+
     public void movimenta() {
 
         y += dy;
@@ -78,7 +91,7 @@ public class Player implements ActionListener {
         dadosImagem();
     }
 
-    public void tiroEspecial(){
+    public void tiroEspecial() {
         this.tiros.add(new AtaquePlayer(this.x, this.y, tiroRef));
         referencia = new ImageIcon("imagens//NaveVermelhaAtkEspecial.gif");
         dadosImagem();
@@ -145,6 +158,14 @@ public class Player implements ActionListener {
     // Getters and Setters
     public int getX() {
         return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public int getY() {
