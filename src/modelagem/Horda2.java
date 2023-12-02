@@ -9,26 +9,26 @@ import java.util.List;
 import javax.swing.JPanel;
 
 public class Horda2 extends JPanel implements ActionListener {
-    private List<Estrelas> EstrelaBranca;
-    private List<Estrelas> EstrelaRosa;
-    private List<Estrelas> EstrelaAmarela;
-    private List<Estrelas> EstrelaAzul;
+    private List<Estrelas> Estrelas;
 
     private List<InimigoAzul> inimigoAzul;
     private List<InimigoRosa> inimigoRosa;
     private List<Asteroide> asteroides;
-    private List<BonusEscudo> bonus;
+    private List<Bonus> bonus;
 
     public Horda2() {
         setFocusable(true);
         setDoubleBuffered(true);
 
+        inicializaElementos();
+    }
+
+    public void inicializaElementos() {
         inicializaBonus();
         inicializaEstrelas();
         inicializaInimigosAzuis();
         inicializaInimigosRosa();
         inicializaAsteroides();
-
     }
 
     public List<InimigoAzul> getInimigosAzul() {
@@ -43,18 +43,24 @@ public class Horda2 extends JPanel implements ActionListener {
         return this.inimigoRosa;
     }
 
-    public List<BonusEscudo> getBonus() {
+    public List<Bonus> getBonus() {
         return this.bonus;
     }
 
     public void inicializaBonus() {
-        int quantidade[] = new int[10];
-        bonus = new ArrayList<BonusEscudo>();
+        int quantidade[] = new int[5];
+        bonus = new ArrayList<Bonus>();
 
         for (int i = 0; i < quantidade.length; i++) {
             int x = (int) (Math.random() * -1500 + 1400);
             int y = (int) (Math.random() * -3500);
-            bonus.add(new BonusEscudo(x, y));
+            bonus.add(new Bonus(x, y, 1));
+            int x2 = (int) (Math.random() * -1500 + 1400);
+            int y2 = (int) (Math.random() * -3500);
+            bonus.add(new Bonus(x2, y2, 2));
+            int x3 = (int) (Math.random() * -1500 + 1400);
+            int y3 = (int) (Math.random() * -3500);
+            bonus.add(new Bonus(x3, y3, 3));
         }
     }
 
@@ -93,34 +99,21 @@ public class Horda2 extends JPanel implements ActionListener {
     }
 
     public void inicializaEstrelas() {
-        int quantidade[] = new int[20];
-        EstrelaBranca = new ArrayList<Estrelas>();
-        EstrelaRosa = new ArrayList<Estrelas>();
-        EstrelaAmarela = new ArrayList<Estrelas>();
-        EstrelaAzul = new ArrayList<Estrelas>();
+        Estrelas = new ArrayList<Estrelas>();
 
-        for (int i = 0; i < (quantidade.length + 10); i++) {
+        for (int i = 0; i < 15; i++) {
             int x = (int) (Math.random() * -8000);
             int y = (int) (Math.random() * -500);
-            EstrelaBranca.add(new Estrelas(x, y, 1));
-        }
-
-        for (int i = 0; i < quantidade.length; i++) {
-            int x = (int) (Math.random() * -8000);
-            int y = (int) (Math.random() * -4500);
-            EstrelaAzul.add(new Estrelas(x, y, 3));
-        }
-
-        for (int j = 0; j < (quantidade.length - 10); j++) {
-            int x = (int) (Math.random() * -8000);
-            int y = (int) (Math.random() * -4500);
-            EstrelaRosa.add(new Estrelas(x, y, 2));
-        }
-
-        for (int j = 0; j < quantidade.length; j++) {
-            int x = (int) (Math.random() * -8000);
-            int y = (int) (Math.random() * -4500);
-            EstrelaAmarela.add(new Estrelas(x, y, 4));
+            Estrelas.add(new Estrelas(x, y, 1));
+            int x2 = (int) (Math.random() * -8000);
+            int y2 = (int) (Math.random() * -500);
+            Estrelas.add(new Estrelas(x2, y2, 2));
+            int x3 = (int) (Math.random() * -8000);
+            int y3 = (int) (Math.random() * -500);
+            Estrelas.add(new Estrelas(x3, y3, 3));
+            int x4 = (int) (Math.random() * -8000);
+            int y4 = (int) (Math.random() * -500);
+            Estrelas.add(new Estrelas(x4, y4, 4));
         }
     }
 
@@ -141,36 +134,12 @@ public class Horda2 extends JPanel implements ActionListener {
             }
         }
 
-        for (int p = 0; p < EstrelaBranca.size(); p++) {
-            Estrelas on = EstrelaBranca.get(p);
+        for (int p = 0; p < Estrelas.size(); p++) {
+            Estrelas on = Estrelas.get(p);
             if (on.isVisible()) {
                 on.movimenta();
             } else
-                EstrelaBranca.remove(p);
-        }
-
-        for (int p = 0; p < EstrelaRosa.size(); p++) {
-            Estrelas on = EstrelaRosa.get(p);
-            if (on.isVisible()) {
-                on.movimenta();
-            } else
-                EstrelaRosa.remove(p);
-        }
-
-        for (int p = 0; p < EstrelaAmarela.size(); p++) {
-            Estrelas on = EstrelaAmarela.get(p);
-            if (on.isVisible()) {
-                on.movimenta();
-            } else
-                EstrelaAmarela.remove(p);
-        }
-
-        for (int p = 0; p < EstrelaAzul.size(); p++) {
-            Estrelas on = EstrelaAzul.get(p);
-            if (on.isVisible()) {
-                on.movimenta();
-            } else
-                EstrelaAzul.remove(p);
+                Estrelas.remove(p);
         }
 
         for (int i = 0; i < inimigoAzul.size(); i++) {
@@ -183,7 +152,7 @@ public class Horda2 extends JPanel implements ActionListener {
         }
 
         for (int i = 0; i < bonus.size(); i++) {
-            BonusEscudo in = bonus.get(i);
+            Bonus in = bonus.get(i);
             if (in.isVisible()) {
                 in.movimenta();
             } else {
@@ -215,26 +184,8 @@ public class Horda2 extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         Graphics2D graficos = (Graphics2D) g;
 
-        for (int p = 0; p < EstrelaBranca.size(); p++) {
-            Estrelas q = EstrelaBranca.get(p);
-            q.dadosImagem();
-            graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
-        }
-
-        for (int p = 0; p < EstrelaRosa.size(); p++) {
-            Estrelas q = EstrelaRosa.get(p);
-            q.dadosImagem();
-            graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
-        }
-
-        for (int p = 0; p < EstrelaAmarela.size(); p++) {
-            Estrelas q = EstrelaAmarela.get(p);
-            q.dadosImagem();
-            graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
-        }
-
-        for (int p = 0; p < EstrelaAzul.size(); p++) {
-            Estrelas q = EstrelaAzul.get(p);
+        for (int p = 0; p < Estrelas.size(); p++) {
+            Estrelas q = Estrelas.get(p);
             q.dadosImagem();
             graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
         }
@@ -258,7 +209,7 @@ public class Horda2 extends JPanel implements ActionListener {
         }
 
         for (int i = 0; i < bonus.size(); i++) {
-            BonusEscudo in = bonus.get(i);
+            Bonus in = bonus.get(i);
             in.dadosImagem();
             ;
             graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);

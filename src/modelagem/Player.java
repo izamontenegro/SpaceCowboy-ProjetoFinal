@@ -27,7 +27,7 @@ public class Player implements ActionListener {
     private List<AtaquePlayer> tiros;
     private boolean isVisivel;
     private Timer timer;
-    private int qtdAtaquesEspeciais = 3;
+    private int qtdAtaquesEspeciais = 0;
     private int limiteEscudo = 3;
     private boolean colisao = false;
     private boolean escudo = false;
@@ -240,7 +240,7 @@ public class Player implements ActionListener {
     }
 
     public void setAtaqueEspecial(int n){
-        this.qtdAtaquesEspeciais = n;
+        this.qtdAtaquesEspeciais += n;
     }
     public List<AtaquePlayer> getTiros() {
         return tiros;

@@ -5,29 +5,39 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class BonusEscudo {
-    private Image imagem; 
+public class Bonus {
+    private Image imagem;
     private int x, y;
-    private int largura, altura; 
+    private int largura, altura;
     private boolean isVisible;
+    private ImageIcon referencia;
     private static int VELOCIDADE = 1;
-    
 
-    public BonusEscudo(int x, int y) {
+    public Bonus(int x, int y, int tipo) {
         this.x = x;
         this.y = y;
         isVisible = true;
+
+        if (tipo == 1) {
+            referencia = new ImageIcon("imagens//moedaEscudo.gif");
+            imagem = referencia.getImage();
+        } else if (tipo == 2) {
+            referencia = new ImageIcon("imagens//moedaAtaqueEspecial.gif");
+            imagem = referencia.getImage();
+        } else {
+            referencia = new ImageIcon("imagens//moedaVida.gif");
+            imagem = referencia.getImage();
+        }
     }
 
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//moedaEscudo.gif");
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);
     }
 
     public void movimenta() {
-            this.y += VELOCIDADE;
+        this.y += VELOCIDADE;
     }
 
     // Getters and Setters

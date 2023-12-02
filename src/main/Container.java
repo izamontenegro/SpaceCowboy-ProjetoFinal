@@ -3,7 +3,6 @@ package main;
 //bibliotecas
 import javax.swing.JFrame;
 import modelagem.FaseGeral;
-import modelagem.Home;
 
 public class Container extends JFrame {
 
