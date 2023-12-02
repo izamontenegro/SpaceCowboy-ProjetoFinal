@@ -71,18 +71,18 @@ public class FaseGeral extends JPanel implements ActionListener {
         inicializaMeteoros();
         inicializaAsteroides();
 
-        playSound();
-
         try {
             File audioFile = new File("sons//trilhaSonora.wav");
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-
+            
             clip = AudioSystem.getClip();
             clip.open(audioStream);
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
-
+        
+        playSound();
+        
     }
 
     public void playSound() {
