@@ -6,9 +6,15 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -24,6 +30,7 @@ public class Player implements ActionListener {
     private boolean colisao = false;
     private boolean escudo = false;
     private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
+    private Clip clip;
 
     public Player() {
         this.x = 700;
@@ -101,42 +108,72 @@ public class Player implements ActionListener {
         return new Rectangle(x, y, largura, altura);
     }
 
+    public void playSound() {
+        if (clip != null) {
+            clip.start();
+        }
+    }
+
+    public void stopSound() {
+        if (clip != null) {
+            clip.stop();
+        }
+    }
+
     public void keyPressed(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
         if (codigo == KeyEvent.VK_X) {
+            try {
+                File audioFile = new File("sons//somTiro.wav");
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+    
+                clip = AudioSystem.getClip();
+                clip.open(audioStream);
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                e.printStackTrace();
+            }
+    
+            playSound();
             tiroSimples();
+    
         }
+            
+        
+    if(codigo==KeyEvent.VK_UP)
 
-        if (codigo == KeyEvent.VK_UP) {
-            if (this.y < 0) {
-                dy = 0;
-            } else
-                dy = -3;
+    {
+        if (this.y < 0) {
+            dy = 0;
+        } else
+            dy = -3;
 
-        }
+    }
 
-        if (codigo == KeyEvent.VK_DOWN) {
-            if (this.y > 690) {
-                dy = 0;
-            } else
-                dy = 3;
+    if(codigo==KeyEvent.VK_DOWN)
+    {
+        if (this.y > 690) {
+            dy = 0;
+        } else
+            dy = 3;
 
-        }
+    }
 
-        if (codigo == KeyEvent.VK_LEFT) {
-            if (this.x < 10) {
-                dx = 0;
-            } else
-                dx = -3;
-        }
+    if(codigo==KeyEvent.VK_LEFT)
+    {
+        if (this.x < 10) {
+            dx = 0;
+        } else
+            dx = -3;
+    }
 
-        if (codigo == KeyEvent.VK_RIGHT) {
-            if (this.x > 1460) {
-                dx = 0;
-            } else
-                dx = 3;
-        }
+    if(codigo==KeyEvent.VK_RIGHT)
+    {
+        if (this.x > 1460) {
+            dx = 0;
+        } else
+            dx = 3;
+    }
 
     }
 

@@ -24,6 +24,8 @@ public class AtaquePlayer {
         this.y = y;
         isVisible = true;
         this.referencia = imagem;
+
+        
     }
 
     public void dadosImagem() {
