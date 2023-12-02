@@ -17,7 +17,7 @@ public class Horda2 extends JPanel implements ActionListener {
     private List<InimigoAzul> inimigoAzul;
     private List<InimigoRosa> inimigoRosa;
     private List<Asteroide> asteroides;
-    private List<Escudo> bonus;
+    private List<BonusEscudo> bonus;
 
     public Horda2() {
         setFocusable(true);
@@ -43,18 +43,18 @@ public class Horda2 extends JPanel implements ActionListener {
         return this.inimigoRosa;
     }
 
-    public List<Escudo> getBonus() {
+    public List<BonusEscudo> getBonus() {
         return this.bonus;
     }
 
     public void inicializaBonus() {
         int quantidade[] = new int[10];
-        bonus = new ArrayList<Escudo>();
+        bonus = new ArrayList<BonusEscudo>();
 
         for (int i = 0; i < quantidade.length; i++) {
             int x = (int) (Math.random() * -1500 + 1400);
             int y = (int) (Math.random() * -3500);
-            bonus.add(new Escudo(x, y));
+            bonus.add(new BonusEscudo(x, y));
         }
     }
 
@@ -183,7 +183,7 @@ public class Horda2 extends JPanel implements ActionListener {
         }
 
         for (int i = 0; i < bonus.size(); i++) {
-            Escudo in = bonus.get(i);
+            BonusEscudo in = bonus.get(i);
             if (in.isVisible()) {
                 in.movimenta();
             } else {
@@ -258,7 +258,7 @@ public class Horda2 extends JPanel implements ActionListener {
         }
 
         for (int i = 0; i < bonus.size(); i++) {
-            Escudo in = bonus.get(i);
+            BonusEscudo in = bonus.get(i);
             in.dadosImagem();
             ;
             graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);

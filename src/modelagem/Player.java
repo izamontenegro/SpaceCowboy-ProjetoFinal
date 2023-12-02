@@ -27,6 +27,8 @@ public class Player implements ActionListener {
     private List<AtaquePlayer> tiros;
     private boolean isVisivel;
     private Timer timer;
+    private int qtdAtaquesEspeciais = 3;
+    private int limiteEscudo = 3;
     private boolean colisao = false;
     private boolean escudo = false;
     private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
@@ -39,7 +41,7 @@ public class Player implements ActionListener {
 
         tiros = new ArrayList<AtaquePlayer>();
 
-        timer = new Timer(500, this);
+        timer = new Timer(300, this);
         timer.start();
 
     }
@@ -55,9 +57,14 @@ public class Player implements ActionListener {
         }
 
         if (escudo) {
+
             referencia = new ImageIcon("imagens//NaveAzul.gif");
             dadosImagem();
-            escudo = false;
+
+            if (limiteEscudo == 0) {
+                escudo = false;
+            }
+
         }
 
     }
@@ -71,6 +78,9 @@ public class Player implements ActionListener {
     public void sofrerDano() {
         referencia = new ImageIcon("imagens//naveVermelhaDano.gif");
         dadosImagem();
+        if (escudo) {
+            limiteEscudo -= 1;
+        }
     }
 
     public void movimentaInicio() {
@@ -101,6 +111,7 @@ public class Player implements ActionListener {
         this.tiros.add(new AtaquePlayer(this.x, this.y, tiroRef));
         referencia = new ImageIcon("imagens//NaveVermelhaAtkEspecial.gif");
         dadosImagem();
+        this.qtdAtaquesEspeciais -= 1;
 
     }
 
@@ -127,53 +138,54 @@ public class Player implements ActionListener {
             try {
                 File audioFile = new File("sons//somTiro.wav");
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-    
+
                 clip = AudioSystem.getClip();
                 clip.open(audioStream);
             } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                 e.printStackTrace();
             }
-    
+
             playSound();
-            tiroSimples();
-    
+            if (qtdAtaquesEspeciais == 0) {
+                tiroSimples();
+            }
+            else if (qtdAtaquesEspeciais != 0){
+                tiroEspecial();
+            }
+
         }
-            
-        
-    if(codigo==KeyEvent.VK_UP)
 
-    {
-        if (this.y < 0) {
-            dy = 0;
-        } else
-            dy = -3;
+        if (codigo == KeyEvent.VK_UP)
 
-    }
+        {
+            if (this.y < 0) {
+                dy = 0;
+            } else
+                dy = -3;
 
-    if(codigo==KeyEvent.VK_DOWN)
-    {
-        if (this.y > 690) {
-            dy = 0;
-        } else
-            dy = 3;
+        }
 
-    }
+        if (codigo == KeyEvent.VK_DOWN) {
+            if (this.y > 690) {
+                dy = 0;
+            } else
+                dy = 3;
 
-    if(codigo==KeyEvent.VK_LEFT)
-    {
-        if (this.x < 10) {
-            dx = 0;
-        } else
-            dx = -3;
-    }
+        }
 
-    if(codigo==KeyEvent.VK_RIGHT)
-    {
-        if (this.x > 1460) {
-            dx = 0;
-        } else
-            dx = 3;
-    }
+        if (codigo == KeyEvent.VK_LEFT) {
+            if (this.x < 10) {
+                dx = 0;
+            } else
+                dx = -3;
+        }
+
+        if (codigo == KeyEvent.VK_RIGHT) {
+            if (this.x > 1460) {
+                dx = 0;
+            } else
+                dx = 3;
+        }
 
     }
 
@@ -227,6 +239,9 @@ public class Player implements ActionListener {
         return this.escudo;
     }
 
+    public void setAtaqueEspecial(int n){
+        this.qtdAtaquesEspeciais = n;
+    }
     public List<AtaquePlayer> getTiros() {
         return tiros;
     }

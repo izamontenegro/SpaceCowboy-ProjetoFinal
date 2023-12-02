@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
 
-public class Escudo {
+public class BonusEscudo {
     private Image imagem; 
     private int x, y;
     private int largura, altura; 
@@ -13,14 +13,14 @@ public class Escudo {
     private static int VELOCIDADE = 1;
     
 
-    public Escudo(int x, int y) {
+    public BonusEscudo(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
     }
 
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//Escudo.png");
+        ImageIcon referencia = new ImageIcon("imagens//moedaEscudo.gif");
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);
