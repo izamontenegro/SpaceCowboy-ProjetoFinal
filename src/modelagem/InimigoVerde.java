@@ -11,14 +11,9 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
-public class InimigoVerde implements ActionListener{
-    private Image imagem;
-    private int x, y;
-    private int largura, altura;
-    private boolean isVisible;
+public class InimigoVerde extends Elemento implements ActionListener{
     private static int VELOCIDADE = 1;
     private int vida = 2;
-
     private List<AtaqueInimigo> ataques;
     private Timer timer;
 
@@ -27,14 +22,12 @@ public class InimigoVerde implements ActionListener{
     }
 
     public InimigoVerde(int x, int y) {
-        this.x = x;
-        this.y = y;
-        isVisible = true;
-
+        super(x, y);
         ataques = new ArrayList<AtaqueInimigo>();
-
         timer = new Timer(700, this);
         timer.start();
+
+        dadosImagem("imagens//InimigoVerde.gif");
     }
 
     @Override
@@ -58,12 +51,6 @@ public class InimigoVerde implements ActionListener{
         this.vida = this.vida - x;
     }
 
-    public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//InimigoVerde.gif");
-        imagem = referencia.getImage();
-        this.largura = imagem.getWidth(null);
-        this.altura = imagem.getHeight(null);
-    }
 
     public void movimenta() {
         if (this.y > 900) {
@@ -74,52 +61,6 @@ public class InimigoVerde implements ActionListener{
 
         } else
             this.y += VELOCIDADE;
-    }
-
-    // Getters and Setters
-
-    public Rectangle getLimites() {
-        return new Rectangle(x, y, largura, altura);
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void setVisible(boolean isVisible) {
-        this.isVisible = isVisible;
-    }
-
-    public static int getVELOCIDADE() {
-        return VELOCIDADE;
-    }
-
-    public static void setVELOCIDADE(int vELOCIDADE) {
-        VELOCIDADE = vELOCIDADE;
-    }
-
-    public Image getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Image imagem) {
-        this.imagem = imagem;
     }
 
 }

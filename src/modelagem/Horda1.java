@@ -141,20 +141,20 @@ public class Horda1 extends JPanel implements ActionListener {
 
         for (int p = 0; p < Estrelas.size(); p++) {
             Estrelas q = Estrelas.get(p);
-            q.dadosImagem();
+            q.getImagem();
             graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
         }
 
         for (int i = 0; i < inimigoAzul.size(); i++) {
             InimigoAzul in = inimigoAzul.get(i);
-            in.dadosImagem();
+            in.getImagem();
             ;
             graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
         }
 
         for (int i = 0; i < bonus.size(); i++) {
             Bonus in = bonus.get(i);
-            in.dadosImagem();
+            in.getImagem();
             ;
             graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
         }

@@ -1,39 +1,22 @@
 package modelagem;
 
 //Bibliotecas
-import java.awt.Image;
 import java.util.Random;
-import javax.swing.ImageIcon;
 
-public class Estrelas {
-    private Image imagem;
-    private int x, y;
-    private boolean isVisible;
-    ImageIcon referencia;
+public class Estrelas extends Elemento{
     private static int VELOCIDADE = 3;
 
     public Estrelas(int x, int y, int n) {
-        this.x = x;
-        this.y = y;
-        isVisible = true;
+        super(x, y);
         if (n == 1) {
-            referencia = new ImageIcon("imagens//estrelaBranca.png");
-            imagem = referencia.getImage();
+            dadosImagem("imagens//EstrelaBranca.png");
         } else if (n == 2) {
-            referencia = new ImageIcon("imagens//estrelaRosa.png");
-            imagem = referencia.getImage();
+            dadosImagem("imagens//EstrelaRosa.png");
         } else if (n == 3) {
-            referencia = new ImageIcon("imagens//estrelaAzul.png");
-            imagem = referencia.getImage();
+            dadosImagem("imagens//EstrelaAzul.png");
         } else {
-            referencia = new ImageIcon("imagens//estrelaAmarela.png");
-            imagem = referencia.getImage();
+            dadosImagem("imagens//EstrelaAmarela.png");
         }
-    }
-
-    public void dadosImagem() {
-
-        imagem = referencia.getImage();
     }
 
     public void movimenta() {
@@ -49,46 +32,4 @@ public class Estrelas {
         } else
             this.y += VELOCIDADE;
     }
-
-    // Getters and Setters
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void setVisible(boolean isVisible) {
-        this.isVisible = isVisible;
-    }
-
-    public static int getVELOCIDADE() {
-        return VELOCIDADE;
-    }
-
-    public static void setVELOCIDADE(int vELOCIDADE) {
-        VELOCIDADE = vELOCIDADE;
-    }
-
-    public Image getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Image imagem) {
-        this.imagem = imagem;
-    }
-
 }

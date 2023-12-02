@@ -137,25 +137,25 @@ public class TelaInicio extends JPanel implements ActionListener {
 
         for (int p = 0; p < EstrelaBranca.size(); p++) {
             Estrelas q = EstrelaBranca.get(p);
-            q.dadosImagem();
+            q.getImagem();
             graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
         }
 
         for (int p = 0; p < EstrelaRosa.size(); p++) {
             Estrelas q = EstrelaRosa.get(p);
-            q.dadosImagem();
+            q.getImagem();
             graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
         }
 
         for (int p = 0; p < EstrelaAmarela.size(); p++) {
             Estrelas q = EstrelaAmarela.get(p);
-            q.dadosImagem();
+            q.getImagem();
             graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
         }
 
         for (int p = 0; p < EstrelaAzul.size(); p++) {
             Estrelas q = EstrelaAzul.get(p);
-            q.dadosImagem();
+            q.getImagem();
             graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
         }
 

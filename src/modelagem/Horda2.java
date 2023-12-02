@@ -186,7 +186,7 @@ public class Horda2 extends JPanel implements ActionListener {
 
         for (int p = 0; p < Estrelas.size(); p++) {
             Estrelas q = Estrelas.get(p);
-            q.dadosImagem();
+            q.getImagem();
             graficos.drawImage(q.getImagem(), q.getX(), q.getY(), this);
         }
 
@@ -195,7 +195,7 @@ public class Horda2 extends JPanel implements ActionListener {
 
             for (int i = 0; i < ataques.size(); i++) {
                 AtaqueInimigo m = ataques.get(i);
-                m.dadosImagem();
+                m.getImagem();
                 graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
 
             }
@@ -203,21 +203,21 @@ public class Horda2 extends JPanel implements ActionListener {
 
         for (int i = 0; i < inimigoAzul.size(); i++) {
             InimigoAzul in = inimigoAzul.get(i);
-            in.dadosImagem();
+            in.getImagem();
             ;
             graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
         }
 
         for (int i = 0; i < bonus.size(); i++) {
             Bonus in = bonus.get(i);
-            in.dadosImagem();
+            in.getImagem();
             ;
             graficos.drawImage(in.getImagem(), in.getX(), in.getY(), this);
         }
 
         for (int i = 0; i < inimigoRosa.size(); i++) {
             InimigoRosa b = inimigoRosa.get(i);
-            b.dadosImagem();
+            b.getImagem();
             b.movimenta();
             ;
             graficos.drawImage(b.getImagem(), b.getX(), b.getY(), this);
