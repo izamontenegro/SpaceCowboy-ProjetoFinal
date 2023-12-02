@@ -37,7 +37,7 @@ public class Estrelas {
     }
 
     public void movimenta() {
-        if (this.y > 560) {
+        if (this.y > 850) {
             this.y = -300;
             Random a = new Random();
             int m = a.nextInt(768);

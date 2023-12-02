@@ -24,18 +24,19 @@ public class InimigoAzul implements ActionListener {
         this.y = y;
         isVisible = true;
 
-        timer = new Timer(200, this);
+        timer = new Timer(300, this);
         timer.start();
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (colisao) {
-            sofrerDano();
-
-             isVisible = false;
-
+            referencia = new ImageIcon("imagens//inimigoAzulDanoSofrido.gif");
+            dadosImagem();
+            isVisible = false;
+            
         } else {
             referencia = new ImageIcon("imagens//inimigoAzul.gif");
             dadosImagem();
@@ -45,7 +46,7 @@ public class InimigoAzul implements ActionListener {
     public void sofrerDano() {
         referencia = new ImageIcon("imagens//inimigoAzulDanoSofrido.gif");
         dadosImagem();
-        
+
     }
 
     public void dadosImagem() {
@@ -55,7 +56,7 @@ public class InimigoAzul implements ActionListener {
     }
 
     public void movimenta() {
-        if (this.y > 700) {
+        if (this.y > 900) {
             this.y = -300;
             Random r = new Random();
             int n = r.nextInt(1724);

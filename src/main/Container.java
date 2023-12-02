@@ -2,19 +2,19 @@ package main;
 
 //bibliotecas
 import javax.swing.JFrame;
-import modelagem.Fase;
+import modelagem.FaseGeral;
 import modelagem.Home;
 
 public class Container extends JFrame {
 
     public Container() {
+        add(new FaseGeral());
 
-        add(new Fase());
         setTitle("Space Cowboy - intergalactic hunt");
-        setSize(1440, 728);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo( null);
-        this.setResizable(false);
+        setLocationRelativeTo(null);
+        this.setResizable(true);
         setVisible(true);
 
     }
@@ -24,4 +24,5 @@ public class Container extends JFrame {
         new Container();
 
     }
+
 }

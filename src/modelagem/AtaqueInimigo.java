@@ -10,7 +10,8 @@ public class AtaqueInimigo {
     private int x, y;
     private int largura, altura;
     private boolean isVisible;
-    private static int VELOCIDADE = 5;
+    private static int VELOCIDADE = 8;
+    private ImageIcon referencia =  new ImageIcon("imagens//ataqueInimigoRosa.png");
 
     public AtaqueInimigo(int x, int y) {
         this.x = x;
@@ -19,14 +20,32 @@ public class AtaqueInimigo {
     }
 
     public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//ataqueInimigoRosa.png");
         imagem = referencia.getImage();
         this.largura = imagem.getWidth(null);
         this.altura = imagem.getHeight(null);
     }
 
-    public void movimenta() {
-        this.y += VELOCIDADE;
+    public void movimenta(String tipo) {
+        if (tipo == "rosa") {
+            referencia = new ImageIcon("imagens//ataqueInimigoRosa.png");
+            this.y += VELOCIDADE;
+        }
+        if (tipo == "verde"){
+            referencia = new ImageIcon("imagens//ataqueInimigoVerde.png");
+            this.x += VELOCIDADE - 2;
+            this.y += 2;
+            
+        }
+        if(tipo == "laranjaD"){
+            referencia = new ImageIcon("imagens//ataqueInimigoLaranjaD.png");
+            this.x += VELOCIDADE - 2;
+            this.y -=  2;
+        }
+        if(tipo == "laranjaE"){
+            referencia = new ImageIcon("imagens//ataqueInimigoLaranjaE.png");
+            this.x -= VELOCIDADE - 2;
+            this.y -= 2;
+        }
 
     }
 

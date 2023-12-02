@@ -36,10 +36,10 @@ public class InimigoRosa implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (this.y >= -120) {
+        if ((this.x >= 0 && this.y >= -120) && y <= 800) {
             atacar();
-        }
-        else;
+        } else
+            ;
 
     }
 
@@ -54,8 +54,9 @@ public class InimigoRosa implements ActionListener {
         this.altura = imagem.getHeight(null);
     }
 
+    //geral
     public void movimenta() {
-        if (this.y > 700) {
+        if (this.y > 900) {
             this.y = -300;
             Random r = new Random();
             int n = r.nextInt(1724);
@@ -109,6 +110,10 @@ public class InimigoRosa implements ActionListener {
 
     public void setImagem(Image imagem) {
         this.imagem = imagem;
+    }
+
+    public void setAtaques(List<AtaqueInimigo> ataques) {
+        this.ataques = ataques;
     }
 
 }

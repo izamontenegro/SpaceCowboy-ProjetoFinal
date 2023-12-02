@@ -14,12 +14,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class Fase extends JPanel implements ActionListener {
+public class FaseGeral extends JPanel implements ActionListener {
     private List<Estrelas> EstrelaBranca;
     private List<Estrelas> EstrelaRosa;
     private List<Estrelas> EstrelaAmarela;
     private List<Estrelas> EstrelaAzul;
-    private Image fundoFase;
+    private Image fundoFaseX;
     private Timer timer;
     private boolean emJogo;
     private int vidaPlayer = 6;
@@ -39,11 +39,11 @@ public class Fase extends JPanel implements ActionListener {
     private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
 
-    public Fase() {
+    public FaseGeral() {
         setFocusable(true);
         setDoubleBuffered(true);
-        ImageIcon referencia = new ImageIcon("imagens//fundoJogo.png");
-        fundoFase = referencia.getImage();
+        ImageIcon referencia = new ImageIcon("imagens//fundodTeste.png");
+        fundoFaseX = referencia.getImage();
         emJogo = true;
         addKeyListener(new TecladoAdapter());
         timer = new Timer(10, this);
@@ -120,7 +120,7 @@ public class Fase extends JPanel implements ActionListener {
     }
 
     public void inicializaMeteoros() {
-        int quantidade[] = new int[5];
+        int quantidade[] = new int[1];
         meteoros = new ArrayList<Meteoro>();
 
         for (int i = 0; i < quantidade.length; i++) {
@@ -131,7 +131,7 @@ public class Fase extends JPanel implements ActionListener {
     }
 
     public void inicializaAsteroides() {
-        int quantidade[] = new int[8];
+        int quantidade[] = new int[1];
         asteroides = new ArrayList<Asteroide>();
 
         for (int i = 0; i < quantidade.length; i++) {
@@ -183,6 +183,9 @@ public class Fase extends JPanel implements ActionListener {
         Rectangle formaNave = player.getLimites();
         Rectangle formainimigoAzul;
         Rectangle formaTiro;
+        Rectangle formaAtaqueInimigoRosa;
+        Rectangle formaAtaqueInimigoVerde;
+        Rectangle formaAtaqueInimigoLaranja;
         Rectangle formaInimigoRosa;
         Rectangle formaMeteoro;
         Rectangle formaAsteroides;
@@ -195,22 +198,11 @@ public class Fase extends JPanel implements ActionListener {
         for (int i = 0; i < inimigoAzul.size(); i++) {
             InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
             formainimigoAzul = tempinimigoAzul.getLimites();
-            if (!player.getEscudo()) {
-                if (formaNave.intersects(formainimigoAzul)) {
-                    player.setVisivel(false);
-                    tempinimigoAzul.setVisible(false);
-                    vidaPlayer -= 1;
-                    player.setColisao(true);
-                    if (vidaPlayer <= 0) {
-                        emJogo = false;
-                        System.out.println(calculaPontuacao());
-                    }
-
-                }
-            } else if (player.getEscudo()) {
-                if (formaNave.intersects(formainimigoAzul)) {
-                    tempinimigoAzul.setVisible(false);
-                }
+            if (formaNave.intersects(formainimigoAzul)) {
+                player.setVisivel(false);
+                tempinimigoAzul.setVisible(false);
+                vidaPlayer -= 1;
+                player.setColisao(true);
             }
 
         }
@@ -232,10 +224,6 @@ public class Fase extends JPanel implements ActionListener {
                 tempinimigoRosa.setVisible(false);
                 vidaPlayer -= 1;
                 player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
             }
         }
 
@@ -247,10 +235,6 @@ public class Fase extends JPanel implements ActionListener {
                 tempinimigoLaranja.setVisible(false);
                 vidaPlayer -= 1;
                 player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
             }
         }
 
@@ -262,10 +246,6 @@ public class Fase extends JPanel implements ActionListener {
                 tempinimigoVerde.setVisible(false);
                 vidaPlayer -= 1;
                 player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
             }
         }
 
@@ -277,10 +257,6 @@ public class Fase extends JPanel implements ActionListener {
                 tempMeteoro.setVisible(false);
                 vidaPlayer -= 2;
                 player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
-                }
             }
         }
 
@@ -292,10 +268,68 @@ public class Fase extends JPanel implements ActionListener {
                 tempAsteroide.setVisible(false);
                 vidaPlayer -= 2;
                 player.setColisao(true);
-                if (vidaPlayer <= 0) {
-                    emJogo = false;
-                    System.out.println(calculaPontuacao());
+            }
+        }
+
+        // colisao atk inimigo x player
+        for (int i = 0; i < inimigoRosa.size(); i++) {
+            List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
+
+            for (int x = 0; x < ataques.size(); x++) {
+                AtaqueInimigo tempataquerosa = ataques.get(x);
+                formaAtaqueInimigoRosa = tempataquerosa.getLimites();
+                if (formaAtaqueInimigoRosa.intersects(formaNave)) {
+                    tempataquerosa.setVisible(false);
+                    vidaPlayer -= 1;
+                    player.setColisao(true);
+
                 }
+
+            }
+        }
+
+        for (int i = 0; i < inimigoLaranja.size(); i++) {
+            List<AtaqueInimigo> ataquesD = inimigoLaranja.get(i).getAtaquesD();
+            List<AtaqueInimigo> ataquesE = inimigoLaranja.get(i).getAtaquesE();
+
+            for (int x = 0; x < ataquesD.size(); x++) {
+                AtaqueInimigo tempataqueLaranja = ataquesD.get(x);
+                formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
+                if (formaAtaqueInimigoLaranja.intersects(formaNave)) {
+                    tempataqueLaranja.setVisible(false);
+                    vidaPlayer -= 1;
+                    player.setColisao(true);
+
+                }
+
+            }
+
+            for (int x = 0; x < ataquesE.size(); x++) {
+                AtaqueInimigo tempataqueLaranja = ataquesE.get(x);
+                formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
+                if (formaAtaqueInimigoLaranja.intersects(formaNave)) {
+                    tempataqueLaranja.setVisible(false);
+                    vidaPlayer -= 1;
+                    player.setColisao(true);
+
+                }
+
+            }
+        }
+
+        for (int i = 0; i < inimigoVerde.size(); i++) {
+            List<AtaqueInimigo> ataques = inimigoVerde.get(i).getAtaques();
+
+            for (int x = 0; x < ataques.size(); x++) {
+                AtaqueInimigo tempataqueverde = ataques.get(x);
+                formaAtaqueInimigoVerde = tempataqueverde.getLimites();
+                if (formaAtaqueInimigoVerde.intersects(formaNave)) {
+                    tempataqueverde.setVisible(false);
+                    vidaPlayer -= 1;
+                    player.setColisao(true);
+
+                }
+
             }
         }
 
@@ -305,18 +339,14 @@ public class Fase extends JPanel implements ActionListener {
             AtaquePlayer tempTiro = ataques.get(j);
             formaTiro = tempTiro.getLimites();
 
-            if (pontuacaoTotal >= 200) {
-                for (int i = 0; i < inimigoAzul.size(); i++) {
-                    InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
-                    formainimigoAzul = tempinimigoAzul.getLimites();
-                    if (formaTiro.intersects(formainimigoAzul)) {
-                        tempinimigoAzul.setColisao(true);
+            for (int i = 0; i < inimigoAzul.size(); i++) {
+                InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
+                formainimigoAzul = tempinimigoAzul.getLimites();
+                if (formaTiro.intersects(formainimigoAzul)) {
+                    tempTiro.setVisible(false);
+                    tempinimigoAzul.setColisao(true);
+                    abateInimigoAzul += 1;
 
-                        tempTiro.setVisible(false);
-
-                        abateInimigoAzul += 1;
-
-                    }
                 }
             }
 
@@ -354,11 +384,33 @@ public class Fase extends JPanel implements ActionListener {
                 }
             }
 
+            for (int i = 0; i < meteoros.size(); i++) {
+                Meteoro tempMeteoro = meteoros.get(i);
+                formaMeteoro = tempMeteoro.getLimites();
+                if (formaTiro.intersects(formaMeteoro)) {
+                    tempTiro.setVisible(false);
+                }
+            }
+
+            for (int i = 0; i < asteroides.size(); i++) {
+                Asteroide tempAsteroide = asteroides.get(i);
+                formaAsteroides = tempAsteroide.getLimites();
+                if (formaTiro.intersects(formaAsteroides)) {
+                    tempTiro.setVisible(false);
+                }
+            }
+
+        }
+        
+        if (vidaPlayer <= 0) {
+            emJogo = false;
+            System.out.println(calculaPontuacao());
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        calculaPontuacao();
         player.movimenta();
         List<AtaquePlayer> tiros = player.getTiros();
 
@@ -378,10 +430,48 @@ public class Fase extends JPanel implements ActionListener {
             for (int j = 0; j < ataques.size(); j++) {
                 AtaqueInimigo m = ataques.get(j);
                 if (m.isVisible()) {
-                    m.movimenta();
+                    m.movimenta("rosa");
 
                 } else {
                     ataques.remove(j);
+                }
+            }
+        }
+
+        for (int i = 0; i < inimigoVerde.size(); i++) {
+            List<AtaqueInimigo> ataques = inimigoVerde.get(i).getAtaques();
+
+            for (int j = 0; j < ataques.size(); j++) {
+                AtaqueInimigo m = ataques.get(j);
+                if (m.isVisible()) {
+                    m.movimenta("verde");
+
+                } else {
+                    ataques.remove(j);
+                }
+            }
+        }
+
+        for (int i = 0; i < inimigoLaranja.size(); i++) {
+            List<AtaqueInimigo> ataquesD = inimigoLaranja.get(i).getAtaquesD();
+            List<AtaqueInimigo> ataquesE = inimigoLaranja.get(i).getAtaquesE();
+
+            for (int j = 0; j < ataquesD.size(); j++) {
+                AtaqueInimigo m = ataquesD.get(j);
+                if (m.isVisible()) {
+                    m.movimenta("laranjaD");
+
+                } else {
+                    ataquesD.remove(j);
+                }
+            }
+            for (int j = 0; j < ataquesE.size(); j++) {
+                AtaqueInimigo m = ataquesE.get(j);
+                if (m.isVisible()) {
+                    m.movimenta("laranjaE");
+
+                } else {
+                    ataquesE.remove(j);
                 }
             }
         }
@@ -489,7 +579,7 @@ public class Fase extends JPanel implements ActionListener {
         Graphics2D graficos = (Graphics2D) g;
         if (emJogo) {
 
-            graficos.drawImage(fundoFase, 0, 0, null);
+            graficos.drawImage(fundoFaseX, 0, 0, null);
 
             for (int p = 0; p < EstrelaBranca.size(); p++) {
                 Estrelas q = EstrelaBranca.get(p);
@@ -528,6 +618,39 @@ public class Fase extends JPanel implements ActionListener {
 
             for (int x = 0; x < inimigoRosa.size(); x++) {
                 List<AtaqueInimigo> ataques = inimigoRosa.get(x).getAtaques();
+
+                for (int i = 0; i < ataques.size(); i++) {
+                    AtaqueInimigo m = ataques.get(i);
+                    m.dadosImagem();
+                    graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+
+                }
+            }
+
+            for (int x = 0; x < inimigoLaranja.size(); x++) {
+                List<AtaqueInimigo> ataques = inimigoLaranja.get(x).getAtaquesD();
+
+                for (int i = 0; i < ataques.size(); i++) {
+                    AtaqueInimigo m = ataques.get(i);
+                    m.dadosImagem();
+                    graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+
+                }
+            }
+
+            for (int x = 0; x < inimigoLaranja.size(); x++) {
+                List<AtaqueInimigo> ataques = inimigoLaranja.get(x).getAtaquesE();
+
+                for (int i = 0; i < ataques.size(); i++) {
+                    AtaqueInimigo m = ataques.get(i);
+                    m.dadosImagem();
+                    graficos.drawImage(m.getImagem(), m.getX(), m.getY(), this);
+
+                }
+            }
+
+            for (int x = 0; x < inimigoVerde.size(); x++) {
+                List<AtaqueInimigo> ataques = inimigoVerde.get(x).getAtaques();
 
                 for (int i = 0; i < ataques.size(); i++) {
                     AtaqueInimigo m = ataques.get(i);
@@ -613,7 +736,7 @@ public class Fase extends JPanel implements ActionListener {
     }
 
     public int getPontos() {
-        return this.pontuacaoTotal;
+        return calculaPontuacao();
     }
 
 }

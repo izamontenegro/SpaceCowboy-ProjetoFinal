@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -22,10 +23,11 @@ public class Player implements ActionListener {
     private Timer timer;
     private boolean colisao = false;
     private boolean escudo = false;
+    private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
 
     public Player() {
-        this.x = 550;
-        this.y = 480;
+        this.x = 700;
+        this.y = 650;
         isVisivel = true;
 
         tiros = new ArrayList<AtaquePlayer>();
@@ -64,6 +66,17 @@ public class Player implements ActionListener {
         dadosImagem();
     }
 
+    public void movimentaInicio() {
+        if (this.y > -150 || this.x < 1450) {
+            x += 1;
+            y -= 3;
+        } else {
+            this.x = 1100;
+            this.y = 750;
+        }
+
+    }
+
     public void movimenta() {
 
         y += dy;
@@ -73,6 +86,15 @@ public class Player implements ActionListener {
 
     public void tiroSimples() {
         this.tiros.add(new AtaquePlayer(x + 17, y - 40));
+        referencia = new ImageIcon("imagens//NaveVermelhaTiro.gif");
+        dadosImagem();
+    }
+
+    public void tiroEspecial() {
+        this.tiros.add(new AtaquePlayer(this.x, this.y, tiroRef));
+        referencia = new ImageIcon("imagens//NaveVermelhaAtkEspecial.gif");
+        dadosImagem();
+
     }
 
     public Rectangle getLimites() {
@@ -87,25 +109,33 @@ public class Player implements ActionListener {
         }
 
         if (codigo == KeyEvent.VK_UP) {
-
-            dy = -3;
+            if (this.y < 0) {
+                dy = 0;
+            } else
+                dy = -3;
 
         }
 
         if (codigo == KeyEvent.VK_DOWN) {
-
-            dy = 3;
+            if (this.y > 690) {
+                dy = 0;
+            } else
+                dy = 3;
 
         }
 
         if (codigo == KeyEvent.VK_LEFT) {
-
-            dx = -3;
+            if (this.x < 10) {
+                dx = 0;
+            } else
+                dx = -3;
         }
 
         if (codigo == KeyEvent.VK_RIGHT) {
-
-            dx = 3;
+            if (this.x > 1460) {
+                dx = 0;
+            } else
+                dx = 3;
         }
 
     }
@@ -134,6 +164,14 @@ public class Player implements ActionListener {
     // Getters and Setters
     public int getX() {
         return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 
     public int getY() {
