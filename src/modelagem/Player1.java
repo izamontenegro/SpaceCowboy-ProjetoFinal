@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
-public class Player implements ActionListener {
+public class Player1 implements ActionListener {
     private int x, y;
     private int dx, dy;
     private Image imagem;
@@ -23,7 +23,7 @@ public class Player implements ActionListener {
     private boolean colisao = false;
     private boolean escudo = false;
 
-    public Player() {
+    public Player1() {
         this.x = 550;
         this.y = 480;
         isVisivel = true;
