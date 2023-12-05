@@ -34,7 +34,7 @@ public class FaseGeral extends JPanel implements ActionListener {
     private int vidaPlayer = 6;
     private Clip clip;
 
-    private Player player;
+    private Player1 player;
     private List<InimigoAzul> inimigoAzul;
     private List<InimigoVerde> inimigoVerde;
     private List<InimigoRosa> inimigoRosa;
@@ -59,7 +59,7 @@ public class FaseGeral extends JPanel implements ActionListener {
         timer = new Timer(10, this);
         timer.start();
 
-        player = new Player();
+        player = new Player1();
         player.dadosImagem();
 
         inicializaBonus();
