@@ -27,7 +27,8 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
     private Image fundoFaseX;
     private Timer timer;
     private boolean emJogo;
-    private int vidaPlayer = 6;
+    private int vidaPlayer1 = 6;
+    private int vidaPlayer2 = 6;
     private Clip clip;
 
     private Player1 player1;
@@ -44,6 +45,8 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
     private int abateInimigoVerde = 0;
     private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
+    private Coracao1 coracao1;
+    private Coracao2 coracao2;
 
     public FaseMultiplayer() {
         setFocusable(true);
@@ -51,6 +54,12 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
 
         inicializaElementos();
         adicionaSomFundo();
+
+        coracao1 = new Coracao1(0, -50);
+        coracao1.dadosImagem();
+
+        coracao2 = new Coracao2(1770, -50);
+        coracao2.dadosImagem();
     }
 
     public void inicializaElementos() {
@@ -240,7 +249,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player1.setVisivel(false);
                     tempinimigoAzul.setVisible(false);
                     if (player1.getEscudo() == false) {
-                        vidaPlayer -= 1;
+                        vidaPlayer1 -= 1;
                     }
     
                     player1.setColisao(true);
@@ -257,7 +266,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player2.setVisivel(false);
                     tempinimigoAzul.setVisible(false);
                     if (player2.getEscudo() == false) {
-                        vidaPlayer -= 1;
+                        vidaPlayer2 -= 1;
                     }
     
                     player2.setColisao(true);
@@ -274,7 +283,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player1.setVisivel(false);
                     tempinimigoRosa.setVisible(false);
                     if (player1.getEscudo() == false) {
-                        vidaPlayer -= 1;
+                        vidaPlayer1 -= 1;
                     }
                     player1.setColisao(true);
                 }
@@ -289,7 +298,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player2.setVisivel(false);
                     tempinimigoRosa.setVisible(false);
                     if (player2.getEscudo() == false) {
-                        vidaPlayer -= 1;
+                        vidaPlayer2 -= 1;
                     }
                     player2.setColisao(true);
                 }
@@ -304,7 +313,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player1.setVisivel(false);
                     tempinimigoLaranja.setVisible(false);
                     if (player1.getEscudo() == false) {
-                        vidaPlayer -= 1;
+                        vidaPlayer1 -= 1;
                     }
                     player1.setColisao(true);
                 }
@@ -319,7 +328,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player2.setVisivel(false);
                     tempinimigoLaranja.setVisible(false);
                     if (player2.getEscudo() == false) {
-                        vidaPlayer -= 1;
+                        vidaPlayer2 -= 1;
                     }
                     player2.setColisao(true);
                 }
@@ -334,7 +343,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player1.setVisivel(false);
                     tempinimigoVerde.setVisible(false);
                     if (player1.getEscudo() == false) {
-                        vidaPlayer -= 1;
+                        vidaPlayer1 -= 1;
                     }
                     player1.setColisao(true);
                 }
@@ -349,7 +358,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player2.setVisivel(false);
                     tempinimigoVerde.setVisible(false);
                     if (player2.getEscudo() == false) {
-                        vidaPlayer -= 1;
+                        vidaPlayer2 -= 1;
                     }
                     player2.setColisao(true);
                 }
@@ -364,7 +373,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player1.setVisivel(false);
                     tempMeteoro.setVisible(false);
                     if (player1.getEscudo() == false) {
-                        vidaPlayer -= 2;
+                        vidaPlayer1 -= 2;
                     }
                     player1.setColisao(true);
                 }
@@ -379,7 +388,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player2.setVisivel(false);
                     tempMeteoro.setVisible(false);
                     if (player2.getEscudo() == false) {
-                        vidaPlayer -= 2;
+                        vidaPlayer2 -= 2;
                     }
                     player2.setColisao(true);
                 }
@@ -394,7 +403,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player1.setVisivel(false);
                     tempAsteroide.setVisible(false);
                     if (player1.getEscudo() == false) {
-                        vidaPlayer -= 2;
+                        vidaPlayer1 -= 2;
                     }
                     player1.setColisao(true);
                 }
@@ -409,7 +418,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     player2.setVisivel(false);
                     tempAsteroide.setVisible(false);
                     if (player2.getEscudo() == false) {
-                        vidaPlayer -= 2;
+                        vidaPlayer2 -= 2;
                     }
                     player2.setColisao(true);
                 }
@@ -449,7 +458,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     if (formaAtaqueInimigoRosa.intersects(formaNave1)) {
                         tempataquerosa.setVisible(false);
                         if (player1.getEscudo() == false) {
-                            vidaPlayer -= 1;
+                            vidaPlayer1 -= 1;
                         }
                         player1.setColisao(true);
     
@@ -469,7 +478,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     if (formaAtaqueInimigoRosa.intersects(formaNave2)) {
                         tempataquerosa.setVisible(false);
                         if (player2.getEscudo() == false) {
-                            vidaPlayer -= 1;
+                            vidaPlayer2 -= 1;
                         }
                         player2.setColisao(true);
     
@@ -490,7 +499,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     if (formaAtaqueInimigoLaranja.intersects(formaNave1)) {
                         tempataqueLaranja.setVisible(false);
                         if (player1.getEscudo() == false) {
-                            vidaPlayer -= 1;
+                            vidaPlayer1 -= 1;
                         }
                         player1.setColisao(true);
     
@@ -504,7 +513,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     if (formaAtaqueInimigoLaranja.intersects(formaNave1)) {
                         tempataqueLaranja.setVisible(false);
                         if (player1.getEscudo() == false) {
-                            vidaPlayer -= 1;
+                            vidaPlayer1 -= 1;
                         }
                         player1.setColisao(true);
     
@@ -525,7 +534,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     if (formaAtaqueInimigoLaranja.intersects(formaNave2)) {
                         tempataqueLaranja.setVisible(false);
                         if (player2.getEscudo() == false) {
-                            vidaPlayer -= 1;
+                            vidaPlayer2 -= 1;
                         }
                         player2.setColisao(true);
     
@@ -539,7 +548,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     if (formaAtaqueInimigoLaranja.intersects(formaNave2)) {
                         tempataqueLaranja.setVisible(false);
                         if (player2.getEscudo() == false) {
-                            vidaPlayer -= 1;
+                            vidaPlayer2 -= 1;
                         }
                         player2.setColisao(true);
     
@@ -559,7 +568,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     if (formaAtaqueInimigoVerde.intersects(formaNave1)) {
                         tempataqueverde.setVisible(false);
                         if (player1.getEscudo() == false) {
-                            vidaPlayer -= 1;
+                            vidaPlayer1 -= 1;
                         }
                         player1.setColisao(true);
     
@@ -579,7 +588,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
                     if (formaAtaqueInimigoVerde.intersects(formaNave2)) {
                         tempataqueverde.setVisible(false);
                         if (player2.getEscudo() == false) {
-                            vidaPlayer -= 1;
+                            vidaPlayer2 -= 1;
                         }
                         player2.setColisao(true);
     
@@ -732,7 +741,7 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
             }            
         }
 
-        if (vidaPlayer <= 0) {
+        if (vidaPlayer1 <= 0 && vidaPlayer2 <= 0) {
             emJogo = false;
             System.out.println(calculaPontuacao());
         }
@@ -936,6 +945,8 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
 
             graficos.drawImage(player1.getImagem(), player1.getX(), player1.getY(), this);
             graficos.drawImage(player2.getImagem(), player2.getX(), player2.getY(), this);
+            graficos.drawImage(coracao1.getImagem(vidaPlayer1), coracao1.getX(), coracao1.getY(), this);
+            graficos.drawImage(coracao2.getImagem(vidaPlayer2), coracao2.getX(), coracao2.getY(), this);
 
             List<AtaquePlayer> tiros1 = player1.getTiros();
             List<AtaquePlayer> tiros2 = player2.getTiros();
