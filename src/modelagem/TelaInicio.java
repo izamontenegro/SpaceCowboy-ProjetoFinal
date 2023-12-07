@@ -22,7 +22,7 @@ public class TelaInicio extends JPanel implements ActionListener {
     private Timer timer;
     private int contador = 0;
 
-    private Player player;
+    private Player1 player;
 
     public TelaInicio() {
         setFocusable(true);
@@ -33,7 +33,7 @@ public class TelaInicio extends JPanel implements ActionListener {
         timer = new Timer(10, this);
         timer.start();
 
-        player = new Player();
+        player = new Player1();
         player.dadosImagem();
         player.setX(1100);
         player.setY(850);

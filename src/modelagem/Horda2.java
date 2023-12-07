@@ -11,10 +11,6 @@ import javax.swing.JPanel;
 public class Horda2 extends JPanel implements ActionListener {
     private List<Estrelas> Estrelas;
 
-<<<<<<< HEAD
-    private Player1 player;
-=======
->>>>>>> dev-gs2
     private List<InimigoAzul> inimigoAzul;
     private List<InimigoRosa> inimigoRosa;
     private List<Asteroide> asteroides;
@@ -24,13 +20,8 @@ public class Horda2 extends JPanel implements ActionListener {
         setFocusable(true);
         setDoubleBuffered(true);
 
-<<<<<<< HEAD
-        player = new Player1();
-        player.dadosImagem();
-=======
         inicializaElementos();
     }
->>>>>>> dev-gs2
 
     public void inicializaElementos() {
         inicializaBonus();

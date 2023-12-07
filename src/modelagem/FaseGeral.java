@@ -12,12 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-<<<<<<< HEAD
-
-=======
-import java.io.File;
-import java.io.IOException;
->>>>>>> dev-gs2
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -34,13 +28,9 @@ public class FaseGeral extends JPanel implements ActionListener {
     private Timer timer;
     private boolean emJogo;
     private int vidaPlayer = 6;
-<<<<<<< HEAD
     private Clip clip;
 
     private Player1 player;
-=======
-    private Player player;
->>>>>>> dev-gs2
     private List<InimigoAzul> inimigoAzul;
     private List<InimigoVerde> inimigoVerde;
     private List<InimigoRosa> inimigoRosa;
@@ -53,7 +43,6 @@ public class FaseGeral extends JPanel implements ActionListener {
     private int abateInimigoVerde = 0;
     private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
-    private Clip clip;
 
     public FaseGeral() {
         setFocusable(true);
@@ -70,12 +59,8 @@ public class FaseGeral extends JPanel implements ActionListener {
         addKeyListener(new TecladoAdapter());
         timer = new Timer(10, this);
         timer.start();
-<<<<<<< HEAD
 
         player = new Player1();
-=======
-        player = new Player();
->>>>>>> dev-gs2
         player.dadosImagem();
 
         inicializaBonus();
@@ -88,24 +73,16 @@ public class FaseGeral extends JPanel implements ActionListener {
         inicializaAsteroides();
     }
 
-<<<<<<< HEAD
-        try {
-            File audioFile = new File("sons//trilhaSonora.wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-            
-=======
     public void adicionaSomFundo() {
         try {
             File audioFile = new File("sons//somfundo.wav");
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
->>>>>>> dev-gs2
             clip = AudioSystem.getClip();
             clip.open(audioStream);
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
         
         playSound();
         
@@ -122,10 +99,6 @@ public class FaseGeral extends JPanel implements ActionListener {
         if (clip != null) {
             clip.stop();
         }
-=======
-
-        playSound();
->>>>>>> dev-gs2
     }
 
     public void inicializaBonus() {
@@ -770,19 +743,6 @@ public class FaseGeral extends JPanel implements ActionListener {
         @Override
         public void keyReleased(KeyEvent e) {
             player.keyReleased(e);
-        }
-    }
-
-    public void playSound() {
-        if (clip != null) {
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-        }
-    }
-
-    public void stopSound() {
-        if (clip != null) {
-            clip.stop();
         }
     }
 

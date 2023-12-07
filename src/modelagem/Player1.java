@@ -34,15 +34,9 @@ public class Player1 implements ActionListener {
     private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
     private Clip clip;
 
-<<<<<<< HEAD:src/modelagem/Player1.java
     public Player1() {
         this.x = 550;
         this.y = 480;
-=======
-    public Player() {
-        this.x = 700;
-        this.y = 650;
->>>>>>> dev-gs2:src/modelagem/Player.java
         isVisivel = true;
 
         tiros = new ArrayList<AtaquePlayer>();
