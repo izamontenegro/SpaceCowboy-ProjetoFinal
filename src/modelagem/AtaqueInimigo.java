@@ -1,77 +1,35 @@
 package modelagem;
 
-//Bibliotecas
-import java.awt.Image;
-import java.awt.Rectangle;
-import javax.swing.ImageIcon;
-
-public class AtaqueInimigo {
-    private Image imagem;
-    private int x, y;
-    private int largura, altura;
-    private boolean isVisible;
-    private static int VELOCIDADE = 5;
+public class AtaqueInimigo extends Elemento{
+    private static int VELOCIDADE = 8;
 
     public AtaqueInimigo(int x, int y) {
-        this.x = x;
-        this.y = y;
-        isVisible = true;
+        super(x, y);
     }
 
-    public void dadosImagem() {
-        ImageIcon referencia = new ImageIcon("imagens//ataqueInimigoRosa.png");
-        imagem = referencia.getImage();
-        this.largura = imagem.getWidth(null);
-        this.altura = imagem.getHeight(null);
+    public void movimenta(String tipo) {
+        if (tipo == "rosa") {
+            dadosImagem("imagens//ataqueInimigoRosa.png");
+            this.y += VELOCIDADE;
+        }
+        if (tipo == "verde"){
+            dadosImagem("imagens//ataqueInimigoRosa.png");
+            this.x += VELOCIDADE - 2;
+            this.y += 2;
+            
+        }
+        if(tipo == "laranjaD"){
+             dadosImagem("imagens//ataqueInimigoRosa.png");
+            this.x += VELOCIDADE - 2;
+            this.y -=  2;
+        }
+        if(tipo == "laranjaE"){
+             dadosImagem("imagens//ataqueInimigoRosa.png");
+            this.x -= VELOCIDADE - 2;
+            this.y -= 2;
+        }
+
     }
 
-    public void movimenta() {
-        this.y += VELOCIDADE;
-
-    }
-
-    // Getters and Setters
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void setVisible(boolean isVisible) {
-        this.isVisible = isVisible;
-    }
-
-    public static int getVELOCIDADE() {
-        return VELOCIDADE;
-    }
-
-    public static void setVELOCIDADE(int vELOCIDADE) {
-        VELOCIDADE = vELOCIDADE;
-    }
-
-    public Image getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(Image imagem) {
-        this.imagem = imagem;
-    }
-
-    public Rectangle getLimites() {
-        return new Rectangle(x, y, largura, altura);
-    }
+    
 }

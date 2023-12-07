@@ -1,60 +1,21 @@
 package main;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 //bibliotecas
 import javax.swing.JFrame;
-import javax.swing.Timer;
+import modelagem.FaseGeral;
 
-import modelagem.Horda1;
-import modelagem.Horda2;
-
-public class Container extends JFrame implements ActionListener {
-    Timer timer;
-    int contador;
-    Horda1 fase1 = new Horda1();
-    Horda2 fase2 = new Horda2();
-    boolean faseAtiva = false;
+public class Container extends JFrame {
 
     public Container() {
-        timer = new Timer(1000, this);
-        timer.start();
+        add(new FaseGeral());
 
         setTitle("Space Cowboy - intergalactic hunt");
-        setSize(1440, 728);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        this.setResizable(false);
+        this.setResizable(true);
         setVisible(true);
 
-        alternarFase();
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        contador++;
-        System.out.println(contador);
-
-        if (contador == 5) {
-            alternarFase();
-        }
-
-    }
-
-    private void alternarFase() {
-        if (faseAtiva) {
-            remove(fase1);
-            add(fase2);
-        } else {
-            remove(fase2);
-            add(fase1);
-        }
-
-        faseAtiva = !faseAtiva;
-        revalidate();
-        repaint();
     }
 
     public static void main(String[] args) {

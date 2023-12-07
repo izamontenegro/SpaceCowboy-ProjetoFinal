@@ -6,8 +6,15 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -20,17 +27,27 @@ public class Player1 implements ActionListener {
     private List<AtaquePlayer> tiros;
     private boolean isVisivel;
     private Timer timer;
+    private int qtdAtaquesEspeciais = 0;
+    private int limiteEscudo = 3;
     private boolean colisao = false;
     private boolean escudo = false;
+    private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
+    private Clip clip;
 
+<<<<<<< HEAD:src/modelagem/Player1.java
     public Player1() {
         this.x = 550;
         this.y = 480;
+=======
+    public Player() {
+        this.x = 700;
+        this.y = 650;
+>>>>>>> dev-gs2:src/modelagem/Player.java
         isVisivel = true;
 
         tiros = new ArrayList<AtaquePlayer>();
 
-        timer = new Timer(500, this);
+        timer = new Timer(300, this);
         timer.start();
 
     }
@@ -46,9 +63,14 @@ public class Player1 implements ActionListener {
         }
 
         if (escudo) {
+
             referencia = new ImageIcon("imagens//NaveAzul.gif");
             dadosImagem();
-            escudo = false;
+
+            if (limiteEscudo == 0) {
+                escudo = false;
+            }
+
         }
 
     }
@@ -62,6 +84,20 @@ public class Player1 implements ActionListener {
     public void sofrerDano() {
         referencia = new ImageIcon("imagens//naveVermelhaDano.gif");
         dadosImagem();
+        if (escudo) {
+            limiteEscudo -= 1;
+        }
+    }
+
+    public void movimentaInicio() {
+        if (this.y > -150 || this.x < 1450) {
+            x += 1;
+            y -= 3;
+        } else {
+            this.x = 1100;
+            this.y = 750;
+        }
+
     }
 
     public void movimenta() {
@@ -77,38 +113,84 @@ public class Player1 implements ActionListener {
         dadosImagem();
     }
 
+    public void tiroEspecial() {
+        this.tiros.add(new AtaquePlayer(this.x, this.y, tiroRef));
+        referencia = new ImageIcon("imagens//NaveVermelhaAtkEspecial.gif");
+        dadosImagem();
+        this.qtdAtaquesEspeciais -= 1;
+
+    }
+
     public Rectangle getLimites() {
         return new Rectangle(x, y, largura, altura);
+    }
+
+    public void playSound() {
+        if (clip != null) {
+            clip.start();
+        }
+    }
+
+    public void stopSound() {
+        if (clip != null) {
+            clip.stop();
+        }
     }
 
     public void keyPressed(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
         if (codigo == KeyEvent.VK_X) {
-            tiroSimples();
+            try {
+                File audioFile = new File("sons//somTiro.wav");
+                AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+
+                clip = AudioSystem.getClip();
+                clip.open(audioStream);
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                e.printStackTrace();
+            }
+
+            playSound();
+            if (qtdAtaquesEspeciais == 0) {
+                tiroSimples();
+            }
+            else if (qtdAtaquesEspeciais != 0){
+                tiroEspecial();
+            }
 
         }
 
-        if (codigo == KeyEvent.VK_UP) {
+        if (codigo == KeyEvent.VK_UP)
 
-            dy = -3;
+        {
+            if (this.y < 0) {
+                dy = 0;
+            } else
+                dy = -3;
 
         }
 
         if (codigo == KeyEvent.VK_DOWN) {
-
-            dy = 3;
+            if (this.y > 690) {
+                dy = 0;
+            } else
+                dy = 3;
 
         }
 
         if (codigo == KeyEvent.VK_LEFT) {
-
-            dx = -3;
+            if (this.x < 10) {
+                dx = 0;
+            } else
+                dx = -3;
         }
 
         if (codigo == KeyEvent.VK_RIGHT) {
-
-            dx = 3;
+            if (this.x > 1460) {
+                dx = 0;
+            } else
+                dx = 3;
         }
 
     }
@@ -139,6 +221,14 @@ public class Player1 implements ActionListener {
         return x;
     }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public int getY() {
         return y;
     }
@@ -155,6 +245,9 @@ public class Player1 implements ActionListener {
         return this.escudo;
     }
 
+    public void setAtaqueEspecial(int n){
+        this.qtdAtaquesEspeciais += n;
+    }
     public List<AtaquePlayer> getTiros() {
         return tiros;
     }
