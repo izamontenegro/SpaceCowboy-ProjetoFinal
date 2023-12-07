@@ -232,459 +232,504 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
         Rectangle formaEscudo;
 
         // COLISÕES NAVE x ELEMENTOS
-        for (int i = 0; i < inimigoAzul.size(); i++) {
-            InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
-            formainimigoAzul = tempinimigoAzul.getLimites();
-            if (formaNave1.intersects(formainimigoAzul)) {
-                player1.setVisivel(false);
-                tempinimigoAzul.setVisible(false);
-                if (player1.getEscudo() == false) {
-                    vidaPlayer -= 1;
+        if (inimigoAzul != null) {
+            for (int i = 0; i < inimigoAzul.size(); i++) {
+                InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
+                formainimigoAzul = tempinimigoAzul.getLimites();
+                if (formaNave1.intersects(formainimigoAzul)) {
+                    player1.setVisivel(false);
+                    tempinimigoAzul.setVisible(false);
+                    if (player1.getEscudo() == false) {
+                        vidaPlayer -= 1;
+                    }
+    
+                    player1.setColisao(true);
                 }
-
-                player1.setColisao(true);
-            }
-
+    
+            }   
         }
 
-        for (int i = 0; i < inimigoAzul.size(); i++) {
-            InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
-            formainimigoAzul = tempinimigoAzul.getLimites();
-            if (formaNave2.intersects(formainimigoAzul)) {
-                player2.setVisivel(false);
-                tempinimigoAzul.setVisible(false);
-                if (player2.getEscudo() == false) {
-                    vidaPlayer -= 1;
+        if(inimigoAzul != null){
+            for (int i = 0; i < inimigoAzul.size(); i++) {
+                InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
+                formainimigoAzul = tempinimigoAzul.getLimites();
+                if (formaNave2.intersects(formainimigoAzul)) {
+                    player2.setVisivel(false);
+                    tempinimigoAzul.setVisible(false);
+                    if (player2.getEscudo() == false) {
+                        vidaPlayer -= 1;
+                    }
+    
+                    player2.setColisao(true);
                 }
-
-                player2.setColisao(true);
+    
             }
-
         }
 
-        for (int i = 0; i < inimigoRosa.size(); i++) {
-            InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
-            formaInimigoRosa = tempinimigoRosa.getLimites();
-            if (formaNave1.intersects(formaInimigoRosa)) {
-                player1.setVisivel(false);
-                tempinimigoRosa.setVisible(false);
-                if (player1.getEscudo() == false) {
-                    vidaPlayer -= 1;
+        if(inimigoRosa != null){
+            for (int i = 0; i < inimigoRosa.size(); i++) {
+                InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
+                formaInimigoRosa = tempinimigoRosa.getLimites();
+                if (formaNave1.intersects(formaInimigoRosa)) {
+                    player1.setVisivel(false);
+                    tempinimigoRosa.setVisible(false);
+                    if (player1.getEscudo() == false) {
+                        vidaPlayer -= 1;
+                    }
+                    player1.setColisao(true);
                 }
-                player1.setColisao(true);
             }
         }
 
-        for (int i = 0; i < inimigoRosa.size(); i++) {
-            InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
-            formaInimigoRosa = tempinimigoRosa.getLimites();
-            if (formaNave2.intersects(formaInimigoRosa)) {
-                player2.setVisivel(false);
-                tempinimigoRosa.setVisible(false);
-                if (player2.getEscudo() == false) {
-                    vidaPlayer -= 1;
+        if(inimigoRosa != null){
+            for (int i = 0; i < inimigoRosa.size(); i++) {
+                InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
+                formaInimigoRosa = tempinimigoRosa.getLimites();
+                if (formaNave2.intersects(formaInimigoRosa)) {
+                    player2.setVisivel(false);
+                    tempinimigoRosa.setVisible(false);
+                    if (player2.getEscudo() == false) {
+                        vidaPlayer -= 1;
+                    }
+                    player2.setColisao(true);
                 }
-                player2.setColisao(true);
             }
         }
 
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            InimigoLaranja tempinimigoLaranja = inimigoLaranja.get(i);
-            formaInimigoLaranja = tempinimigoLaranja.getLimites();
-            if (formaNave1.intersects(formaInimigoLaranja)) {
-                player1.setVisivel(false);
-                tempinimigoLaranja.setVisible(false);
-                if (player1.getEscudo() == false) {
-                    vidaPlayer -= 1;
+        if (inimigoLaranja != null) {
+            for (int i = 0; i < inimigoLaranja.size(); i++) {
+                InimigoLaranja tempinimigoLaranja = inimigoLaranja.get(i);
+                formaInimigoLaranja = tempinimigoLaranja.getLimites();
+                if (formaNave1.intersects(formaInimigoLaranja)) {
+                    player1.setVisivel(false);
+                    tempinimigoLaranja.setVisible(false);
+                    if (player1.getEscudo() == false) {
+                        vidaPlayer -= 1;
+                    }
+                    player1.setColisao(true);
                 }
-                player1.setColisao(true);
-            }
+            } 
         }
 
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            InimigoLaranja tempinimigoLaranja = inimigoLaranja.get(i);
-            formaInimigoLaranja = tempinimigoLaranja.getLimites();
-            if (formaNave2.intersects(formaInimigoLaranja)) {
-                player2.setVisivel(false);
-                tempinimigoLaranja.setVisible(false);
-                if (player2.getEscudo() == false) {
-                    vidaPlayer -= 1;
+        if(inimigoLaranja != null){
+            for (int i = 0; i < inimigoLaranja.size(); i++) {
+                InimigoLaranja tempinimigoLaranja = inimigoLaranja.get(i);
+                formaInimigoLaranja = tempinimigoLaranja.getLimites();
+                if (formaNave2.intersects(formaInimigoLaranja)) {
+                    player2.setVisivel(false);
+                    tempinimigoLaranja.setVisible(false);
+                    if (player2.getEscudo() == false) {
+                        vidaPlayer -= 1;
+                    }
+                    player2.setColisao(true);
                 }
-                player2.setColisao(true);
             }
         }
 
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            InimigoVerde tempinimigoVerde = inimigoVerde.get(i);
-            formaInimigoVerde = tempinimigoVerde.getLimites();
-            if (formaNave1.intersects(formaInimigoVerde)) {
-                player1.setVisivel(false);
-                tempinimigoVerde.setVisible(false);
-                if (player1.getEscudo() == false) {
-                    vidaPlayer -= 1;
+        if(inimigoVerde != null){
+            for (int i = 0; i < inimigoVerde.size(); i++) {
+                InimigoVerde tempinimigoVerde = inimigoVerde.get(i);
+                formaInimigoVerde = tempinimigoVerde.getLimites();
+                if (formaNave1.intersects(formaInimigoVerde)) {
+                    player1.setVisivel(false);
+                    tempinimigoVerde.setVisible(false);
+                    if (player1.getEscudo() == false) {
+                        vidaPlayer -= 1;
+                    }
+                    player1.setColisao(true);
                 }
-                player1.setColisao(true);
             }
         }
 
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            InimigoVerde tempinimigoVerde = inimigoVerde.get(i);
-            formaInimigoVerde = tempinimigoVerde.getLimites();
-            if (formaNave2.intersects(formaInimigoVerde)) {
-                player2.setVisivel(false);
-                tempinimigoVerde.setVisible(false);
-                if (player2.getEscudo() == false) {
-                    vidaPlayer -= 1;
+        if(inimigoVerde != null){
+            for (int i = 0; i < inimigoVerde.size(); i++) {
+                InimigoVerde tempinimigoVerde = inimigoVerde.get(i);
+                formaInimigoVerde = tempinimigoVerde.getLimites();
+                if (formaNave2.intersects(formaInimigoVerde)) {
+                    player2.setVisivel(false);
+                    tempinimigoVerde.setVisible(false);
+                    if (player2.getEscudo() == false) {
+                        vidaPlayer -= 1;
+                    }
+                    player2.setColisao(true);
                 }
-                player2.setColisao(true);
             }
         }
 
-        for (int i = 0; i < meteoros.size(); i++) {
-            Meteoro tempMeteoro = meteoros.get(i);
-            formaMeteoro = tempMeteoro.getLimites();
-            if (formaNave1.intersects(formaMeteoro)) {
-                player1.setVisivel(false);
-                tempMeteoro.setVisible(false);
-                if (player1.getEscudo() == false) {
-                    vidaPlayer -= 2;
+        if(meteoros != null){
+            for (int i = 0; i < meteoros.size(); i++) {
+                Meteoro tempMeteoro = meteoros.get(i);
+                formaMeteoro = tempMeteoro.getLimites();
+                if (formaNave1.intersects(formaMeteoro)) {
+                    player1.setVisivel(false);
+                    tempMeteoro.setVisible(false);
+                    if (player1.getEscudo() == false) {
+                        vidaPlayer -= 2;
+                    }
+                    player1.setColisao(true);
                 }
-                player1.setColisao(true);
             }
         }
 
-        for (int i = 0; i < meteoros.size(); i++) {
-            Meteoro tempMeteoro = meteoros.get(i);
-            formaMeteoro = tempMeteoro.getLimites();
-            if (formaNave2.intersects(formaMeteoro)) {
-                player2.setVisivel(false);
-                tempMeteoro.setVisible(false);
-                if (player2.getEscudo() == false) {
-                    vidaPlayer -= 2;
+        if (meteoros != null){
+            for (int i = 0; i < meteoros.size(); i++) {
+                Meteoro tempMeteoro = meteoros.get(i);
+                formaMeteoro = tempMeteoro.getLimites();
+                if (formaNave2.intersects(formaMeteoro)) {
+                    player2.setVisivel(false);
+                    tempMeteoro.setVisible(false);
+                    if (player2.getEscudo() == false) {
+                        vidaPlayer -= 2;
+                    }
+                    player2.setColisao(true);
                 }
-                player2.setColisao(true);
             }
         }
 
-        for (int i = 0; i < asteroides.size(); i++) {
-            Asteroide tempAsteroide = asteroides.get(i);
-            formaAsteroides = tempAsteroide.getLimites();
-            if (formaNave1.intersects(formaAsteroides)) {
-                player1.setVisivel(false);
-                tempAsteroide.setVisible(false);
-                if (player1.getEscudo() == false) {
-                    vidaPlayer -= 2;
+        if(asteroides != null){
+            for (int i = 0; i < asteroides.size(); i++) {
+                Asteroide tempAsteroide = asteroides.get(i);
+                formaAsteroides = tempAsteroide.getLimites();
+                if (formaNave1.intersects(formaAsteroides)) {
+                    player1.setVisivel(false);
+                    tempAsteroide.setVisible(false);
+                    if (player1.getEscudo() == false) {
+                        vidaPlayer -= 2;
+                    }
+                    player1.setColisao(true);
                 }
-                player1.setColisao(true);
             }
         }
 
-        for (int i = 0; i < asteroides.size(); i++) {
-            Asteroide tempAsteroide = asteroides.get(i);
-            formaAsteroides = tempAsteroide.getLimites();
-            if (formaNave2.intersects(formaAsteroides)) {
-                player2.setVisivel(false);
-                tempAsteroide.setVisible(false);
-                if (player2.getEscudo() == false) {
-                    vidaPlayer -= 2;
+        if(asteroides!= null){
+            for (int i = 0; i < asteroides.size(); i++) {
+                Asteroide tempAsteroide = asteroides.get(i);
+                formaAsteroides = tempAsteroide.getLimites();
+                if (formaNave2.intersects(formaAsteroides)) {
+                    player2.setVisivel(false);
+                    tempAsteroide.setVisible(false);
+                    if (player2.getEscudo() == false) {
+                        vidaPlayer -= 2;
+                    }
+                    player2.setColisao(true);
                 }
-                player2.setColisao(true);
             }
         }
 
-        for (int i = 0; i < bonus.size(); i++) {
-            Bonus tempEscudo = bonus.get(i);
-            formaEscudo = tempEscudo.getLimites();
-            if (formaNave1.intersects(formaEscudo)) {
-                tempEscudo.setVisible(false);
-                player1.setEscudo(true);
-            }
+        if (bonus != null) {
+            for (int i = 0; i < bonus.size(); i++) {
+                Bonus tempEscudo = bonus.get(i);
+                formaEscudo = tempEscudo.getLimites();
+                if (formaNave1.intersects(formaEscudo)) {
+                    tempEscudo.setVisible(false);
+                    player1.setEscudo(true);
+                }
+            }       
         }
 
-        for (int i = 0; i < bonus.size(); i++) {
-            Bonus tempEscudo = bonus.get(i);
-            formaEscudo = tempEscudo.getLimites();
-            if (formaNave2.intersects(formaEscudo)) {
-                tempEscudo.setVisible(false);
-                player2.setEscudo(true);
+        if(bonus != null){
+            for (int i = 0; i < bonus.size(); i++) {
+                Bonus tempEscudo = bonus.get(i);
+                formaEscudo = tempEscudo.getLimites();
+                if (formaNave2.intersects(formaEscudo)) {
+                    tempEscudo.setVisible(false);
+                    player2.setEscudo(true);
+                }
             }
         }
 
         // COLISÃO ATAQUE INIMIGO x NAVE
-        for (int i = 0; i < inimigoRosa.size(); i++) {
-            List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
-
-            for (int x = 0; x < ataques.size(); x++) {
-                AtaqueInimigo tempataquerosa = ataques.get(x);
-                formaAtaqueInimigoRosa = tempataquerosa.getLimites();
-                if (formaAtaqueInimigoRosa.intersects(formaNave1)) {
-                    tempataquerosa.setVisible(false);
-                    if (player1.getEscudo() == false) {
-                        vidaPlayer -= 1;
+        if (inimigoRosa != null) {
+            for (int i = 0; i < inimigoRosa.size(); i++) {
+                List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
+    
+                for (int x = 0; x < ataques.size(); x++) {
+                    AtaqueInimigo tempataquerosa = ataques.get(x);
+                    formaAtaqueInimigoRosa = tempataquerosa.getLimites();
+                    if (formaAtaqueInimigoRosa.intersects(formaNave1)) {
+                        tempataquerosa.setVisible(false);
+                        if (player1.getEscudo() == false) {
+                            vidaPlayer -= 1;
+                        }
+                        player1.setColisao(true);
+    
                     }
-                    player1.setColisao(true);
-
+    
                 }
+            }         
+        }
 
+        if(inimigoRosa != null){
+            for (int i = 0; i < inimigoRosa.size(); i++) {
+                List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
+    
+                for (int x = 0; x < ataques.size(); x++) {
+                    AtaqueInimigo tempataquerosa = ataques.get(x);
+                    formaAtaqueInimigoRosa = tempataquerosa.getLimites();
+                    if (formaAtaqueInimigoRosa.intersects(formaNave2)) {
+                        tempataquerosa.setVisible(false);
+                        if (player2.getEscudo() == false) {
+                            vidaPlayer -= 1;
+                        }
+                        player2.setColisao(true);
+    
+                    }
+    
+                }
             }
         }
 
-        for (int i = 0; i < inimigoRosa.size(); i++) {
-            List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
-
-            for (int x = 0; x < ataques.size(); x++) {
-                AtaqueInimigo tempataquerosa = ataques.get(x);
-                formaAtaqueInimigoRosa = tempataquerosa.getLimites();
-                if (formaAtaqueInimigoRosa.intersects(formaNave2)) {
-                    tempataquerosa.setVisible(false);
-                    if (player2.getEscudo() == false) {
-                        vidaPlayer -= 1;
+        if (inimigoLaranja != null) {
+            for (int i = 0; i < inimigoLaranja.size(); i++) {
+                List<AtaqueInimigo> ataquesD = inimigoLaranja.get(i).getAtaquesD();
+                List<AtaqueInimigo> ataquesE = inimigoLaranja.get(i).getAtaquesE();
+    
+                for (int x = 0; x < ataquesD.size(); x++) {
+                    AtaqueInimigo tempataqueLaranja = ataquesD.get(x);
+                    formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
+                    if (formaAtaqueInimigoLaranja.intersects(formaNave1)) {
+                        tempataqueLaranja.setVisible(false);
+                        if (player1.getEscudo() == false) {
+                            vidaPlayer -= 1;
+                        }
+                        player1.setColisao(true);
+    
                     }
-                    player2.setColisao(true);
-
+    
                 }
-
+    
+                for (int x = 0; x < ataquesE.size(); x++) {
+                    AtaqueInimigo tempataqueLaranja = ataquesE.get(x);
+                    formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
+                    if (formaAtaqueInimigoLaranja.intersects(formaNave1)) {
+                        tempataqueLaranja.setVisible(false);
+                        if (player1.getEscudo() == false) {
+                            vidaPlayer -= 1;
+                        }
+                        player1.setColisao(true);
+    
+                    }
+    
+                }
             }
         }
 
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            List<AtaqueInimigo> ataquesD = inimigoLaranja.get(i).getAtaquesD();
-            List<AtaqueInimigo> ataquesE = inimigoLaranja.get(i).getAtaquesE();
-
-            for (int x = 0; x < ataquesD.size(); x++) {
-                AtaqueInimigo tempataqueLaranja = ataquesD.get(x);
-                formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
-                if (formaAtaqueInimigoLaranja.intersects(formaNave1)) {
-                    tempataqueLaranja.setVisible(false);
-                    if (player1.getEscudo() == false) {
-                        vidaPlayer -= 1;
+        if (inimigoLaranja != null) {
+            for (int i = 0; i < inimigoLaranja.size(); i++) {
+                List<AtaqueInimigo> ataquesD = inimigoLaranja.get(i).getAtaquesD();
+                List<AtaqueInimigo> ataquesE = inimigoLaranja.get(i).getAtaquesE();
+    
+                for (int x = 0; x < ataquesD.size(); x++) {
+                    AtaqueInimigo tempataqueLaranja = ataquesD.get(x);
+                    formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
+                    if (formaAtaqueInimigoLaranja.intersects(formaNave2)) {
+                        tempataqueLaranja.setVisible(false);
+                        if (player2.getEscudo() == false) {
+                            vidaPlayer -= 1;
+                        }
+                        player2.setColisao(true);
+    
                     }
-                    player1.setColisao(true);
-
+    
                 }
-
-            }
-
-            for (int x = 0; x < ataquesE.size(); x++) {
-                AtaqueInimigo tempataqueLaranja = ataquesE.get(x);
-                formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
-                if (formaAtaqueInimigoLaranja.intersects(formaNave1)) {
-                    tempataqueLaranja.setVisible(false);
-                    if (player1.getEscudo() == false) {
-                        vidaPlayer -= 1;
+    
+                for (int x = 0; x < ataquesE.size(); x++) {
+                    AtaqueInimigo tempataqueLaranja = ataquesE.get(x);
+                    formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
+                    if (formaAtaqueInimigoLaranja.intersects(formaNave2)) {
+                        tempataqueLaranja.setVisible(false);
+                        if (player2.getEscudo() == false) {
+                            vidaPlayer -= 1;
+                        }
+                        player2.setColisao(true);
+    
                     }
-                    player1.setColisao(true);
-
+    
                 }
-
-            }
+            }          
         }
 
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            List<AtaqueInimigo> ataquesD = inimigoLaranja.get(i).getAtaquesD();
-            List<AtaqueInimigo> ataquesE = inimigoLaranja.get(i).getAtaquesE();
-
-            for (int x = 0; x < ataquesD.size(); x++) {
-                AtaqueInimigo tempataqueLaranja = ataquesD.get(x);
-                formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
-                if (formaAtaqueInimigoLaranja.intersects(formaNave2)) {
-                    tempataqueLaranja.setVisible(false);
-                    if (player2.getEscudo() == false) {
-                        vidaPlayer -= 1;
+        if (inimigoVerde != null) {
+            for (int i = 0; i < inimigoVerde.size(); i++) {
+                List<AtaqueInimigo> ataques = inimigoVerde.get(i).getAtaques();
+    
+                for (int x = 0; x < ataques.size(); x++) {
+                    AtaqueInimigo tempataqueverde = ataques.get(x);
+                    formaAtaqueInimigoVerde = tempataqueverde.getLimites();
+                    if (formaAtaqueInimigoVerde.intersects(formaNave1)) {
+                        tempataqueverde.setVisible(false);
+                        if (player1.getEscudo() == false) {
+                            vidaPlayer -= 1;
+                        }
+                        player1.setColisao(true);
+    
                     }
-                    player2.setColisao(true);
-
+    
                 }
-
-            }
-
-            for (int x = 0; x < ataquesE.size(); x++) {
-                AtaqueInimigo tempataqueLaranja = ataquesE.get(x);
-                formaAtaqueInimigoLaranja = tempataqueLaranja.getLimites();
-                if (formaAtaqueInimigoLaranja.intersects(formaNave2)) {
-                    tempataqueLaranja.setVisible(false);
-                    if (player2.getEscudo() == false) {
-                        vidaPlayer -= 1;
-                    }
-                    player2.setColisao(true);
-
-                }
-
-            }
+            }         
         }
 
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            List<AtaqueInimigo> ataques = inimigoVerde.get(i).getAtaques();
-
-            for (int x = 0; x < ataques.size(); x++) {
-                AtaqueInimigo tempataqueverde = ataques.get(x);
-                formaAtaqueInimigoVerde = tempataqueverde.getLimites();
-                if (formaAtaqueInimigoVerde.intersects(formaNave1)) {
-                    tempataqueverde.setVisible(false);
-                    if (player1.getEscudo() == false) {
-                        vidaPlayer -= 1;
+        if (inimigoVerde != null) {
+            for (int i = 0; i < inimigoVerde.size(); i++) {
+                List<AtaqueInimigo> ataques = inimigoVerde.get(i).getAtaques();
+    
+                for (int x = 0; x < ataques.size(); x++) {
+                    AtaqueInimigo tempataqueverde = ataques.get(x);
+                    formaAtaqueInimigoVerde = tempataqueverde.getLimites();
+                    if (formaAtaqueInimigoVerde.intersects(formaNave2)) {
+                        tempataqueverde.setVisible(false);
+                        if (player2.getEscudo() == false) {
+                            vidaPlayer -= 1;
+                        }
+                        player2.setColisao(true);
+    
                     }
-                    player1.setColisao(true);
-
+    
                 }
-
-            }
-        }
-
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            List<AtaqueInimigo> ataques = inimigoVerde.get(i).getAtaques();
-
-            for (int x = 0; x < ataques.size(); x++) {
-                AtaqueInimigo tempataqueverde = ataques.get(x);
-                formaAtaqueInimigoVerde = tempataqueverde.getLimites();
-                if (formaAtaqueInimigoVerde.intersects(formaNave2)) {
-                    tempataqueverde.setVisible(false);
-                    if (player2.getEscudo() == false) {
-                        vidaPlayer -= 1;
-                    }
-                    player2.setColisao(true);
-
-                }
-
-            }
+            }           
         }
 
         // COLISÃO ATAQUE PLAYER x INIMIGOS
         List<AtaquePlayer> ataques1 = player1.getTiros();
 
-        for (int j = 0; j < ataques1.size(); j++) {
-            AtaquePlayer tempTiro = ataques1.get(j);
-            formaTiro = tempTiro.getLimites();
-
-            for (int i = 0; i < inimigoAzul.size(); i++) {
-                InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
-                formainimigoAzul = tempinimigoAzul.getLimites();
-                if (formaTiro.intersects(formainimigoAzul)) {
-                    tempTiro.setVisible(false);
-                    tempinimigoAzul.setColisao(true);
-                    abateInimigoAzul += 1;
-
-                }
-            }
-
-            for (int i = 0; i < inimigoRosa.size(); i++) {
-                InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
-                formaInimigoRosa = tempinimigoRosa.getLimites();
-                if (formaTiro.intersects(formaInimigoRosa)) {
-                    tempinimigoRosa.setVisible(false);
-                    tempTiro.setVisible(false);
-                    abateInimigoRosa += 1;
-                }
-            }
-
-            for (int i = 0; i < inimigoVerde.size(); i++) {
-                InimigoVerde tempInimigoVerde = inimigoVerde.get(i);
-                formaInimigoVerde = tempInimigoVerde.getLimites();
-                if (formaTiro.intersects(formaInimigoVerde)) {
-                    tempTiro.setVisible(false);
-                    tempInimigoVerde.setVida(1);
-                    tempTiro.setVisible(false);
-                    if (tempInimigoVerde.getVida() <= 0) {
-                        tempInimigoVerde.setVisible(false);
-                        abateInimigoVerde += 1;
+        if (ataques1 != null) {
+            for (int j = 0; j < ataques1.size(); j++) {
+                AtaquePlayer tempTiro = ataques1.get(j);
+                formaTiro = tempTiro.getLimites();
+    
+                for (int i = 0; i < inimigoAzul.size(); i++) {
+                    InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
+                    formainimigoAzul = tempinimigoAzul.getLimites();
+                    if (formaTiro.intersects(formainimigoAzul)) {
+                        tempTiro.setVisible(false);
+                        tempinimigoAzul.setColisao(true);
+                        abateInimigoAzul += 1;
+    
                     }
                 }
-            }
-
-            for (int i = 0; i < inimigoLaranja.size(); i++) {
-                InimigoLaranja tempInimigoLaranja = inimigoLaranja.get(i);
-                formaInimigoLaranja = tempInimigoLaranja.getLimites();
-                if (formaTiro.intersects(formaInimigoLaranja)) {
-                    tempTiro.setVisible(false);
-                    tempInimigoLaranja.setVisible(false);
-                    abateInimigoLaranja += 1;
+    
+                for (int i = 0; i < inimigoRosa.size(); i++) {
+                    InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
+                    formaInimigoRosa = tempinimigoRosa.getLimites();
+                    if (formaTiro.intersects(formaInimigoRosa)) {
+                        tempinimigoRosa.setVisible(false);
+                        tempTiro.setVisible(false);
+                        abateInimigoRosa += 1;
+                    }
                 }
-            }
-
-            for (int i = 0; i < meteoros.size(); i++) {
-                Meteoro tempMeteoro = meteoros.get(i);
-                formaMeteoro = tempMeteoro.getLimites();
-                if (formaTiro.intersects(formaMeteoro)) {
-                    tempTiro.setVisible(false);
+    
+                for (int i = 0; i < inimigoVerde.size(); i++) {
+                    InimigoVerde tempInimigoVerde = inimigoVerde.get(i);
+                    formaInimigoVerde = tempInimigoVerde.getLimites();
+                    if (formaTiro.intersects(formaInimigoVerde)) {
+                        tempTiro.setVisible(false);
+                        tempInimigoVerde.setVida(1);
+                        tempTiro.setVisible(false);
+                        if (tempInimigoVerde.getVida() <= 0) {
+                            tempInimigoVerde.setVisible(false);
+                            abateInimigoVerde += 1;
+                        }
+                    }
                 }
-            }
-
-            for (int i = 0; i < asteroides.size(); i++) {
-                Asteroide tempAsteroide = asteroides.get(i);
-                formaAsteroides = tempAsteroide.getLimites();
-                if (formaTiro.intersects(formaAsteroides)) {
-                    tempTiro.setVisible(false);
+    
+                for (int i = 0; i < inimigoLaranja.size(); i++) {
+                    InimigoLaranja tempInimigoLaranja = inimigoLaranja.get(i);
+                    formaInimigoLaranja = tempInimigoLaranja.getLimites();
+                    if (formaTiro.intersects(formaInimigoLaranja)) {
+                        tempTiro.setVisible(false);
+                        tempInimigoLaranja.setVisible(false);
+                        abateInimigoLaranja += 1;
+                    }
                 }
-            }
-
+    
+                for (int i = 0; i < meteoros.size(); i++) {
+                    Meteoro tempMeteoro = meteoros.get(i);
+                    formaMeteoro = tempMeteoro.getLimites();
+                    if (formaTiro.intersects(formaMeteoro)) {
+                        tempTiro.setVisible(false);
+                    }
+                }
+    
+                for (int i = 0; i < asteroides.size(); i++) {
+                    Asteroide tempAsteroide = asteroides.get(i);
+                    formaAsteroides = tempAsteroide.getLimites();
+                    if (formaTiro.intersects(formaAsteroides)) {
+                        tempTiro.setVisible(false);
+                    }
+                }
+    
+            }           
         }
 
-        List<AtaquePlayer> ataques2 = player1.getTiros();
-        for (int j = 0; j < ataques2.size(); j++) {
-            AtaquePlayer tempTiro = ataques2.get(j);
-            formaTiro = tempTiro.getLimites();
+        List<AtaquePlayer> ataques2 = player2.getTiros();
 
-            for (int i = 0; i < inimigoAzul.size(); i++) {
-                InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
-                formainimigoAzul = tempinimigoAzul.getLimites();
-                if (formaTiro.intersects(formainimigoAzul)) {
-                    tempTiro.setVisible(false);
-                    tempinimigoAzul.setColisao(true);
-                    abateInimigoAzul += 1;
-
-                }
-            }
-
-            for (int i = 0; i < inimigoRosa.size(); i++) {
-                InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
-                formaInimigoRosa = tempinimigoRosa.getLimites();
-                if (formaTiro.intersects(formaInimigoRosa)) {
-                    tempinimigoRosa.setVisible(false);
-                    tempTiro.setVisible(false);
-                    abateInimigoRosa += 1;
-                }
-            }
-
-            for (int i = 0; i < inimigoVerde.size(); i++) {
-                InimigoVerde tempInimigoVerde = inimigoVerde.get(i);
-                formaInimigoVerde = tempInimigoVerde.getLimites();
-                if (formaTiro.intersects(formaInimigoVerde)) {
-                    tempTiro.setVisible(false);
-                    tempInimigoVerde.setVida(1);
-                    tempTiro.setVisible(false);
-                    if (tempInimigoVerde.getVida() <= 0) {
-                        tempInimigoVerde.setVisible(false);
-                        abateInimigoVerde += 1;
+        if (ataques2 != null) {
+            for (int j = 0; j < ataques2.size(); j++) {
+                AtaquePlayer tempTiro = ataques2.get(j);
+                formaTiro = tempTiro.getLimites();
+    
+                for (int i = 0; i < inimigoAzul.size(); i++) {
+                    InimigoAzul tempinimigoAzul = inimigoAzul.get(i);
+                    formainimigoAzul = tempinimigoAzul.getLimites();
+                    if (formaTiro.intersects(formainimigoAzul)) {
+                        tempTiro.setVisible(false);
+                        tempinimigoAzul.setColisao(true);
+                        abateInimigoAzul += 1;
+    
                     }
                 }
-            }
-
-            for (int i = 0; i < inimigoLaranja.size(); i++) {
-                InimigoLaranja tempInimigoLaranja = inimigoLaranja.get(i);
-                formaInimigoLaranja = tempInimigoLaranja.getLimites();
-                if (formaTiro.intersects(formaInimigoLaranja)) {
-                    tempTiro.setVisible(false);
-                    tempInimigoLaranja.setVisible(false);
-                    abateInimigoLaranja += 1;
+    
+                for (int i = 0; i < inimigoRosa.size(); i++) {
+                    InimigoRosa tempinimigoRosa = inimigoRosa.get(i);
+                    formaInimigoRosa = tempinimigoRosa.getLimites();
+                    if (formaTiro.intersects(formaInimigoRosa)) {
+                        tempinimigoRosa.setVisible(false);
+                        tempTiro.setVisible(false);
+                        abateInimigoRosa += 1;
+                    }
                 }
-            }
-
-            for (int i = 0; i < meteoros.size(); i++) {
-                Meteoro tempMeteoro = meteoros.get(i);
-                formaMeteoro = tempMeteoro.getLimites();
-                if (formaTiro.intersects(formaMeteoro)) {
-                    tempTiro.setVisible(false);
+    
+                for (int i = 0; i < inimigoVerde.size(); i++) {
+                    InimigoVerde tempInimigoVerde = inimigoVerde.get(i);
+                    formaInimigoVerde = tempInimigoVerde.getLimites();
+                    if (formaTiro.intersects(formaInimigoVerde)) {
+                        tempTiro.setVisible(false);
+                        tempInimigoVerde.setVida(1);
+                        tempTiro.setVisible(false);
+                        if (tempInimigoVerde.getVida() <= 0) {
+                            tempInimigoVerde.setVisible(false);
+                            abateInimigoVerde += 1;
+                        }
+                    }
                 }
-            }
-
-            for (int i = 0; i < asteroides.size(); i++) {
-                Asteroide tempAsteroide = asteroides.get(i);
-                formaAsteroides = tempAsteroide.getLimites();
-                if (formaTiro.intersects(formaAsteroides)) {
-                    tempTiro.setVisible(false);
+    
+                for (int i = 0; i < inimigoLaranja.size(); i++) {
+                    InimigoLaranja tempInimigoLaranja = inimigoLaranja.get(i);
+                    formaInimigoLaranja = tempInimigoLaranja.getLimites();
+                    if (formaTiro.intersects(formaInimigoLaranja)) {
+                        tempTiro.setVisible(false);
+                        tempInimigoLaranja.setVisible(false);
+                        abateInimigoLaranja += 1;
+                    }
                 }
-            }
-
+    
+                for (int i = 0; i < meteoros.size(); i++) {
+                    Meteoro tempMeteoro = meteoros.get(i);
+                    formaMeteoro = tempMeteoro.getLimites();
+                    if (formaTiro.intersects(formaMeteoro)) {
+                        tempTiro.setVisible(false);
+                    }
+                }
+    
+                for (int i = 0; i < asteroides.size(); i++) {
+                    Asteroide tempAsteroide = asteroides.get(i);
+                    formaAsteroides = tempAsteroide.getLimites();
+                    if (formaTiro.intersects(formaAsteroides)) {
+                        tempTiro.setVisible(false);
+                    }
+                }
+    
+            }            
         }
 
         if (vidaPlayer <= 0) {
@@ -701,146 +746,173 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
         List<AtaquePlayer> tiros1 = player1.getTiros();
         List<AtaquePlayer> tiros2 = player2.getTiros();
 
-        for (int i = 0; i < tiros1.size(); i++) {
-            AtaquePlayer m = tiros1.get(i);
-            if (m.isVisible()) {
-                m.movimenta();
-
-            } else {
-                tiros1.remove(i);
-            }
-        }
-
-        for (int i = 0; i < tiros2.size(); i++) {
-            AtaquePlayer m = tiros2.get(i);
-            if (m.isVisible()) {
-                m.movimenta();
-
-            } else {
-                tiros2.remove(i);
-            }
-        }
-
-        for (int i = 0; i < inimigoRosa.size(); i++) {
-            List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
-
-            for (int j = 0; j < ataques.size(); j++) {
-                AtaqueInimigo m = ataques.get(j);
+        if (tiros1 != null) {
+            for (int i = 0; i < tiros1.size(); i++) {
+                AtaquePlayer m = tiros1.get(i);
                 if (m.isVisible()) {
-                    m.movimenta("rosa");
-
+                    m.movimenta();
+    
                 } else {
-                    ataques.remove(j);
+                    tiros1.remove(i);
+                }
+            }           
+        }
+
+        if (tiros2 != null) {
+            for (int i = 0; i < tiros2.size(); i++) {
+                AtaquePlayer m = tiros2.get(i);
+                if (m.isVisible()) {
+                    m.movimenta();
+    
+                } else {
+                    tiros2.remove(i);
+                }
+            }            
+        }
+
+        if (inimigoRosa != null) {
+            for (int i = 0; i < inimigoRosa.size(); i++) {
+                List<AtaqueInimigo> ataques = inimigoRosa.get(i).getAtaques();
+    
+                for (int j = 0; j < ataques.size(); j++) {
+                    AtaqueInimigo m = ataques.get(j);
+                    if (m.isVisible()) {
+                        m.movimenta("rosa");
+    
+                    } else {
+                        ataques.remove(j);
+                    }
+                }
+            }          
+        }
+
+        if (inimigoVerde != null) {
+            for (int i = 0; i < inimigoVerde.size(); i++) {
+                List<AtaqueInimigo> ataques = inimigoVerde.get(i).getAtaques();
+    
+                for (int j = 0; j < ataques.size(); j++) {
+                    AtaqueInimigo m = ataques.get(j);
+                    if (m.isVisible()) {
+                        m.movimenta("verde");
+    
+                    } else {
+                        ataques.remove(j);
+                    }
+                }
+            }            
+        }
+
+        if (inimigoLaranja != null) {
+            for (int i = 0; i < inimigoLaranja.size(); i++) {
+                List<AtaqueInimigo> ataquesD = inimigoLaranja.get(i).getAtaquesD();
+                List<AtaqueInimigo> ataquesE = inimigoLaranja.get(i).getAtaquesE();
+    
+                for (int j = 0; j < ataquesD.size(); j++) {
+                    AtaqueInimigo m = ataquesD.get(j);
+                    if (m.isVisible()) {
+                        m.movimenta("laranjaD");
+    
+                    } else {
+                        ataquesD.remove(j);
+                    }
+                }
+                for (int j = 0; j < ataquesE.size(); j++) {
+                    AtaqueInimigo m = ataquesE.get(j);
+                    if (m.isVisible()) {
+                        m.movimenta("laranjaE");
+    
+                    } else {
+                        ataquesE.remove(j);
+                    }
+                }
+            }      
+        }
+
+        if (inimigoAzul != null) {
+            for (int i = 0; i < inimigoAzul.size(); i++) {
+                InimigoAzul in = inimigoAzul.get(i);
+                if (in.isVisible()) {
+                    in.movimenta();
+                } else {
+                    inimigoAzul.remove(i);
+                }
+            }
+           
+        }
+
+        if (inimigoLaranja != null) {
+            for (int i = 0; i < inimigoLaranja.size(); i++) {
+                InimigoLaranja in = inimigoLaranja.get(i);
+                if (in.isVisible()) {
+                    in.movimenta();
+                } else {
+                    inimigoLaranja.remove(i);
+                }
+            }            
+        }
+
+        if (inimigoRosa != null) {
+            for (int i = 0; i < inimigoRosa.size(); i++) {
+                InimigoRosa in = inimigoRosa.get(i);
+                if (in.isVisible()) {
+                    in.movimenta();
+                } else {
+                    inimigoRosa.remove(i);
+                }
+            }        
+        }
+
+        if (inimigoVerde != null) {
+            for (int i = 0; i < inimigoVerde.size(); i++) {
+                InimigoVerde in = inimigoVerde.get(i);
+                if (in.isVisible()) {
+                    in.movimenta();
+                } else {
+                    inimigoVerde.remove(i);
+                }
+            }            
+        }
+
+        if (meteoros != null) {
+            for (int i = 0; i < meteoros.size(); i++) {
+                Meteoro in = meteoros.get(i);
+                if (in.isVisible()) {
+                    in.movimenta();
+                } else {
+                    meteoros.remove(i);
+                }
+            }   
+        }
+
+        if (asteroides != null) {
+            for (int i = 0; i < asteroides.size(); i++) {
+                Asteroide in = asteroides.get(i);
+                if (in.isVisible()) {
+                    in.movimenta();
+                } else {
+                    asteroides.remove(i);
                 }
             }
         }
 
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            List<AtaqueInimigo> ataques = inimigoVerde.get(i).getAtaques();
+        if (Estrelas != null) {
+            for (int p = 0; p < Estrelas.size(); p++) {
+                Estrelas on = Estrelas.get(p);
+                if (on.isVisible()) {
+                    on.movimenta();
+                } else
+                    Estrelas.remove(p);
+            } 
+        }
 
-            for (int j = 0; j < ataques.size(); j++) {
-                AtaqueInimigo m = ataques.get(j);
-                if (m.isVisible()) {
-                    m.movimenta("verde");
-
+        if (bonus != null) {
+            for (int i = 0; i < bonus.size(); i++) {
+                Bonus in = bonus.get(i);
+                if (in.isVisible()) {
+                    in.movimenta();
                 } else {
-                    ataques.remove(j);
+                    bonus.remove(i);
                 }
-            }
-        }
-
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            List<AtaqueInimigo> ataquesD = inimigoLaranja.get(i).getAtaquesD();
-            List<AtaqueInimigo> ataquesE = inimigoLaranja.get(i).getAtaquesE();
-
-            for (int j = 0; j < ataquesD.size(); j++) {
-                AtaqueInimigo m = ataquesD.get(j);
-                if (m.isVisible()) {
-                    m.movimenta("laranjaD");
-
-                } else {
-                    ataquesD.remove(j);
-                }
-            }
-            for (int j = 0; j < ataquesE.size(); j++) {
-                AtaqueInimigo m = ataquesE.get(j);
-                if (m.isVisible()) {
-                    m.movimenta("laranjaE");
-
-                } else {
-                    ataquesE.remove(j);
-                }
-            }
-        }
-
-        for (int i = 0; i < inimigoAzul.size(); i++) {
-            InimigoAzul in = inimigoAzul.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                inimigoAzul.remove(i);
-            }
-        }
-
-        for (int i = 0; i < inimigoLaranja.size(); i++) {
-            InimigoLaranja in = inimigoLaranja.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                inimigoLaranja.remove(i);
-            }
-        }
-
-        for (int i = 0; i < inimigoRosa.size(); i++) {
-            InimigoRosa in = inimigoRosa.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                inimigoRosa.remove(i);
-            }
-        }
-
-        for (int i = 0; i < inimigoVerde.size(); i++) {
-            InimigoVerde in = inimigoVerde.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                inimigoVerde.remove(i);
-            }
-        }
-
-        for (int i = 0; i < meteoros.size(); i++) {
-            Meteoro in = meteoros.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                meteoros.remove(i);
-            }
-        }
-
-        for (int i = 0; i < asteroides.size(); i++) {
-            Asteroide in = asteroides.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                asteroides.remove(i);
-            }
-        }
-
-        for (int p = 0; p < Estrelas.size(); p++) {
-            Estrelas on = Estrelas.get(p);
-            if (on.isVisible()) {
-                on.movimenta();
-            } else
-                Estrelas.remove(p);
-        }
-
-        for (int i = 0; i < bonus.size(); i++) {
-            Bonus in = bonus.get(i);
-            if (in.isVisible()) {
-                in.movimenta();
-            } else {
-                bonus.remove(i);
             }
         }
 

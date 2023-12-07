@@ -134,7 +134,7 @@ public class Player1 implements ActionListener {
     public void keyPressed(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
-        if (codigo == KeyEvent.VK_X) {
+        if (codigo == KeyEvent.VK_SPACE) {
             try {
                 File audioFile = new File("sons//somTiro.wav");
                 AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
@@ -155,7 +155,7 @@ public class Player1 implements ActionListener {
 
         }
 
-        if (codigo == KeyEvent.VK_UP)
+        if (codigo == KeyEvent.VK_W)
 
         {
             if (this.y < 0) {
@@ -165,7 +165,7 @@ public class Player1 implements ActionListener {
 
         }
 
-        if (codigo == KeyEvent.VK_DOWN) {
+        if (codigo == KeyEvent.VK_S) {
             if (this.y > 690) {
                 dy = 0;
             } else
@@ -173,14 +173,14 @@ public class Player1 implements ActionListener {
 
         }
 
-        if (codigo == KeyEvent.VK_LEFT) {
+        if (codigo == KeyEvent.VK_A) {
             if (this.x < 10) {
                 dx = 0;
             } else
                 dx = -3;
         }
 
-        if (codigo == KeyEvent.VK_RIGHT) {
+        if (codigo == KeyEvent.VK_D) {
             if (this.x > 1460) {
                 dx = 0;
             } else

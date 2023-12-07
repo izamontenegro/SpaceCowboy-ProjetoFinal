@@ -84,7 +84,7 @@ public class Player2 implements ActionListener {
     public void keyPressed(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
-        if (codigo == KeyEvent.VK_X) {
+        if (codigo == KeyEvent.VK_BACK_SPACE) {
             tiroSimples();
 
         }
