@@ -15,6 +15,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
@@ -70,6 +71,17 @@ public class FaseGeral extends JPanel implements ActionListener {
         inicializaAsteroides();
     }
 
+    public void setVolume(float volume) {
+        if (clip != null) {
+            try {
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(volume);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void adicionaSomFundo() {
         try {
             File audioFile = new File("sons//somfundo.wav");
@@ -80,7 +92,7 @@ public class FaseGeral extends JPanel implements ActionListener {
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
-
+        setVolume(-10.0f);
         playSound();
     }
 
@@ -207,7 +219,7 @@ public class FaseGeral extends JPanel implements ActionListener {
         Rectangle formaAsteroides;
         Rectangle formaInimigoVerde;
         Rectangle formaInimigoLaranja;
-        Rectangle formaEscudo;
+        Rectangle formaBonus;
 
         // COLISÕES NAVE x ELEMENTOS
 
@@ -307,11 +319,18 @@ public class FaseGeral extends JPanel implements ActionListener {
 
         if (bonus != null) {
             for (int i = 0; i < bonus.size(); i++) {
-                Bonus tempEscudo = bonus.get(i);
-                formaEscudo = tempEscudo.getLimites();
-                if (formaNave.intersects(formaEscudo)) {
-                    tempEscudo.setVisible(false);
-                    player.setEscudo(true);
+                Bonus tempBonus = bonus.get(i);
+                formaBonus = tempBonus.getLimites();
+                if (formaNave.intersects(formaBonus)) {
+                    tempBonus.setVisible(false);
+                    if (tempBonus.getTipo() == 1) {
+                        player.setEscudo(true);
+                    } else if (tempBonus.getTipo() == 2 && this.vidaPlayer < 6) {
+                        this.vidaPlayer += 1;
+                    } else {
+                        player.setAtaqueEspecial(3);
+                    }
+
                 }
             }
         }

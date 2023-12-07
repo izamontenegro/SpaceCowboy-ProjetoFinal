@@ -1,7 +1,5 @@
 package modelagem;
 
-import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,7 +8,7 @@ import java.util.Random;
 import javax.swing.Timer;
 
 public class InimigoLaranja extends Elemento implements ActionListener {
-    private static int VELOCIDADE = 1;
+    private static int VELOCIDADE = 2;
     private List<AtaqueInimigo> ataquesD;
     private List<AtaqueInimigo> ataquesE;
     private Timer timer;

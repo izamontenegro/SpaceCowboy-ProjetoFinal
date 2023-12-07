@@ -6,7 +6,7 @@ import java.util.Random;
 import javax.swing.Timer;
 
 public class InimigoAzul extends Elemento implements ActionListener {
-    private static int VELOCIDADE = 2;
+    private static int VELOCIDADE = 3;
     private Timer timer;
     private boolean colisao = false;
 

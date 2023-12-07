@@ -8,7 +8,7 @@ import java.util.Random;
 import javax.swing.Timer;
 
 public class InimigoRosa extends Elemento implements ActionListener {
-    private static int VELOCIDADE = 1;
+    private static int VELOCIDADE = 2;
     private List<AtaqueInimigo> ataques;
     private Timer timer;
 

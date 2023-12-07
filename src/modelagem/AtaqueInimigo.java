@@ -15,7 +15,7 @@ public class AtaqueInimigo extends Elemento{
         if (tipo == "verde"){
             dadosImagem("imagens//ataqueInimigoVerde.png");
             this.x += VELOCIDADE - 2;
-            this.y += 2;
+            this.y += 4;
             
         }
         if(tipo == "laranjaD"){
