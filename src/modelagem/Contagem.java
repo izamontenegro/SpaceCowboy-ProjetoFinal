@@ -7,7 +7,7 @@ public class Contagem {
     private String[] numeros={"img\\10.png","img\\9.png","img\\8.png","img\\7.png","img\\6.png","img\\5.png","img\\4.png","img\\3.png","img\\2.png","img\\1.png"};
     private int x,y;
     private Image imagem;
-    private int altura,largura;
+    private int largura;
     private int i=0;
     public Contagem(){
         this.y=220;
@@ -30,8 +30,8 @@ public class Contagem {
         }
             ImageIcon referencia= new ImageIcon(numeros[i]);
             imagem=referencia.getImage();
-            altura=imagem.getHeight(null);
-            largura=imagem.getWidth(null);
+            imagem.getHeight(null);
+            imagem.getWidth(null);
             i++;
             
     }

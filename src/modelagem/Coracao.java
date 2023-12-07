@@ -3,21 +3,11 @@ package modelagem;
 
 //bibliotecas
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.Timer;
 public class Coracao {
 
-
-		
 	    private int x, y;
 	    private Image imagem;
-	    private int altura, largura;	
 	    private boolean isVisivel;
 	    private String[]imgs={"imagens\\invisible.png","imagens\\meioCoracao.png","imagens\\umCoracao.png","imagens\\umEMeioCoracao.png","imagens\\doisCoracoes.png","imagens\\doisEMeioCoracoes.png","imagens\\tresCoracoes.png"};
 	    private Image returnImg;
@@ -33,18 +23,9 @@ public class Coracao {
 	    public void dadosImagem() {
 	    	ImageIcon referencia = new ImageIcon("imagens\\trescoracoes.png");
 	        imagem = referencia.getImage();
-	        altura = imagem.getHeight(null);
-	        largura = imagem.getWidth(null);
+	        imagem.getHeight(null);
+	        imagem.getWidth(null);
 	    }
-
-	    
-
-	   
-	   
-
-	    
-
-
 
 	    // Getters and Setters
 	    public int getX() {
