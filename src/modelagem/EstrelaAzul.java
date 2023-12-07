@@ -2,52 +2,44 @@ package modelagem;
 
 //Bibliotecas
 import java.awt.Image;
-import java.awt.Rectangle;
+import java.util.Random;
 import javax.swing.ImageIcon;
 
-public class AtaquePlayer {
-    private Image imagem; 
+public class EstrelaAzul {
+    private Image imagem;
     private int x, y;
-    private int largura, altura; 
-    private ImageIcon referencia = new ImageIcon("imagens//ataqueBasicoPlayer.png");
     private boolean isVisible;
-    private static int VELOCIDADE = 8;
+    private static int VELOCIDADE = 3;
 
-    public AtaquePlayer(int x, int y) {
+    public EstrelaAzul(int x, int y) {
         this.x = x;
         this.y = y;
         isVisible = true;
-    }
-
-    public AtaquePlayer(int x, int y, ImageIcon imagem) {
-        this.x = x;
-        this.y = y;
-        isVisible = true;
-        this.referencia = imagem;
     }
 
     public void dadosImagem() {
-        
+        ImageIcon referencia = new ImageIcon("imagens//estrelaAzul.png");
         imagem = referencia.getImage();
-        this.largura = imagem.getWidth(null);
-        this.altura = imagem.getHeight(null);
     }
 
     public void movimenta() {
-        
-        this.y -= VELOCIDADE;
-        if (this.y <= -100) {
-            isVisible = false;
-        }
-       
+        if (this.y > 560) {
+            this.y = -300;
+            Random a = new Random();
+            int m = a.nextInt(768);
+            this.y = m;
+            Random r = new Random();
+            int n = r.nextInt(1724);
+            this.x = n - 300;
+
+        } else
+            this.y += VELOCIDADE;
     }
 
     // Getters and Setters
     public int getX() {
         return x;
     }
-
-   
 
     public void setX(int x) {
         this.x = x;
@@ -85,7 +77,4 @@ public class AtaquePlayer {
         this.imagem = imagem;
     }
 
-    public Rectangle getLimites() {
-        return new Rectangle(x, y, largura, altura);
-    }
 }
