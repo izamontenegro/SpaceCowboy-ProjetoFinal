@@ -741,10 +741,15 @@ public class FaseMultiplayer extends JPanel implements ActionListener {
             }            
         }
 
-        if (vidaPlayer1 <= 0 && vidaPlayer2 <= 0) {
+        if (vidaPlayer1 <= 0 && vidaPlayer2 > 0) {
+            player1.setVisivel(false);
+        }else if (vidaPlayer1 > 0 && vidaPlayer2 <= 0) {
+            player2.setVisivel(false);
+        }else if (vidaPlayer1 <= 0 && vidaPlayer2 <= 0) {
             emJogo = false;
             System.out.println(calculaPontuacao());
         }
+        
     }
 
     @Override

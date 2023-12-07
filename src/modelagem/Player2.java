@@ -24,8 +24,8 @@ public class Player2 implements ActionListener {
     private boolean escudo = false;
 
     public Player2() {
-        this.x = 750;
-        this.y = 480;
+        this.x = 1300;
+        this.y = 900;
         isVisivel = true;
 
         tiros = new ArrayList<AtaquePlayer>();
