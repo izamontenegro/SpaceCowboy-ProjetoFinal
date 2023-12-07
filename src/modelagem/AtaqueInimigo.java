@@ -13,18 +13,18 @@ public class AtaqueInimigo extends Elemento{
             this.y += VELOCIDADE;
         }
         if (tipo == "verde"){
-            dadosImagem("imagens//ataqueInimigoRosa.png");
+            dadosImagem("imagens//ataqueInimigoVerde.png");
             this.x += VELOCIDADE - 2;
             this.y += 2;
             
         }
         if(tipo == "laranjaD"){
-             dadosImagem("imagens//ataqueInimigoRosa.png");
+             dadosImagem("imagens//ataqueInimigoLaranjaD.png");
             this.x += VELOCIDADE - 2;
             this.y -=  2;
         }
         if(tipo == "laranjaE"){
-             dadosImagem("imagens//ataqueInimigoRosa.png");
+             dadosImagem("imagens//ataqueInimigoLaranjaE.png");
             this.x -= VELOCIDADE - 2;
             this.y -= 2;
         }
