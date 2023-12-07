@@ -44,6 +44,7 @@ public class FaseGeral extends JPanel implements ActionListener {
     private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
     private KeyAdapter tecladoAdapterJogo;
+    private Coracao coracao;
 
     public FaseGeral() {
         setFocusable(true);
@@ -51,6 +52,9 @@ public class FaseGeral extends JPanel implements ActionListener {
 
         inicializaElementos();
         adicionaSomFundo();
+
+        coracao=new Coracao(0, -50);
+        coracao.dadosImagem();
     }
 
     public KeyAdapter getKeyAdapter(){
@@ -616,6 +620,7 @@ public class FaseGeral extends JPanel implements ActionListener {
 
         if (emJogo) {
             graficos.drawImage(fundoFaseX, 0, 0, null);
+            graficos.drawImage(coracao.getImagem(vidaPlayer), coracao.getX(), coracao.getY(), this);
 
             for (int p = 0; p < Estrelas.size(); p++) {
                 Estrelas q = Estrelas.get(p);

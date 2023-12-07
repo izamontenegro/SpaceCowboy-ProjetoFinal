@@ -12,7 +12,7 @@ import modelagem.TelaInicio;
 public class Container extends JFrame {
 
     public Container() {
-        add(new TelaGameOver());
+        add(new FaseGeral());
 
         setTitle("Space Cowboy - intergalactic hunt");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
