@@ -4,12 +4,15 @@ package main;
 import javax.swing.JFrame;
 import modelagem.FaseGeral;
 import modelagem.FaseMultiplayer;
+import modelagem.TelaGameOver;
 import modelagem.TelaInicio;
+
+
 
 public class Container extends JFrame {
 
     public Container() {
-        add(new FaseMultiplayer());
+        add(new TelaGameOver());
 
         setTitle("Space Cowboy - intergalactic hunt");
         setExtendedState(JFrame.MAXIMIZED_BOTH);

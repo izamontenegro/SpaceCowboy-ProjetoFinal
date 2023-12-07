@@ -43,6 +43,7 @@ public class FaseGeral extends JPanel implements ActionListener {
     private int abateInimigoVerde = 0;
     private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
+    private KeyAdapter tecladoAdapterJogo;
 
     public FaseGeral() {
         setFocusable(true);
@@ -50,6 +51,10 @@ public class FaseGeral extends JPanel implements ActionListener {
 
         inicializaElementos();
         adicionaSomFundo();
+    }
+
+    public KeyAdapter getKeyAdapter(){
+    	return this.tecladoAdapterJogo;
     }
 
     public void inicializaElementos() {
