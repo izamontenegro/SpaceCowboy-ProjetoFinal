@@ -20,7 +20,7 @@ public class InimigoVerde extends Elemento implements ActionListener{
     public InimigoVerde(int x, int y) {
         super(x, y);
         ataques = new ArrayList<AtaqueInimigo>();
-        timer = new Timer(700, this);
+        timer = new Timer(1000, this);
         timer.start();
 
         dadosImagem("imagens//InimigoVerde.gif");

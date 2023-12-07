@@ -19,7 +19,7 @@ public class InimigoLaranja extends Elemento implements ActionListener {
         ataquesD = new ArrayList<AtaqueInimigo>();
         ataquesE = new ArrayList<AtaqueInimigo>();
 
-        timer = new Timer(2000, this);
+        timer = new Timer(2500, this);
         timer.start();
         dadosImagem("imagens//inimigoLaranja.gif");
     }

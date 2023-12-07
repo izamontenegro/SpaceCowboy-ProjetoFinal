@@ -108,7 +108,8 @@ public class Player implements ActionListener {
     }
 
     public void tiroEspecial() {
-        this.tiros.add(new AtaquePlayer(this.x, this.y, tiroRef));
+        this.tiros.add(new AtaquePlayer(this.x - 18, this.y, tiroRef));
+        this.tiros.add(new AtaquePlayer(this.x + 50, this.y + 3, tiroRef));
         referencia = new ImageIcon("imagens//NaveVermelhaAtkEspecial.gif");
         dadosImagem();
         this.qtdAtaquesEspeciais -= 1;
