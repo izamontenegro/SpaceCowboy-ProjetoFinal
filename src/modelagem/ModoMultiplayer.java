@@ -237,7 +237,7 @@ public class ModoMultiplayer extends JPanel implements ActionListener {
         Rectangle formaAsteroides;
         Rectangle formaInimigoVerde;
         Rectangle formaInimigoLaranja;
-        Rectangle formaEscudo;
+        Rectangle formaBonus;
 
         // COLISÕES NAVE x ELEMENTOS
         if (inimigoAzul != null) {
@@ -423,22 +423,38 @@ public class ModoMultiplayer extends JPanel implements ActionListener {
 
         if (bonus != null) {
             for (int i = 0; i < bonus.size(); i++) {
-                Bonus tempEscudo = bonus.get(i);
-                formaEscudo = tempEscudo.getLimites();
-                if (formaNave1.intersects(formaEscudo)) {
-                    tempEscudo.setVisible(false);
-                    player1.setEscudo(true);
+                Bonus tempBonus = bonus.get(i);
+                formaBonus = tempBonus.getLimites();
+                if (formaNave1.intersects(formaBonus)) {
+                    tempBonus.setVisible(false);
+                    player1.coletaBonus();
+                    if (tempBonus.getTipo() == 1) {
+                        player1.setEscudo(true);
+                    } else if (tempBonus.getTipo() == 2 && this.vidaPlayer1 < 6) {
+                        this.vidaPlayer1 += 1;
+                    } else {
+                        player1.setAtaqueEspecial(3);
+                    }
+
                 }
             }
         }
 
         if (bonus != null) {
             for (int i = 0; i < bonus.size(); i++) {
-                Bonus tempEscudo = bonus.get(i);
-                formaEscudo = tempEscudo.getLimites();
-                if (formaNave2.intersects(formaEscudo)) {
-                    tempEscudo.setVisible(false);
-                    player2.setEscudo(true);
+                Bonus tempBonus = bonus.get(i);
+                formaBonus = tempBonus.getLimites();
+                if (formaNave2.intersects(formaBonus)) {
+                    tempBonus.setVisible(false);
+                    player2.coletaBonus();
+                    if (tempBonus.getTipo() == 1) {
+                        player2.setEscudo(true);
+                    } else if (tempBonus.getTipo() == 2 && this.vidaPlayer2 < 6) {
+                        this.vidaPlayer2 += 1;
+                    } else {
+                        player2.setAtaqueEspecial(3);
+                    }
+
                 }
             }
         }

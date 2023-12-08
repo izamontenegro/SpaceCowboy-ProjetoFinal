@@ -1,9 +1,12 @@
 package modelagem;
+
 public class Bonus extends Elemento {
-    private static int VELOCIDADE = 1;
+    private int tipo;
+    private static int VELOCIDADE = 2;
 
     public Bonus(int x, int y, int tipo) {
         super(x, y);
+        this.tipo = tipo;
         if (tipo == 1) {
             dadosImagem("imagens//moedaEscudo.gif");
         } else if (tipo == 2) {
@@ -15,5 +18,9 @@ public class Bonus extends Elemento {
 
     public void movimenta() {
         this.y += VELOCIDADE;
+    }
+
+    public int getTipo() {
+        return this.tipo;
     }
 }

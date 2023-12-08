@@ -33,6 +33,7 @@ public class Player2 implements ActionListener {
     private int qtdAtaquesEspeciais = 0;
     private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
     private Clip clip;
+    private boolean coletaBonus = false;
 
     public Player2() {
         this.x = 900;
@@ -90,7 +91,7 @@ public class Player2 implements ActionListener {
 
     public void tiroEspecial() {
         this.tiros.add(new AtaquePlayer(this.x, this.y, tiroRef));
-        referencia = new ImageIcon("imagens//NaveVermelhaAtkEspecial.gif");
+        referencia = new ImageIcon("imagens//NaveAzulAtkEspecial.gif");
         dadosImagem();
         this.qtdAtaquesEspeciais -= 1;
 
@@ -106,6 +107,10 @@ public class Player2 implements ActionListener {
         if (clip != null) {
             clip.stop();
         }
+    }
+
+    public void coletaBonus() {
+        this.coletaBonus = true;
     }
 
     public Rectangle getLimites() {
@@ -193,6 +198,10 @@ public class Player2 implements ActionListener {
 
     public Image getImagem() {
         return imagem;
+    }
+
+    public void setAtaqueEspecial(int n) {
+        this.qtdAtaquesEspeciais += n;
     }
 
     public void setEscudo(boolean e) {

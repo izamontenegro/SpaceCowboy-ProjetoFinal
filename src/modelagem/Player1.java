@@ -33,6 +33,7 @@ public class Player1 implements ActionListener {
     private boolean escudo = false;
     private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
     private Clip clip;
+    private boolean coletaBonus = false;
 
     public Player1() {
         this.x = 600;
@@ -67,6 +68,10 @@ public class Player1 implements ActionListener {
 
         }
 
+    }
+
+    public void coletaBonus(){
+        this.coletaBonus = true;
     }
 
     public void dadosImagem() {
@@ -247,7 +252,6 @@ public class Player1 implements ActionListener {
     public List<AtaquePlayer> getTiros() {
         return tiros;
     }
-
     public void setColisao(boolean c) {
         this.colisao = c;
     }
