@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 
-public class FaseGeral extends JPanel implements ActionListener {
+public class ModoSolo extends JPanel implements ActionListener {
     private List<Estrelas> Estrelas;
     private Image fundoFaseX;
     private Timer timer;
@@ -44,7 +44,7 @@ public class FaseGeral extends JPanel implements ActionListener {
     private int abateInimigoLaranja = 0;
     private int pontuacaoTotal = 0;
 
-    public FaseGeral() {
+    public ModoSolo() {
         setFocusable(true);
         setDoubleBuffered(true);
 

@@ -35,8 +35,8 @@ public class Player1 implements ActionListener {
     private Clip clip;
 
     public Player1() {
-        this.x = 550;
-        this.y = 480;
+        this.x = 600;
+        this.y = 700;
         isVisivel = true;
 
         tiros = new ArrayList<AtaquePlayer>();
@@ -135,22 +135,23 @@ public class Player1 implements ActionListener {
         int codigo = tecla.getKeyCode();
 
         if (codigo == KeyEvent.VK_SPACE) {
-            try {
-                File audioFile = new File("sons//somTiro.wav");
-                AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            if (isVisivel) {
+                try {
+                    File audioFile = new File("sons//somTiro.wav");
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
-                clip = AudioSystem.getClip();
-                clip.open(audioStream);
-            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
-                e.printStackTrace();
-            }
+                    clip = AudioSystem.getClip();
+                    clip.open(audioStream);
+                } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                    e.printStackTrace();
+                }
 
-            playSound();
-            if (qtdAtaquesEspeciais == 0) {
-                tiroSimples();
-            }
-            else if (qtdAtaquesEspeciais != 0){
-                tiroEspecial();
+                playSound();
+                if (qtdAtaquesEspeciais == 0) {
+                    tiroSimples();
+                } else if (qtdAtaquesEspeciais != 0) {
+                    tiroEspecial();
+                }
             }
 
         }
@@ -192,19 +193,19 @@ public class Player1 implements ActionListener {
     public void keyReleased(KeyEvent tecla) {
         int codigo = tecla.getKeyCode();
 
-        if (codigo == KeyEvent.VK_UP) {
+        if (codigo == KeyEvent.VK_W) {
             dy = 0;
         }
 
-        if (codigo == KeyEvent.VK_DOWN) {
+        if (codigo == KeyEvent.VK_S) {
             dy = 0;
         }
 
-        if (codigo == KeyEvent.VK_LEFT) {
+        if (codigo == KeyEvent.VK_A) {
             dx = 0;
         }
 
-        if (codigo == KeyEvent.VK_RIGHT) {
+        if (codigo == KeyEvent.VK_D) {
             dx = 0;
         }
 
@@ -239,9 +240,10 @@ public class Player1 implements ActionListener {
         return this.escudo;
     }
 
-    public void setAtaqueEspecial(int n){
+    public void setAtaqueEspecial(int n) {
         this.qtdAtaquesEspeciais += n;
     }
+
     public List<AtaquePlayer> getTiros() {
         return tiros;
     }

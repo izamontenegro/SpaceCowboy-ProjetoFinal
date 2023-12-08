@@ -6,8 +6,16 @@ import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.Timer;
 
@@ -22,10 +30,13 @@ public class Player2 implements ActionListener {
     private Timer timer;
     private boolean colisao = false;
     private boolean escudo = false;
+    private int qtdAtaquesEspeciais = 0;
+    private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
+    private Clip clip;
 
     public Player2() {
-        this.x = 1300;
-        this.y = 900;
+        this.x = 900;
+        this.y = 700;
         isVisivel = true;
 
         tiros = new ArrayList<AtaquePlayer>();
@@ -77,6 +88,26 @@ public class Player2 implements ActionListener {
         dadosImagem();
     }
 
+    public void tiroEspecial() {
+        this.tiros.add(new AtaquePlayer(this.x, this.y, tiroRef));
+        referencia = new ImageIcon("imagens//NaveVermelhaAtkEspecial.gif");
+        dadosImagem();
+        this.qtdAtaquesEspeciais -= 1;
+
+    }
+
+    public void playSound() {
+        if (clip != null) {
+            clip.start();
+        }
+    }
+
+    public void stopSound() {
+        if (clip != null) {
+            clip.stop();
+        }
+    }
+
     public Rectangle getLimites() {
         return new Rectangle(x, y, largura, altura);
     }
@@ -85,7 +116,24 @@ public class Player2 implements ActionListener {
         int codigo = tecla.getKeyCode();
 
         if (codigo == KeyEvent.VK_BACK_SPACE) {
-            tiroSimples();
+            if (isVisivel) {
+                try {
+                    File audioFile = new File("sons//somTiro.wav");
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+
+                    clip = AudioSystem.getClip();
+                    clip.open(audioStream);
+                } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                    e.printStackTrace();
+                }
+
+                playSound();
+                if (qtdAtaquesEspeciais == 0) {
+                    tiroSimples();
+                } else if (qtdAtaquesEspeciais != 0) {
+                    tiroEspecial();
+                }
+            }
 
         }
 

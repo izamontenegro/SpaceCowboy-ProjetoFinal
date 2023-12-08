@@ -2,14 +2,14 @@ package main;
 
 //bibliotecas
 import javax.swing.JFrame;
-import modelagem.FaseGeral;
-import modelagem.FaseMultiplayer;
+import modelagem.ModoSolo;
+import modelagem.ModoMultiplayer;
 import modelagem.TelaInicio;
 
 public class Container extends JFrame {
 
     public Container() {
-        add(new FaseMultiplayer());
+        add(new ModoMultiplayer());
 
         setTitle("Space Cowboy - intergalactic hunt");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
