@@ -15,6 +15,7 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
@@ -85,6 +86,17 @@ public class ModoMultiplayer extends JPanel implements ActionListener {
         inicializaAsteroides();
     }
 
+    public void setVolume(float volume) {
+        if (clip != null) {
+            try {
+                FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(volume);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void adicionaSomFundo() {
         try {
             File audioFile = new File("sons//somfundo.wav");
@@ -95,9 +107,8 @@ public class ModoMultiplayer extends JPanel implements ActionListener {
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
-
+        setVolume(-15.0f);
         playSound();
-
     }
 
     public void playSound() {

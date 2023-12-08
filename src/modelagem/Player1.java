@@ -13,6 +13,7 @@ import java.util.List;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
@@ -33,6 +34,7 @@ public class Player1 implements ActionListener {
     private boolean escudo = false;
     private ImageIcon tiroRef = new ImageIcon("imagens//atkespecialplayer.png");
     private Clip clip;
+    private Clip clip2;
     private boolean coletaBonus = false;
 
     public Player1() {
@@ -70,7 +72,7 @@ public class Player1 implements ActionListener {
 
     }
 
-    public void coletaBonus(){
+    public void coletaBonus() {
         this.coletaBonus = true;
     }
 
@@ -81,6 +83,18 @@ public class Player1 implements ActionListener {
     }
 
     public void sofrerDano() {
+        try {
+            File audioFile = new File("sons//somBatida.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+
+            clip2 = AudioSystem.getClip();
+            clip2.open(audioStream);
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+        setVolume(-30.0f);
+        playSound();
+
         referencia = new ImageIcon("imagens//naveVermelhaDano.gif");
         dadosImagem();
         if (escudo) {
@@ -124,9 +138,22 @@ public class Player1 implements ActionListener {
         return new Rectangle(x, y, largura, altura);
     }
 
+    public void setVolume(float volume) {
+        if (clip2 != null) {
+            try {
+                FloatControl gainControl = (FloatControl) clip2.getControl(FloatControl.Type.MASTER_GAIN);
+                gainControl.setValue(volume);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void playSound() {
         if (clip != null) {
             clip.start();
+        } else if (clip2 != null) {
+            clip2.start();
         }
     }
 
@@ -252,6 +279,7 @@ public class Player1 implements ActionListener {
     public List<AtaquePlayer> getTiros() {
         return tiros;
     }
+
     public void setColisao(boolean c) {
         this.colisao = c;
     }
